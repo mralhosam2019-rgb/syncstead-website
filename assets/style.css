@@ -9,9 +9,9 @@ html[lang=en] body{line-height:1.6}
 .w{max-width:1040px;margin-inline:auto}
 header{position:sticky;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:20;margin-block:10px 0}
 .bar{background:color-mix(in srgb,var(--navy2) 92%,transparent);backdrop-filter:blur(8px);border-radius:14px;padding:10px 16px;display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;justify-content:space-between}
-.logo{color:#fff;font-weight:700;letter-spacing:3px;font-size:15px;text-decoration:none}
+.logo{display:inline-flex;align-items:center;min-height:44px;color:#fff;font-weight:700;letter-spacing:3px;font-size:15px;text-decoration:none}
 nav{display:flex;gap:4px 18px;flex-wrap:wrap}
-nav a{color:var(--onnavy);text-decoration:none;font-size:14px}
+nav a{color:var(--onnavy);text-decoration:none;font-size:15px;display:inline-flex;align-items:center;min-height:44px;padding-inline:4px}
 nav a:hover{color:var(--mint)}
 .tools{display:flex;gap:8px;align-items:center}
 .lang{text-decoration:none;display:inline-block;background:transparent;border:1px solid #5E7399;color:#fff;border-radius:8px;padding:4px 12px;font:inherit;font-size:13px;cursor:pointer}
@@ -24,11 +24,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 .hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:20px;margin-top:12px;padding:64px 24px;text-align:center}
 .hero h1{font-size:clamp(28px,5vw,46px);line-height:1.5;text-wrap:balance;max-width:760px;margin-inline:auto}
 .hero p{color:var(--onnavy);max-width:640px;margin:14px auto 0}
-.tag{display:inline-block;border:1px solid #3B4F77;border-radius:99px;padding:3px 14px;font-size:13px;color:var(--mint);margin-bottom:18px}
+.tag{display:inline-block;border:1px solid #3B4F77;border-radius:99px;padding:3px 14px;font-size:14px;color:var(--mint);margin-bottom:18px}
 .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
-.badges{display:flex;gap:8px 20px;flex-wrap:wrap;justify-content:center;margin-top:26px;font-size:13px;color:var(--onnavy)}
+.badges{display:flex;gap:8px 20px;flex-wrap:wrap;justify-content:center;margin-top:26px;font-size:14px;color:var(--onnavy)}
 .badges span::before{content:"✓";color:var(--mint);margin-inline-end:6px}
-section{padding-block:64px;scroll-margin-top:84px}
+section{padding-block:64px;scroll-margin-top:96px}
 h2{font-size:clamp(24px,3.4vw,32px);line-height:1.5;text-align:center;text-wrap:balance}
 .lead{text-align:center;color:var(--muted);max-width:620px;margin:8px auto 30px}
 .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
@@ -44,7 +44,7 @@ h2{font-size:clamp(24px,3.4vw,32px);line-height:1.5;text-align:center;text-wrap:
 .partners .btn{background:var(--navy2);color:#fff;margin-top:22px}
 .partners .note{font-size:13px;opacity:.85}
 details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;max-width:760px;margin:10px auto}
-summary{cursor:pointer;font-weight:700}
+summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
 details p{color:var(--muted);margin-top:8px}
 form{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;max-width:640px;margin-inline:auto;display:grid;gap:14px}
 .two{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
@@ -58,3 +58,6 @@ footer a{color:#fff}
 .en-only{direction:ltr}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:560px){.hero{padding:44px 18px}section{padding-block:44px}}
+@media(max-width:700px){header{position:static}section{scroll-margin-top:16px}nav{gap:0 12px}}
+.lang,.btn.sm{min-height:40px;display:inline-flex;align-items:center}
+footer a{display:inline-block;padding-block:12px}
