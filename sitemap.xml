@@ -2,4 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <url><loc>https://www.syncstead.com.sa/ar/</loc><xhtml:link rel="alternate" hreflang="ar" href="https://www.syncstead.com.sa/ar/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.syncstead.com.sa/en/"/></url>
 <url><loc>https://www.syncstead.com.sa/en/</loc><xhtml:link rel="alternate" hreflang="ar" href="https://www.syncstead.com.sa/ar/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.syncstead.com.sa/en/"/></url>
+<url><loc>https://www.syncstead.com.sa/ar/privacy/</loc><xhtml:link rel="alternate" hreflang="ar" href="https://www.syncstead.com.sa/ar/privacy/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.syncstead.com.sa/en/privacy/"/></url>
+<url><loc>https://www.syncstead.com.sa/en/privacy/</loc><xhtml:link rel="alternate" hreflang="ar" href="https://www.syncstead.com.sa/ar/privacy/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.syncstead.com.sa/en/privacy/"/></url>
+<url><loc>https://www.syncstead.com.sa/ar/end-of-service-calculator/</loc><xhtml:link rel="alternate" hreflang="ar" href="https://www.syncstead.com.sa/ar/end-of-service-calculator/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.syncstead.com.sa/en/end-of-service-calculator/"/></url>
+<url><loc>https://www.syncstead.com.sa/en/end-of-service-calculator/</loc><xhtml:link rel="alternate" hreflang="ar" href="https://www.syncstead.com.sa/ar/end-of-service-calculator/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.syncstead.com.sa/en/end-of-service-calculator/"/></url>
 </urlset>

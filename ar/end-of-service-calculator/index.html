@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حاسبة مكافأة نهاية الخدمة وفق نظام العمل السعودي | سينكستيد</title>
+<meta name="description" content="حاسبة مجانية لتقدير مكافأة نهاية الخدمة وفق نظام العمل السعودي، المادتان 84 و85.">
+<link rel="canonical" href="https://www.syncstead.com.sa/ar/end-of-service-calculator/">
+<link rel="alternate" hreflang="ar" href="https://www.syncstead.com.sa/ar/end-of-service-calculator/">
+<link rel="alternate" hreflang="en" href="https://www.syncstead.com.sa/en/end-of-service-calculator/">
+<meta property="og:title" content="حاسبة مكافأة نهاية الخدمة وفق نظام العمل السعودي | سينكستيد">
+<meta property="og:description" content="حاسبة مجانية لتقدير مكافأة نهاية الخدمة وفق نظام العمل السعودي، المادتان 84 و85.">
+<meta name="theme-color" content="#1B2A4A">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header><div class="w"><div class="bar">
+<a class="logo" href="/ar/">SYNCSTEAD</a>
+<nav aria-label="Main"><a href="/ar/">الرئيسية</a></nav>
+<div class="tools"><a class="lang" hreflang="en" lang="en" href="/en/end-of-service-calculator/" aria-label="Switch to English">EN</a><a class="btn sm" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2sW2kQ_5vAHw4p-v_kQ_gorsm-WFrjHmKt5hXqJT4UEJEq7yGhmZTgFgKtR7djox9nANAhFusb" target="_blank" rel="noopener">احجز عرضاً</a></div>
+</div></div></header>
+<main class="w"><div class="page">
+<h1>حاسبة مكافأة نهاية الخدمة</h1>
+<p>احسب تقديرياً مكافأة نهاية الخدمة للموظف وفق نظام العمل السعودي (المادتان 84 و85).</p>
+<form id="eos" style="margin-top:20px">
+<label>آخر أجر شهري (ريال)، ويشمل الراتب الأساسي والبدلات الثابتة مثل السكن<input name="wage" type="number" min="1" step="1" inputmode="numeric" dir="ltr" required></label>
+<div class="two"><label>تاريخ بداية الخدمة<input name="start" type="date" required></label><label>تاريخ نهاية الخدمة<input name="end" type="date" required></label></div>
+<label>سبب انتهاء الخدمة<select name="reason"><option value="end">انتهاء العقد أو إنهاؤه من صاحب العمل</option><option value="resign">استقالة الموظف</option></select></label>
+<button class="btn" type="submit">احسب</button>
+<div class="result" id="out" hidden aria-live="polite"></div>
+</form>
+<h2>طريقة الحساب</h2>
+<ul><li>أجر نصف شهر عن كل سنة من السنوات الخمس الأولى، وأجر شهر كامل عن كل سنة بعدها، وتُحسب أجزاء السنة بنسبتها (المادة 84).</li>
+<li>عند الاستقالة: لا مكافأة لأقل من سنتين، وثلث المكافأة من سنتين إلى خمس، وثلثاها من خمس إلى عشر، والمكافأة كاملة بعد عشر سنوات (المادة 85).</li></ul>
+<p>هذه نتيجة تقديرية للاسترشاد فقط وليست استشارة قانونية. قد تختلف النتيجة في حالات خاصة (مثل القوة القاهرة، أو استقالة الموظفة خلال ستة أشهر من الزواج أو ثلاثة أشهر من الولادة). يحتسب سينكستيد نهاية الخدمة تلقائياً لكل موظف.</p>
+<p><a class="btn" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2sW2kQ_5vAHw4p-v_kQ_gorsm-WFrjHmKt5hXqJT4UEJEq7yGhmZTgFgKtR7djox9nANAhFusb" target="_blank" rel="noopener" style="margin-top:12px">احجز عرضاً لمدة 20 دقيقة</a></p><script>
+(function(){
+var f=document.getElementById('eos'),out=document.getElementById('out'),L=document.documentElement.lang==='ar';
+function fmt(n){return n.toLocaleString(L?'ar-SA':'en-US',{maximumFractionDigits:0});}
+f.addEventListener('submit',function(e){
+e.preventDefault();if(!f.checkValidity()){f.reportValidity();return;}
+var w=parseFloat(f.wage.value),s=new Date(f.start.value),en=new Date(f.end.value),r=f.reason.value;
+var days=(en-s)/86400000;if(!(days>0)||!(w>0)){out.hidden=false;out.innerHTML=L?'تحقق من التواريخ والأجر.':'Please check the dates and wage.';return;}
+var y=days/365,base=y<=5?w*0.5*y:w*(2.5+(y-5)),factor=1,note='';
+if(r==='resign'){if(y<2){factor=0;}else if(y<5){factor=1/3;}else if(y<10){factor=2/3;}}
+var amt=base*factor;
+out.hidden=false;
+out.innerHTML=(L?'مدة الخدمة: ':'Service: ')+y.toFixed(2)+(L?' سنة':' years')+'<div class="big">'+fmt(amt)+(L?' ريال':' SAR')+'</div>'+
+(r==='resign'?(L?'نسبة الاستحقاق عند الاستقالة: ':'Resignation entitlement: ')+Math.round(factor*100)+'%':'');
+});
+})();
+</script>
+</div></main>
+<footer><div class="links"><a href="mailto:info@syncstead.com.sa">info@syncstead.com.sa</a><a href="https://wa.me/966553179126" target="_blank" rel="noopener">واتساب</a><a href="/ar/end-of-service-calculator/">حاسبة نهاية الخدمة</a><a href="/ar/privacy/">الخصوصية</a></div><div class="legal">شركة سينكستيد (شركة مساهمة مبسطة) · الرقم الوطني الموحد 7055468719 · الرياض، المملكة العربية السعودية · © 2026</div></footer>
+</body>
+</html>
