@@ -106,3 +106,6 @@ footer .legal{margin-top:4px;color:#9FB6D9}
 .tour>figure>img{aspect-ratio:16/10;object-fit:cover;object-position:top}
 .tour .ph{aspect-ratio:16/10;align-items:center;overflow:hidden;padding:10px;min-height:0}
 .tour .ph img{max-height:none;height:100%;width:auto;object-fit:contain}
+/* Header keeps the same left-to-right layout in Arabic and English (logo left, menu centre, buttons right) */
+header .bar{direction:ltr}
+header .bar nav a{unicode-bidi:plaintext}
