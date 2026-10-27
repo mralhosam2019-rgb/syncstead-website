@@ -111,3 +111,9 @@ header .bar{direction:ltr}
 header .bar nav a{unicode-bidi:plaintext}
 .logo{gap:0}
 .logo .mk{flex:none;display:block}
+
+.grid.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+#sectors .lead{margin:10px auto 0;max-width:680px}
+.sect-more{margin:24px 0 0;color:var(--muted);text-align:center}
+.sect-more a{color:#14B8A6;font-weight:600}
+@media (max-width:600px){.grid.g4{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.grid.g4 .card{padding:14px}.grid.g4 .card h3{font-size:15px}.grid.g4 .card p{font-size:13px}}
