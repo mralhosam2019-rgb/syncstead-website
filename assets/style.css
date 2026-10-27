@@ -109,3 +109,5 @@ footer .legal{margin-top:4px;color:#9FB6D9}
 /* Header keeps the same left-to-right layout in Arabic and English (logo left, menu centre, buttons right) */
 header .bar{direction:ltr}
 header .bar nav a{unicode-bidi:plaintext}
+.logo{gap:10px}
+.logo .mk{flex:none;display:block}
