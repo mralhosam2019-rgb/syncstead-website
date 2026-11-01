@@ -113,7 +113,7 @@ p{color:var(--muted)}
 table.cmp{width:100%;border-collapse:collapse;font-size:15px}
 .cmp th,.cmp td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
 .cmp th{font-size:13px;color:var(--muted);font-weight:600}
-.cmp td.y{color:var(--mint-t);font-weight:700;text-align:center}.cmp td.n{color:var(--line);text-align:center}
+.cmp td.y{color:var(--mint-t);font-weight:700;text-align:center}.cmp td.n{color:var(--muted);opacity:.6;text-align:center}
 .cmp th.c{text-align:center}
 .cmp .grp td{background:var(--soft);font-weight:700;color:var(--fg)}
 .cmp .us{background:color-mix(in srgb,var(--mint) 10%,transparent);color:var(--fg);font-weight:600}
@@ -199,3 +199,4 @@ form.tried input:invalid,form.tried select:invalid{border-color:#B42318}
 .seccard svg{width:24px;height:24px;color:var(--mint);flex:none}
 .seccard b{display:block}
 .seccard small{color:var(--onnavy);font-size:13px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st{color:#99F6E4}:root:not([data-theme="light"]) .st.pl{background:#78350F;color:#FDE68A}}

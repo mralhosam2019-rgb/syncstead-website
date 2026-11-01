@@ -412,7 +412,7 @@ def demo(lang):
 <div class="two"><label>{L["name"]}<input name="name" autocomplete="name" required></label><label>{L["email"]}<input name="email" type="email" autocomplete="email" required></label></div>
 <div class="two"><label>{L["company"]}<input name="company" autocomplete="organization" required></label><label>{L["size"]}<select name="size" required><option value="">{L["choose"]}</option><option>{"Under 200" if en else "أقل من 200"}</option><option>200–499</option><option>500–999</option><option>1,000–2,499</option><option>2,500–4,999</option><option>5,000+</option></select></label></div>
 <label>{L["phone"]}<input name="phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr"></label>
-<label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+<label class="hp" aria-hidden="true">—<input name="website" tabindex="-1" autocomplete="off"></label>
 <button class="btn" type="submit" style="width:100%">{L["send"]} →</button>
 <p class="err" id="err" hidden>{L["err"]}</p>
 <p style="font-size:13px;margin-top:12px">{L["note"]}</p>
