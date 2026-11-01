@@ -1,0 +1,32 @@
+name: Browser test
+on:
+  push:
+    branches: [site-v2]
+  workflow_dispatch:
+jobs:
+  browsers:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright and the three browser engines
+        run: |
+          npm init -y > /dev/null
+          npm install --no-audit --no-fund playwright@1.48.2 > /dev/null 2>&1
+          npx playwright install --with-deps chromium firefox webkit > /dev/null 2>&1
+      - name: Test Chrome, Edge, Firefox and Safari on desktop, iPhone, iPad and Android
+        run: |
+          python3 -m http.server 8765 > /dev/null 2>&1 &
+          sleep 2
+          node tests/browsers.js
+      - name: Save screenshots (branch "browser-shots")
+        if: always()
+        run: |
+          cd shots && git init -q && git checkout -q -b browser-shots
+          git config user.email "ci@syncstead" && git config user.name "CI"
+          git add . && git commit -qm "Browser screenshots for ${GITHUB_SHA::7}"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" browser-shots
