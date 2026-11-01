@@ -67,10 +67,12 @@ lang:lang,from:q.get('from')||'',interest:I[q.get('interest')]||'',utm_source:ss
 try{sessionStorage.setItem('demo_name',d.name.split(' ')[0]);sessionStorage.setItem('demo_company',d.company)}catch(x){}
 var btn=f.querySelector('button');btn.disabled=true;
 function mail(){var b=L[0]+d.name+'\n'+L[1]+d.email+'\n'+L[2]+d.company+'\n'+L[3]+d.size+'\n'+L[4]+(d.phone||'-')+'\n'+L[5]+(d.interest||'-')+'\n'+L[6]+(d.from||'-')+'\n'+L[7]+(d.role||'-');
-location.href='mailto:info@syncstead.com.sa?subject='+encodeURIComponent("Demo request: "+d.company)+'&body='+encodeURIComponent(b);}
-function next(){location.href='next/'+(FORM_URL?'':'?mail=1');}
-if(!FORM_URL){mail();setTimeout(next,600);return;}
-fetch(FORM_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(d)}).then(next,function(){mail();setTimeout(next,600);});
+try{sessionStorage.setItem('demo_mail','mailto:info@syncstead.com.sa?subject='+encodeURIComponent("Demo request: "+d.company)+'&body='+encodeURIComponent(b))}catch(x){};}
+function next(){var m='';try{m=sessionStorage.getItem('demo_mail')||''}catch(x){}location.href='next/'+(m?'?mail=1':'');}
+if(!FORM_URL){mail();next();return;}
+var done=false;function go(){if(!done){done=true;next();}}
+fetch(FORM_URL,{method:'POST',mode:'no-cors',keepalive:true,body:new URLSearchParams(d)}).then(go,function(){if(!done){done=true;mail();next();}});
+setTimeout(go,2500);
 });
 })();
 </script>

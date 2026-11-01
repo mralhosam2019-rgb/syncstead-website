@@ -40,7 +40,7 @@
 <section class="navy" style="padding-bottom:48px"><div class="w"><div class="eyebrow">طلب عرض تجريبي · الخطوة 2 من 2</div>
 <h1 style="margin-top:12px;max-width:900px"><span id="hi">شكرًا لك.</span> اختر الآن الوقت المناسب.</h1>
 <p class="lead">وصلتنا بياناتك وسنرد خلال يوم عمل واحد. ولتوفير الوقت، اختر موعد مكالمتك ذات العشرين دقيقة أدناه.</p>
-<p class="lead" id="mailnote" hidden style="font-size:15px">فُتح تطبيق البريد لديك وبياناتك معبأة: يرجى الضغط على إرسال لتصلنا.</p></div></section>
+<p class="lead" id="mailnote" hidden style="font-size:15px">فُتح تطبيق البريد لديك وبياناتك معبأة: يرجى الضغط على إرسال لتصلنا. <a id="mailbtn" hidden class="btn sm" style="margin-inline-start:8px">أرسل بالبريد</a></p></div></section>
 <section><div class="w">
 <div style="margin-bottom:20px"><a class="btn" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2sW2kQ_5vAHw4p-v_kQ_gorsm-WFrjHmKt5hXqJT4UEJEq7yGhmZTgFgKtR7djox9nANAhFusb" target="_blank" rel="noopener">اختر الموعد →</a></div>
 <div class="card" style="padding:0;overflow:hidden"><iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2sW2kQ_5vAHw4p-v_kQ_gorsm-WFrjHmKt5hXqJT4UEJEq7yGhmZTgFgKtR7djox9nANAhFusb?gv=true" title="اختر الوقت" style="border:0;width:100%;height:760px;display:block;background:#fff" loading="lazy"></iframe></div>
@@ -49,7 +49,7 @@
 <a href="/ar/platform/" style="margin-inline-start:auto">في الأثناء، تعرّف على المنصة →</a></div>
 </div></section>
 <script>(function(){try{var n=sessionStorage.getItem('demo_name');if(n)document.getElementById('hi').textContent="\u0634\u0643\u0631\u064b\u0627 \u0644\u0643 \u064a\u0627 "+n+'.';}catch(e){}
-if(location.search.indexOf('mail=1')>-1)document.getElementById('mailnote').hidden=false;})();</script>
+if(location.search.indexOf('mail=1')>-1){var m='';try{m=sessionStorage.getItem('demo_mail')||''}catch(e){}var n=document.getElementById('mailnote');n.hidden=false;if(m){var a=document.getElementById('mailbtn');a.href=m;a.hidden=false;setTimeout(function(){location.href=m},400);}}})();</script>
 </main>
 <footer><div class="w">
 <div class="ftop"><div><a class="logo" href="/ar/"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#14B8A6"/><path d="M21 10c-1-2-3-3-5-3-3 0-5 1.6-5 4 0 6 10 3 10 9 0 2.5-2.5 4-5.5 4-2.5 0-4.5-1-5.5-3" fill="none" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/></svg>SYNCSTEAD</a><p>منصة سعودية لإدارة رأس المال البشري: الموارد البشرية والرواتب والمواهب في نظام واحد ثنائي اللغة.</p></div><a class="btn" href="/ar/demo/?from=footer">اطلب عرضًا</a></div>

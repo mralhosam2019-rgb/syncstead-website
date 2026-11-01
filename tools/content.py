@@ -430,10 +430,12 @@ lang:lang,from:q.get('from')||'',interest:I[q.get('interest')]||'',utm_source:ss
 try{{sessionStorage.setItem('demo_name',d.name.split(' ')[0]);sessionStorage.setItem('demo_company',d.company)}}catch(x){{}}
 var btn=f.querySelector('button');btn.disabled=true;
 function mail(){{var b=L[0]+d.name+'\\n'+L[1]+d.email+'\\n'+L[2]+d.company+'\\n'+L[3]+d.size+'\\n'+L[4]+(d.phone||'-')+'\\n'+L[5]+(d.interest||'-')+'\\n'+L[6]+(d.from||'-')+'\\n'+L[7]+(d.role||'-');
-location.href='mailto:info@syncstead.com.sa?subject='+encodeURIComponent({json.dumps(L["subj"], ensure_ascii=False)}+d.company)+'&body='+encodeURIComponent(b);}}
-function next(){{location.href='next/'+(FORM_URL?'':'?mail=1');}}
-if(!FORM_URL){{mail();setTimeout(next,600);return;}}
-fetch(FORM_URL,{{method:'POST',mode:'no-cors',body:new URLSearchParams(d)}}).then(next,function(){{mail();setTimeout(next,600);}});
+try{{sessionStorage.setItem('demo_mail','mailto:info@syncstead.com.sa?subject='+encodeURIComponent({json.dumps(L["subj"], ensure_ascii=False)}+d.company)+'&body='+encodeURIComponent(b))}}catch(x){{}};}}
+function next(){{var m='';try{{m=sessionStorage.getItem('demo_mail')||''}}catch(x){{}}location.href='next/'+(m?'?mail=1':'');}}
+if(!FORM_URL){{mail();next();return;}}
+var done=false;function go(){{if(!done){{done=true;next();}}}}
+fetch(FORM_URL,{{method:'POST',mode:'no-cors',keepalive:true,body:new URLSearchParams(d)}}).then(go,function(){{if(!done){{done=true;mail();next();}}}});
+setTimeout(go,2500);
 }});
 }})();
 </script>'''
@@ -445,7 +447,7 @@ def demo_next(lang):
     return f'''<section class="navy" style="padding-bottom:48px"><div class="w"><div class="eyebrow">{"Request a demo · step 2 of 2" if en else "طلب عرض تجريبي · الخطوة 2 من 2"}</div>
 <h1 style="margin-top:12px;max-width:900px"><span id="hi">{"Thank you." if en else "شكرًا لك."}</span> {"Now choose a time." if en else "اختر الآن الوقت المناسب."}</h1>
 <p class="lead">{"We have your details and will reply within one working day. To save time, pick a slot for your 20-minute call below." if en else "وصلتنا بياناتك وسنرد خلال يوم عمل واحد. ولتوفير الوقت، اختر موعد مكالمتك ذات العشرين دقيقة أدناه."}</p>
-<p class="lead" id="mailnote" hidden style="font-size:15px">{"Your email app has opened with your details: please press send so we receive them." if en else "فُتح تطبيق البريد لديك وبياناتك معبأة: يرجى الضغط على إرسال لتصلنا."}</p></div></section>
+<p class="lead" id="mailnote" hidden style="font-size:15px">{"Your email app has opened with your details: please press send so we receive them." if en else "فُتح تطبيق البريد لديك وبياناتك معبأة: يرجى الضغط على إرسال لتصلنا."} <a id="mailbtn" hidden class="btn sm" style="margin-inline-start:8px">{"Send by email" if en else "أرسل بالبريد"}</a></p></div></section>
 <section><div class="w">
 <div style="margin-bottom:20px"><a class="btn" href="{BOOK}" target="_blank" rel="noopener">{"Choose a time" if en else "اختر الموعد"} →</a></div>
 <div class="card" style="padding:0;overflow:hidden"><iframe src="{embed}" title="{"Choose a time" if en else "اختر الوقت"}" style="border:0;width:100%;height:760px;display:block;background:#fff" loading="lazy"></iframe></div>
@@ -454,7 +456,7 @@ def demo_next(lang):
 <a href="/{lang}/platform/" style="margin-inline-start:auto">{"Meanwhile, explore the platform" if en else "في الأثناء، تعرّف على المنصة"} →</a></div>
 </div></section>
 <script>(function(){{try{{var n=sessionStorage.getItem('demo_name');if(n)document.getElementById('hi').textContent={json.dumps("Thank you, " if en else "شكرًا لك يا ")}+n+'.';}}catch(e){{}}
-if(location.search.indexOf('mail=1')>-1)document.getElementById('mailnote').hidden=false;}})();</script>'''
+if(location.search.indexOf('mail=1')>-1){{var m='';try{{m=sessionStorage.getItem('demo_mail')||''}}catch(e){{}}var n=document.getElementById('mailnote');n.hidden=false;if(m){{var a=document.getElementById('mailbtn');a.href=m;a.hidden=false;setTimeout(function(){{location.href=m}},400);}}}}}})();</script>'''
 
 import json  # noqa: E402
 

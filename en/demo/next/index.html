@@ -40,7 +40,7 @@
 <section class="navy" style="padding-bottom:48px"><div class="w"><div class="eyebrow">Request a demo · step 2 of 2</div>
 <h1 style="margin-top:12px;max-width:900px"><span id="hi">Thank you.</span> Now choose a time.</h1>
 <p class="lead">We have your details and will reply within one working day. To save time, pick a slot for your 20-minute call below.</p>
-<p class="lead" id="mailnote" hidden style="font-size:15px">Your email app has opened with your details: please press send so we receive them.</p></div></section>
+<p class="lead" id="mailnote" hidden style="font-size:15px">Your email app has opened with your details: please press send so we receive them. <a id="mailbtn" hidden class="btn sm" style="margin-inline-start:8px">Send by email</a></p></div></section>
 <section><div class="w">
 <div style="margin-bottom:20px"><a class="btn" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2sW2kQ_5vAHw4p-v_kQ_gorsm-WFrjHmKt5hXqJT4UEJEq7yGhmZTgFgKtR7djox9nANAhFusb" target="_blank" rel="noopener">Choose a time →</a></div>
 <div class="card" style="padding:0;overflow:hidden"><iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2sW2kQ_5vAHw4p-v_kQ_gorsm-WFrjHmKt5hXqJT4UEJEq7yGhmZTgFgKtR7djox9nANAhFusb?gv=true" title="Choose a time" style="border:0;width:100%;height:760px;display:block;background:#fff" loading="lazy"></iframe></div>
@@ -49,7 +49,7 @@
 <a href="/en/platform/" style="margin-inline-start:auto">Meanwhile, explore the platform →</a></div>
 </div></section>
 <script>(function(){try{var n=sessionStorage.getItem('demo_name');if(n)document.getElementById('hi').textContent="Thank you, "+n+'.';}catch(e){}
-if(location.search.indexOf('mail=1')>-1)document.getElementById('mailnote').hidden=false;})();</script>
+if(location.search.indexOf('mail=1')>-1){var m='';try{m=sessionStorage.getItem('demo_mail')||''}catch(e){}var n=document.getElementById('mailnote');n.hidden=false;if(m){var a=document.getElementById('mailbtn');a.href=m;a.hidden=false;setTimeout(function(){location.href=m},400);}}})();</script>
 </main>
 <footer><div class="w">
 <div class="ftop"><div><a class="logo" href="/en/"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#14B8A6"/><path d="M21 10c-1-2-3-3-5-3-3 0-5 1.6-5 4 0 6 10 3 10 9 0 2.5-2.5 4-5.5 4-2.5 0-4.5-1-5.5-3" fill="none" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/></svg>SYNCSTEAD</a><p>Saudi human capital management platform: HR, payroll and talent in one bilingual system.</p></div><a class="btn" href="/en/demo/?from=footer">Request a demo</a></div>
