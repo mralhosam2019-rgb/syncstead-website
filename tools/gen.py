@@ -14,7 +14,7 @@ WA = "https://wa.me/966553179126"
 FORM_URL = ""
 # CF_TOKEN: the Cloudflare Web Analytics site token. Empty = no analytics script.
 CF_TOKEN = ""
-V = "7"
+V = "8"
 
 ICONS = {
   "law": '<path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7zM8 21h8"/>',
