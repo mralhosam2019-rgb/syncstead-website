@@ -13,7 +13,7 @@ WA = "https://wa.me/966553179126"
 #           Empty = the form falls back to opening the visitor's email app.
 FORM_URL = "https://script.google.com/macros/s/AKfycbxvevqEtp9Don9kGoiWKYNd9PcPIhPz4KG1XtEGJsgYIE42oTY5LC7EFJrFqDO2s0nM/exec"
 # CF_TOKEN: the Cloudflare Web Analytics site token. Empty = no analytics script.
-CF_TOKEN = ""
+CF_TOKEN = "81467c0bfc3a423aa6effe4c5c133c15"
 V = "10"
 
 ICONS = {
@@ -215,3 +215,12 @@ def build():
 
 if __name__ == "__main__":
     import sys; sys.path.insert(0, os.path.dirname(__file__)); build()
+
+
+# Root language page and 404 are hand-made: add the analytics script to them too (once).
+if CF_TOKEN:
+    for _p in ("index.html", "404.html"):
+        _s = open(_p, encoding="utf-8").read()
+        if "cloudflareinsights" not in _s:
+            _s = _s.replace("</head>", f'<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{{"token": "{CF_TOKEN}"}}\'></script>\n</head>', 1)
+            open(_p, "w", encoding="utf-8").write(_s)
