@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Final settlement calculator (Saudi Labour Law) | Syncstead</title>
+<meta name="description" content="Free calculator for an employee's final settlement in Saudi Arabia: end-of-service award, unused leave, last month's salary and deductions.">
+<link rel="canonical" href="https://www.syncstead.com.sa/en/final-settlement-calculator/">
+<link rel="alternate" hreflang="ar" href="https://www.syncstead.com.sa/ar/final-settlement-calculator/">
+<link rel="alternate" hreflang="en" href="https://www.syncstead.com.sa/en/final-settlement-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://www.syncstead.com.sa/ar/final-settlement-calculator/">
+<meta property="og:title" content="Final settlement calculator (Saudi Labour Law) | Syncstead">
+<meta property="og:description" content="Free calculator for an employee's final settlement in Saudi Arabia: end-of-service award, unused leave, last month's salary and deductions.">
+<meta name="theme-color" content="#1B2A4A">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=7">
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "81467c0bfc3a423aa6effe4c5c133c15"}'></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="w">
+<a class="logo" href="/en/"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#14B8A6"/><path d="M21 10c-1-2-3-3-5-3-3 0-5 1.6-5 4 0 6 10 3 10 9 0 2.5-2.5 4-5.5 4-2.5 0-4.5-1-5.5-3" fill="none" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/></svg>SYNCSTEAD</a>
+<nav class="main" id="nav" aria-label="Main"><a href="/en/platform/">Platform</a><a href="/en/packages/">Packages</a><a href="/en/why-syncstead/">Why Syncstead</a><a href="/en/trust/">Trust & security</a><a href="/en/about/">About</a><a href="/en/resources/">Resources</a><a href="/en/contact/">Contact</a></nav>
+<div class="tools"><a class="lang" hreflang="ar" lang="ar" href="/ar/final-settlement-calculator/" aria-label="التبديل إلى العربية">عربي</a><a class="btn sm" href="/en/demo/?from=end-of-service-calculator">Request a demo</a>
+<button class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav" onclick="var n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button></div>
+</div></header>
+<main id="main" class="w"><div class="page">
+<h1>Final settlement calculator</h1>
+<p>Estimate everything due to an employee when they leave: the end-of-service award, pay for unused annual leave and the salary for days worked in the last month, less any deductions.</p>
+<form id="calc" style="margin-top:20px" novalidate>
+<label>Last monthly wage (SAR), basic plus regular allowances<input name="wage" type="number" min="1" step="1" inputmode="numeric" required></label>
+<div class="two"><label>Start date<input name="start" type="date" required></label><label>Last working day<input name="end" type="date" required></label></div>
+<label>Reason for leaving<select name="reason"><option value="end">Contract ended or terminated by the employer</option><option value="resign">Resignation by the employee</option></select></label>
+<div class="two"><label>Annual leave days already taken (whole service)<input name="taken" type="number" min="0" step="0.5" inputmode="decimal" value="0"></label><label>Days worked in the last month and not yet paid<input name="days" type="number" min="0" max="31" step="1" inputmode="numeric" value="0"></label></div>
+<div class="two"><label>Other amounts due (SAR), e.g. unpaid overtime<input name="add" type="number" min="0" step="1" inputmode="numeric" value="0"></label><label>Deductions (SAR), e.g. loans or advances<input name="ded" type="number" min="0" step="1" inputmode="numeric" value="0"></label></div>
+<button class="btn" type="submit">Calculate</button>
+<div class="result" id="out" hidden aria-live="polite"></div>
+</form>
+<h2>How it is calculated</h2>
+<ul><li>End-of-service award: half a month's wage for each of the first five years and a full month's wage for each year after (Article 84), reduced on resignation (Article 85).</li>
+<li>Unused annual leave: 21 days a year, 30 after five years (Article 109), paid at the monthly wage divided by 30 (Article 111).</li>
+<li>Last month's salary: the monthly wage divided by 30, times the days worked and not yet paid.</li></ul>
+<p>This is an estimate for guidance only and is not legal advice. Notice-period pay, compensation for unlawful termination and special cases are not included. Syncstead calculates this automatically for every employee.</p>
+<p><a class="btn" href="/en/demo/" style="margin-top:12px">See how Syncstead does it automatically</a></p>
+<p style="margin-top:24px">More free calculators: <a href="/en/end-of-service-calculator/">End-of-service calculator</a> · <a href="/en/leave-balance-calculator/">Annual leave balance</a> · <a href="/en/overtime-calculator/">Overtime pay</a></p>
+<script>
+(function(){
+var L=document.documentElement.lang==='ar';
+function fmt(n){return n.toLocaleString(L?'ar-SA':'en-US',{maximumFractionDigits:2});}
+function years(s,e){var fy=e.getFullYear()-s.getFullYear(),an=new Date(s);an.setFullYear(s.getFullYear()+fy);if(an>e){fy--;an=new Date(s);an.setFullYear(s.getFullYear()+fy);}return fy+(e-an)/86400000/365;}
+function num(v){var n=parseFloat(v);return isNaN(n)?0:n;}
+function eos(w,y,reason){var base=y<=5?w*0.5*y:w*(2.5+(y-5)),f=1;if(reason==='resign'){f=y<2?0:y<5?1/3:y<10?2/3:1;}return {amt:base*f,f:f};}
+function accrued(y){return 21*Math.min(y,5)+30*Math.max(y-5,0);}
+var f=document.getElementById('calc'),out=document.getElementById('out');
+function show(h){out.hidden=false;out.innerHTML=h;}
+function bad(){show(L?'تحقق من القيم والتواريخ.':'Please check the numbers and dates.');}
+f.addEventListener('submit',function(ev){ev.preventDefault();if(!f.checkValidity()){f.reportValidity();return;}
+var w=num(f.wage.value),s=new Date(f.start.value),e=new Date(f.end.value),r=f.reason.value,t=num(f.taken.value),dd=num(f.days.value),ad=num(f.add.value),de=num(f.ded.value);
+if(!(e>s&&w>0)){return bad();}
+var y=years(s,e),eo=eos(w,y,r),bal=Math.max(0,accrued(y)-t),lv=bal*w/30,sal=dd*w/30,tot=eo.amt+lv+sal+ad-de;
+var row=function(a,b){return '<tr><td>'+a+'</td><td style="text-align:end">'+fmt(b)+'</td></tr>';};
+show((L?'مدة الخدمة: ':'Service: ')+fmt(y)+(L?' سنة':' years')+'<table style="width:100%;margin-top:8px">'+
+row((L?'مكافأة نهاية الخدمة':'End-of-service award')+(r==='resign'?' ('+Math.round(eo.f*100)+'%)':''),eo.amt)+
+row((L?'بدل الإجازة غير المستخدمة (':'Unused leave (')+fmt(bal)+(L?' يوم)':' days)'),lv)+
+row(L?'راتب أيام الشهر الأخير':'Last month\'s salary',sal)+(ad?row(L?'مبالغ أخرى مستحقة':'Other amounts due',ad):'')+(de?row(L?'الاستقطاعات':'Deductions',-de):'')+
+'</table><div class="big">'+fmt(tot)+(L?' ريال':' SAR')+'</div>');
+});
+})();
+</script>
+</div></main>
+<footer><div class="w">
+<div class="ftop"><div><a class="logo" href="/en/"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#14B8A6"/><path d="M21 10c-1-2-3-3-5-3-3 0-5 1.6-5 4 0 6 10 3 10 9 0 2.5-2.5 4-5.5 4-2.5 0-4.5-1-5.5-3" fill="none" stroke="#1B2A4A" stroke-width="3" stroke-linecap="round"/></svg>SYNCSTEAD</a><p>Saudi human capital management platform: HR, payroll and talent in one bilingual system.</p></div><a class="btn" href="/en/demo/?from=footer">Request a demo</a></div>
+<div class="cols">
+<nav aria-label="Product"><h4>Product</h4><a href="/en/platform/">Platform</a><a href="/en/packages/">Packages</a><a href="/en/why-syncstead/">Why Syncstead</a><a href="/en/trust/">Trust & security</a></nav>
+<nav aria-label="Company"><h4>Company</h4><a href="/en/about/">About</a><a href="/en/contact/">Contact</a></nav>
+<nav aria-label="Resources"><h4>Resources</h4><a href="/en/end-of-service-calculator/">End-of-service calculator</a><a href="/assets/docs/Syncstead-Company-Profile-EN.pdf">Company profile (PDF)</a><a href="/en/resources/#faq">FAQ</a></nav>
+<div><h4>Contact</h4><a href="mailto:info@syncstead.com.sa">info@syncstead.com.sa</a><a href="https://wa.me/966553179126?text=Hello%2C%20I%27d%20like%20to%20know%20more%20about%20end%20of%20service%20in%20Syncstead." target="_blank" rel="noopener">WhatsApp&nbsp;<bdi dir="ltr">+966 55 317 9126</bdi></a><span class="floc">Riyadh, Saudi Arabia</span></div>
+</div>
+<div class="legal"><span>Syncstead Company (SJSC) · CR 7055468719 · Riyadh, Saudi Arabia · © 2026</span><span class="llinks"><a href="/en/privacy/">Privacy</a><a href="/ar/final-settlement-calculator/" hreflang="ar" lang="ar">العربية</a></span></div>
+</div></footer>
+<a class="wa-float" href="https://wa.me/966553179126?text=Hello%2C%20I%27d%20like%20to%20know%20more%20about%20end%20of%20service%20in%20Syncstead." target="_blank" rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.9 1 3.9.8a3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg></a>
+<script src="/assets/role.js?v=10" defer></script>
+<script>try{var u=new URLSearchParams(location.search);['utm_source','utm_medium','utm_campaign'].forEach(function(k){if(u.get(k))sessionStorage.setItem(k,u.get(k))});if(!sessionStorage.getItem('first_ref'))sessionStorage.setItem('first_ref',document.referrer||'direct')}catch(e){}</script>
+</body>
+</html>
