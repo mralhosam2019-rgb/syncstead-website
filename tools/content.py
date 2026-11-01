@@ -447,9 +447,9 @@ def demo_next(lang):
 <p class="lead">{"We have your details and will reply within one working day. To save time, pick a slot for your 20-minute call below." if en else "وصلتنا بياناتك وسنرد خلال يوم عمل واحد. ولتوفير الوقت، اختر موعد مكالمتك ذات العشرين دقيقة أدناه."}</p>
 <p class="lead" id="mailnote" hidden style="font-size:15px">{"Your email app has opened with your details: please press send so we receive them." if en else "فُتح تطبيق البريد لديك وبياناتك معبأة: يرجى الضغط على إرسال لتصلنا."}</p></div></section>
 <section><div class="w">
+<div style="margin-bottom:20px"><a class="btn" href="{BOOK}" target="_blank" rel="noopener">{"Choose a time" if en else "اختر الموعد"} →</a></div>
 <div class="card" style="padding:0;overflow:hidden"><iframe src="{embed}" title="{"Choose a time" if en else "اختر الوقت"}" style="border:0;width:100%;height:760px;display:block;background:#fff" loading="lazy"></iframe></div>
 <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;align-items:center">
-<a class="btn line" href="{BOOK}" target="_blank" rel="noopener">{"Open the calendar in a new tab" if en else "افتح التقويم في نافذة جديدة"}</a>
 <a class="btn line" href="{g.wa_link(lang, "demo")}" target="_blank" rel="noopener">{"Or arrange it on WhatsApp" if en else "أو رتّب الموعد عبر واتساب"}</a>
 <a href="/{lang}/platform/" style="margin-inline-start:auto">{"Meanwhile, explore the platform" if en else "في الأثناء، تعرّف على المنصة"} →</a></div>
 </div></section>
