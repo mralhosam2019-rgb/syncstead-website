@@ -11,7 +11,7 @@ WA = "https://wa.me/966553179126"
 # --- Demo requests and measurement (fill in once, then rebuild) ---
 # FORM_URL: the web app address of tools/demo-requests.gs after it is deployed from alhosam@syncstead.com.sa.
 #           Empty = the form falls back to opening the visitor's email app.
-FORM_URL = ""
+FORM_URL = "https://script.google.com/macros/s/AKfycbxvevqEtp9Don9kGoiWKYNd9PcPIhPz4KG1XtEGJsgYIE42oTY5LC7EFJrFqDO2s0nM/exec"
 # CF_TOKEN: the Cloudflare Web Analytics site token. Empty = no analytics script.
 CF_TOKEN = ""
 V = "10"
