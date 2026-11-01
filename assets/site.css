@@ -173,3 +173,14 @@ footer .legal{border-top:1px solid rgba(203,213,225,.15);margin-top:36px;padding
 .wa-float{position:fixed;bottom:18px;inset-inline-end:18px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:40}
 .wa-float svg{width:30px;height:30px}
 .skip{position:absolute;top:0;inset-inline-start:0;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.skip:focus{width:auto;height:auto;clip-path:none;z-index:99;background:#fff;padding:8px;top:12px;inset-inline-start:12px}
+/* demo request */
+.assure{font-size:13px;color:var(--onnavy);width:100%;margin-top:4px}
+section:not(.navy) .assure{color:var(--muted)}
+.ctaband .acts .assure{text-align:end}
+html[lang=ar] .ctaband .acts .assure{text-align:start}
+.hp{position:absolute!important;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+html[dir=rtl] .hp{left:auto;right:-10000px}
+.err{color:#B42318;font-size:14px;margin-top:10px;font-weight:600}
+form.tried input:invalid,form.tried select:invalid{border-color:#B42318}
+.btn:disabled{opacity:.6;cursor:wait}
+@media (max-width:860px){.grid[style]{grid-template-columns:1fr!important}#demo{scroll-margin-top:80px}}

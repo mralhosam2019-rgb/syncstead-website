@@ -14,36 +14,36 @@ TX = {
           ("star","Recruiting, performance & learning","platform#talent"),("org","Org design & workforce planning","platform#org"),("pay","Compensation & rewards","platform#talent"),
           ("flow","Requests, letters & approvals","platform#core"),("flag","Saudization & compliance","platform#payroll"),("chart","Reports & analytics","platform#org"),("phone","Self-service & mobile","platform#mobile")],
  "pk": [
-   dict(key="Core", size="Up to 300 employees", for_="Run HR, payroll and attendance in one place.", plus="Adds to the essentials:",
+   dict(id="core", key="Core", size="Up to 300 employees", for_="Run HR, payroll and attendance in one place.", plus="Adds to the essentials:",
         items=["Attendance and shifts","Expenses and business trips","Visas and iqama services","Org structure and job architecture","Medical insurance","Saudization","Assets","Onboarding, probation and exits","Reports"],
         sup="Email support and guided set-up"),
-   dict(key="Professional", size="300 to 1,500 employees", for_="Add talent, rewards and employee services.", plus="Everything in Core, plus:", hi="For growing companies",
+   dict(id="professional", key="Professional", size="300 to 1,500 employees", for_="Add talent, rewards and employee services.", plus="Everything in Core, plus:", hi="For growing companies",
         items=["Recruiting and interviews","Performance and reviews","Learning","Compensation, merit and rewards","Employee relations and discipline","Help desk, news and surveys","AI assistant","Single sign-on (Microsoft, Google, Okta)"],
         sup="Priority support and an implementation manager to go-live"),
-   dict(key="Enterprise", size="1,500+ employees or groups", for_="The full platform for large companies and groups.", plus="Everything in Professional, plus:",
+   dict(id="enterprise", key="Enterprise", size="1,500+ employees or groups", for_="The full platform for large companies and groups.", plus="Everything in Professional, plus:",
         items=["Succession and talent pools","Org design and workforce planning","Group view across several companies","Sandbox: a private test copy of your company","API and webhooks"],
         sup="Dedicated account manager, service levels and quarterly reviews"),
  ],
  "always": ["Employees, documents and contracts","Payroll, GOSI and end of service","Bank and Mudad salary files","Leave, letters and requests","Approval paths with escalation","Employee self-service on mobile","Arabic and English, Hijri dates","2-step sign-in and audit trail","Guided set-up and training"],
- "proposal": "Request a proposal",
+ "proposal": "Get a proposal for your size",
 },
 "ar": {
  "caps": [("users","الموارد البشرية الأساسية وملفات الموظفين","platform#core"),("pay","الرواتب ونهاية الخدمة","platform#payroll"),("time","الوقت والحضور والإجازات","platform#time"),
           ("star","التوظيف والأداء والتدريب","platform#talent"),("org","التصميم التنظيمي وتخطيط القوى العاملة","platform#org"),("pay","التعويضات والمكافآت","platform#talent"),
           ("flow","الطلبات والخطابات والاعتمادات","platform#core"),("flag","التوطين والامتثال","platform#payroll"),("chart","التقارير والتحليلات","platform#org"),("phone","الخدمة الذاتية والجوال","platform#mobile")],
  "pk": [
-   dict(key="الأساسية", size="حتى 300 موظف", for_="الموارد البشرية والرواتب والحضور في مكان واحد.", plus="تضيف إلى الأساسيات:",
+   dict(id="core", key="الأساسية", size="حتى 300 موظف", for_="الموارد البشرية والرواتب والحضور في مكان واحد.", plus="تضيف إلى الأساسيات:",
         items=["الحضور والورديات","المصروفات ورحلات العمل","التأشيرات وخدمات الإقامة","الهيكل التنظيمي والبنية الوظيفية","التأمين الطبي","التوطين","العهد","التهيئة والتجربة وإنهاء الخدمة","التقارير"],
         sup="دعم عبر البريد وتهيئة موجّهة"),
-   dict(key="الاحترافية", size="من 300 إلى 1,500 موظف", for_="إضافة المواهب والمكافآت وخدمات الموظفين.", plus="كل ما في الأساسية، إضافة إلى:", hi="للمنشآت النامية",
+   dict(id="professional", key="الاحترافية", size="من 300 إلى 1,500 موظف", for_="إضافة المواهب والمكافآت وخدمات الموظفين.", plus="كل ما في الأساسية، إضافة إلى:", hi="للمنشآت النامية",
         items=["التوظيف والمقابلات","الأداء والتقييم","التدريب","التعويضات والزيادات والمكافآت","علاقات الموظفين والانضباط","الدعم والأخبار والاستبيانات","المساعد الذكي","الدخول الموحد (مايكروسوفت، جوجل، Okta)"],
         sup="دعم بأولوية ومدير تنفيذ حتى الإطلاق"),
-   dict(key="المؤسسات", size="أكثر من 1,500 موظف أو مجموعات", for_="المنصة كاملة للمنشآت الكبيرة والمجموعات.", plus="كل ما في الاحترافية، إضافة إلى:",
+   dict(id="enterprise", key="المؤسسات", size="أكثر من 1,500 موظف أو مجموعات", for_="المنصة كاملة للمنشآت الكبيرة والمجموعات.", plus="كل ما في الاحترافية، إضافة إلى:",
         items=["التعاقب الوظيفي ومجموعات المواهب","التصميم التنظيمي وتخطيط القوى العاملة","عرض موحد لعدة شركات في المجموعة","نسخة تجريبية خاصة من شركتكم","واجهة البرمجة والربط الآلي"],
         sup="مدير حساب مخصص واتفاقية مستوى خدمة ومراجعات ربع سنوية"),
  ],
  "always": ["الموظفون والوثائق والعقود","الرواتب والتأمينات ونهاية الخدمة","ملفات الرواتب للبنك ومُدد","الإجازات والخطابات والطلبات","مسارات اعتماد مع التصعيد","الخدمة الذاتية على الجوال","العربية والإنجليزية والتاريخ الهجري","التحقق بخطوتين وسجل التدقيق","تهيئة موجّهة وتدريب"],
- "proposal": "اطلب عرضًا",
+ "proposal": "احصل على عرض لحجمكم",
 }}
 
 def ticks(items): return '<ul class="ticks">' + "".join(f"<li>{i}</li>" for i in items) + "</ul>"
@@ -59,7 +59,7 @@ def pk_cards(lang, full=True):
         lst = ticks(p["items"]) if full else ""
         out.append(f'<div class="pk{" hi" if p.get("hi") else ""}">{tag}<h3 style="font-size:24px">{p["key"]}</h3><p>{p["for_"]}</p><div class="size">{p["size"]}</div>'
                    + (f'<div class="plus">{p["plus"]}</div>{lst}<div class="sup">{p["sup"]}</div>' if full else "")
-                   + f'<a class="btn{"" if p.get("hi") else " line"}" href="/{lang}/contact/">{TX[lang]["proposal"]}</a></div>')
+                   + f'<a class="btn{"" if p.get("hi") else " line"}" href="/{lang}/demo/?from=packages&interest={p["id"]}">{TX[lang]["proposal"]}</a></div>')
     return '<div class="grid g3">' + "".join(out) + "</div>"
 
 def faq(items):
@@ -100,8 +100,8 @@ def home(lang):
 <div class="eyebrow">{"Saudi human capital management" if en else "منصة سعودية لإدارة رأس المال البشري"}</div>
 <h1 style="margin-top:14px">{"One platform for your people, <em>built for Saudi&nbsp;Arabia.</em>" if en else "منصة واحدة لموظفيك، <em>صُمّمت للمملكة العربية السعودية.</em>"}</h1>
 <p class="lead">{"HR, payroll, attendance, talent and organization design in one bilingual system, with Saudi labour law at its core. For companies of 200 to 20,000 employees." if en else "الموارد البشرية والرواتب والحضور والمواهب والتصميم التنظيمي في نظام واحد ثنائي اللغة، ونظام العمل السعودي في صميمه. للمنشآت من 200 إلى 20,000 موظف."}</p>
-<div class="cta"><a class="btn" href="{BOOK}" target="_blank" rel="noopener">{"Book a 20-min demo" if en else "احجز عرضًا في 20 دقيقة"}</a><a class="btn ghost" href="/{lang}/platform/">{"Explore the platform" if en else "تعرّف على المنصة"}</a></div>
-<div class="facts"><span>{"A Saudi company" if en else "شركة سعودية"}</span><span>{"Arabic & English on every screen" if en else "العربية والإنجليزية في كل شاشة"}</span><span>{"Live in weeks" if en else "التشغيل في أسابيع"}</span></div>
+<div class="cta"><a class="btn" href="/{lang}/demo/?from=home-hero">{"Request a demo" if en else "اطلب عرضًا تجريبيًا"}</a><a class="btn ghost" href="/{lang}/platform/">{"Explore the platform" if en else "تعرّف على المنصة"}</a></div>
+<div class="facts"><span>{"20 minutes, no commitment" if en else "20 دقيقة دون التزام"}</span><span>{"A Saudi company" if en else "شركة سعودية"}</span><span>{"Arabic & English on every screen" if en else "العربية والإنجليزية في كل شاشة"}</span><span>{"Live in weeks" if en else "التشغيل في أسابيع"}</span></div>
 </div>
 <div class="devices">{g.laptop(lang, "desk-dashboard", "Syncstead dashboard" if en else "لوحة التحكم في سينكستيد")}{g.phone(lang, "phone-home")}</div>
 </div></section>
@@ -333,40 +333,84 @@ def resources(lang):
 # ---------------------------------------------------------------- CONTACT
 def contact(lang):
     g = G(); en = lang == "en"
-    L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", phone="Mobile (optional)", send="Request a demo",
-              note='This opens your email app with the details filled in. See our <a href="/en/privacy/">privacy notice</a>.', ok="Thank you. Your email app should now be open. Press send and we will reply within one working day.",
-              subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees: ", "Mobile: "]) if en else
-         dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", phone="الجوال (اختياري)", send="اطلب عرضًا",
-              note='يفتح هذا تطبيق البريد لديك والتفاصيل معبأة. اطلع على <a href="/ar/privacy/">إشعار الخصوصية</a>.', ok="شكرًا لك. يُفترض أن تطبيق البريد مفتوح الآن، اضغط إرسال وسنرد خلال يوم عمل واحد.",
-              subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "عدد الموظفين: ", "الجوال: "]))
-    js_lines = json.dumps(L["lines"], ensure_ascii=False)
     return f'''<section class="navy" style="padding-bottom:56px"><div class="w"><div class="eyebrow">{"Contact" if en else "تواصل معنا"}</div>
 <h1 style="margin-top:12px;max-width:900px">{"Let's talk about your organization." if en else "لنتحدث عن منشأتك."}</h1>
-<p class="lead">{"Book a 20-minute call, message us on WhatsApp, or send your details and we will reply within one working day." if en else "احجز مكالمة مدتها 20 دقيقة، أو راسلنا على واتساب، أو أرسل بياناتك وسنرد خلال يوم عمل واحد."}</p></div></section>
-<section><div class="w"><div class="grid g2" style="gap:48px;align-items:start;grid-template-columns:1fr 1.2fr">
-<div>
-<div class="card"><div class="ico">{g.ic("time")}</div><h3>{"Book a demo" if en else "احجز عرضًا"}</h3><p>{"Pick a time that suits you in our calendar." if en else "اختر الوقت المناسب لك من تقويمنا."}</p><a class="btn" style="margin-top:14px" href="{BOOK}" target="_blank" rel="noopener">{"Book a 20-min demo" if en else "احجز عرضًا في 20 دقيقة"}</a></div>
-<div class="card" style="margin-top:16px"><div class="ico">{g.ic("phone")}</div><h3>WhatsApp</h3><p dir="ltr" style="text-align:start">+966 55 317 9126</p><a class="btn line" style="margin-top:14px" href="{WA}" target="_blank" rel="noopener">{"WhatsApp us" if en else "راسلنا على واتساب"}</a></div>
-<div class="card" style="margin-top:16px"><div class="ico">{g.ic("file")}</div><h3>{"Email" if en else "البريد الإلكتروني"}</h3><p><a href="mailto:info@syncstead.com.sa">info@syncstead.com.sa</a></p><p style="font-size:14px">{"Riyadh, Saudi Arabia" if en else "الرياض، المملكة العربية السعودية"}</p></div>
-</div>
-<div class="card"><h3>{"Send your details" if en else "أرسل بياناتك"}</h3>
-<form id="demo" novalidate>
+<p class="lead">{"Request a demo, message us on WhatsApp, or email us. We reply within one working day." if en else "اطلب عرضًا تجريبيًا، أو راسلنا على واتساب، أو عبر البريد. نرد خلال يوم عمل واحد."}</p></div></section>
+<section><div class="w"><div class="grid g3">
+<div class="card"><div class="ico">{g.ic("time")}</div><h3>{"Request a demo" if en else "اطلب عرضًا تجريبيًا"}</h3><p>{"Two short steps: your details, then a time that suits you." if en else "خطوتان قصيرتان: بياناتك، ثم الوقت المناسب لك."}</p><a class="btn" style="margin-top:14px" href="/{lang}/demo/?from=contact">{"Request a demo" if en else "اطلب عرضًا تجريبيًا"}</a></div>
+<div class="card"><div class="ico">{g.ic("phone")}</div><h3>WhatsApp</h3><p dir="ltr" style="text-align:start">+966 55 317 9126</p><a class="btn line" style="margin-top:14px" href="{g.wa_link(lang, "contact")}" target="_blank" rel="noopener">{"WhatsApp us" if en else "راسلنا على واتساب"}</a></div>
+<div class="card"><div class="ico">{g.ic("file")}</div><h3>{"Email" if en else "البريد الإلكتروني"}</h3><p><a href="mailto:info@syncstead.com.sa">info@syncstead.com.sa</a></p><p style="font-size:14px">{"Riyadh, Saudi Arabia" if en else "الرياض، المملكة العربية السعودية"}</p></div>
+</div></div></section>'''
+
+# ---------------------------------------------------------------- DEMO (step 1: details)
+def demo(lang):
+    g = G(); en = lang == "en"
+    L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", phone="Mobile (for WhatsApp, optional)",
+              send="Continue to choose a time", note='We use these details only to arrange your demo. See our <a href="/en/privacy/">privacy notice</a>.',
+              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees: ", "Mobile: ", "Interest: ", "From page: "],
+              interest=dict(core="Core package", professional="Professional package", enterprise="Enterprise package", proposal="A proposal for our size", security="Security and hosting", eos="End of service")) if en else
+         dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", phone="الجوال (للتواصل عبر واتساب، اختياري)",
+              send="تابع لاختيار الوقت", note='نستخدم هذه البيانات فقط لترتيب العرض. اطلع على <a href="/ar/privacy/">إشعار الخصوصية</a>.',
+              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "عدد الموظفين: ", "الجوال: ", "الاهتمام: ", "من صفحة: "],
+              interest=dict(core="الباقة الأساسية", professional="الباقة الاحترافية", enterprise="باقة المؤسسات", proposal="عرض يناسب حجمنا", security="الأمان والاستضافة", eos="نهاية الخدمة")))
+    expect = (["A short call about your structure, policies and priorities","A walkthrough of the screens that matter to you, in Arabic or English","The package that fits your size, and a written proposal after the call"] if en else
+              ["مكالمة قصيرة عن هيكلكم وسياساتكم وأولوياتكم","جولة في الشاشات التي تهمكم، بالعربية أو الإنجليزية","الباقة المناسبة لحجمكم، وعرض مكتوب بعد المكالمة"])
+    return f'''<section class="navy" style="padding-bottom:56px"><div class="w"><div class="eyebrow">{"Request a demo · step 1 of 2" if en else "طلب عرض تجريبي · الخطوة 1 من 2"}</div>
+<h1 style="margin-top:12px;max-width:900px">{"See Syncstead with your own structure." if en else "شاهد سينكستيد بهيكل منشأتك."}</h1>
+<p class="lead">{"Tell us a little about your company, then choose a time that suits you." if en else "أخبرنا قليلًا عن منشأتك، ثم اختر الوقت المناسب لك."}</p></div></section>
+<section><div class="w"><div class="grid g2" style="grid-template-columns:1fr 1.25fr;gap:48px;align-items:start">
+<div><div class="eyebrow">{"What to expect" if en else "ماذا تتوقع"}</div><h2>{"20 minutes, no commitment." if en else "20 دقيقة، دون التزام."}</h2>{ticks(expect)}
+<p class="assure" style="margin-top:24px">{G().T[lang]["assure"]}</p>
+<p style="margin-top:24px;font-size:15px">{"Prefer WhatsApp?" if en else "تفضّل واتساب؟"} <a href="{g.wa_link(lang, "demo")}" target="_blank" rel="noopener">{"Message us" if en else "راسلنا"}</a></p></div>
+<div class="card"><form id="demo" novalidate>
 <div class="two"><label>{L["name"]}<input name="name" autocomplete="name" required></label><label>{L["email"]}<input name="email" type="email" autocomplete="email" required></label></div>
-<div class="two"><label>{L["company"]}<input name="company" autocomplete="organization" required></label><label>{L["size"]}<select name="size" required><option value="">{L["choose"]}</option><option>200–499</option><option>500–999</option><option>1,000–2,499</option><option>2,500+</option></select></label></div>
-<label>{L["phone"]}<input name="phone" type="tel" autocomplete="tel" inputmode="tel"></label>
-<button class="btn" type="submit">{L["send"]}</button>
+<div class="two"><label>{L["company"]}<input name="company" autocomplete="organization" required></label><label>{L["size"]}<select name="size" required><option value="">{L["choose"]}</option><option>{"Under 200" if en else "أقل من 200"}</option><option>200–499</option><option>500–999</option><option>1,000–2,499</option><option>2,500–4,999</option><option>5,000+</option></select></label></div>
+<label>{L["phone"]}<input name="phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr"></label>
+<label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+<button class="btn" type="submit" style="width:100%">{L["send"]} →</button>
+<p class="err" id="err" hidden>{L["err"]}</p>
 <p style="font-size:13px;margin-top:12px">{L["note"]}</p>
-<div class="ok" id="ok" hidden>{L["ok"]}</div>
 </form></div>
 </div></div></section>
 <script>
-document.getElementById('demo').addEventListener('submit',function(e){{
-e.preventDefault();var f=e.target;if(!f.checkValidity()){{f.reportValidity();return;}}
-var d=new FormData(f),L={js_lines};
-var body=L[0]+d.get('name')+'\\n'+L[1]+d.get('email')+'\\n'+L[2]+d.get('company')+'\\n'+L[3]+d.get('size')+'\\n'+L[4]+(d.get('phone')||'-');
-location.href='mailto:info@syncstead.com.sa?subject='+encodeURIComponent('{L["subj"]}'+d.get('company'))+'&body='+encodeURIComponent(body);
-document.getElementById('ok').hidden=false;}});
+(function(){{
+var FORM_URL={json.dumps(g.FORM_URL)},lang={json.dumps(lang)},L={json.dumps(L["lines"], ensure_ascii=False)},I={json.dumps(L["interest"], ensure_ascii=False)};
+var q=new URLSearchParams(location.search),f=document.getElementById('demo'),t0=Date.now();
+function ss(k){{try{{return sessionStorage.getItem(k)||''}}catch(e){{return ''}}}}
+f.addEventListener('submit',function(e){{
+e.preventDefault();var err=document.getElementById('err');
+f.classList.add('tried');if(!f.checkValidity()){{err.hidden=false;f.reportValidity();return;}}err.hidden=true;
+if(f.website.value||Date.now()-t0<2500){{location.href='next/';return;}}
+var d={{name:f.name.value.trim(),email:f.email.value.trim(),company:f.company.value.trim(),size:f.size.value,phone:f.phone.value.trim(),
+lang:lang,from:q.get('from')||'',interest:I[q.get('interest')]||'',utm_source:ss('utm_source'),utm_medium:ss('utm_medium'),utm_campaign:ss('utm_campaign'),referrer:ss('first_ref')}};
+try{{sessionStorage.setItem('demo_name',d.name.split(' ')[0]);sessionStorage.setItem('demo_company',d.company)}}catch(x){{}}
+var btn=f.querySelector('button');btn.disabled=true;
+function mail(){{var b=L[0]+d.name+'\\n'+L[1]+d.email+'\\n'+L[2]+d.company+'\\n'+L[3]+d.size+'\\n'+L[4]+(d.phone||'-')+'\\n'+L[5]+(d.interest||'-')+'\\n'+L[6]+(d.from||'-');
+location.href='mailto:info@syncstead.com.sa?subject='+encodeURIComponent({json.dumps(L["subj"], ensure_ascii=False)}+d.company)+'&body='+encodeURIComponent(b);}}
+function next(){{location.href='next/'+(FORM_URL?'':'?mail=1');}}
+if(!FORM_URL){{mail();setTimeout(next,600);return;}}
+fetch(FORM_URL,{{method:'POST',mode:'no-cors',body:new URLSearchParams(d)}}).then(next,function(){{mail();setTimeout(next,600);}});
+}});
+}})();
 </script>'''
+
+# ---------------------------------------------------------------- DEMO (step 2: choose a time)
+def demo_next(lang):
+    g = G(); en = lang == "en"
+    embed = BOOK.replace("/u/0/appointments", "/appointments") + "?gv=true"
+    return f'''<section class="navy" style="padding-bottom:48px"><div class="w"><div class="eyebrow">{"Request a demo · step 2 of 2" if en else "طلب عرض تجريبي · الخطوة 2 من 2"}</div>
+<h1 style="margin-top:12px;max-width:900px"><span id="hi">{"Thank you." if en else "شكرًا لك."}</span> {"Now choose a time." if en else "اختر الآن الوقت المناسب."}</h1>
+<p class="lead">{"We have your details and will reply within one working day. To save time, pick a slot for your 20-minute call below." if en else "وصلتنا بياناتك وسنرد خلال يوم عمل واحد. ولتوفير الوقت، اختر موعد مكالمتك ذات العشرين دقيقة أدناه."}</p>
+<p class="lead" id="mailnote" hidden style="font-size:15px">{"Your email app has opened with your details: please press send so we receive them." if en else "فُتح تطبيق البريد لديك وبياناتك معبأة: يرجى الضغط على إرسال لتصلنا."}</p></div></section>
+<section><div class="w">
+<div class="card" style="padding:0;overflow:hidden"><iframe src="{embed}" title="{"Choose a time" if en else "اختر الوقت"}" style="border:0;width:100%;height:760px;display:block;background:#fff" loading="lazy"></iframe></div>
+<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;align-items:center">
+<a class="btn line" href="{BOOK}" target="_blank" rel="noopener">{"Open the calendar in a new tab" if en else "افتح التقويم في نافذة جديدة"}</a>
+<a class="btn line" href="{g.wa_link(lang, "demo")}" target="_blank" rel="noopener">{"Or arrange it on WhatsApp" if en else "أو رتّب الموعد عبر واتساب"}</a>
+<a href="/{lang}/platform/" style="margin-inline-start:auto">{"Meanwhile, explore the platform" if en else "في الأثناء، تعرّف على المنصة"} →</a></div>
+</div></section>
+<script>(function(){{try{{var n=sessionStorage.getItem('demo_name');if(n)document.getElementById('hi').textContent={json.dumps("Thank you, " if en else "شكرًا لك يا ")}+n+'.';}}catch(e){{}}
+if(location.search.indexOf('mail=1')>-1)document.getElementById('mailnote').hidden=false;}})();</script>'''
 
 import json  # noqa: E402
 
@@ -384,18 +428,20 @@ M = {
                "الأمان والثقة | سينكستيد", "ضوابط الأمان، وحماية البيانات وفق نظام حماية البيانات الشخصية، وخيارات الاستضافة."),
  "about": meta("About | Syncstead", "Syncstead is a Saudi company headquartered in Riyadh, built by HR and governance practitioners.",
                "من نحن | سينكستيد", "سينكستيد شركة سعودية مقرها الرياض، صممها مختصون في الموارد البشرية والحوكمة."),
+ "demo": meta("Request a demo | Syncstead", "Tell us about your company and choose a time for a 20-minute Syncstead demo.", "اطلب عرضًا تجريبيًا | سينكستيد", "أخبرنا عن منشأتك واختر وقت عرض سينكستيد في 20 دقيقة."),
+ "demo/next": meta("Choose a time | Syncstead", "Choose a time for your Syncstead demo.", "اختر الوقت | سينكستيد", "اختر وقت عرض سينكستيد."),
  "resources": meta("Resources | Syncstead", "Free end-of-service calculator, company profile downloads and answers to common questions.",
                    "الموارد | سينكستيد", "حاسبة مكافأة نهاية الخدمة المجانية، وتنزيل الملف التعريفي، وإجابات الأسئلة الشائعة."),
  "contact": meta("Contact | Syncstead", "Book a demo, message us on WhatsApp or email info@syncstead.com.sa.",
                  "تواصل معنا | سينكستيد", "احجز عرضًا، أو راسلنا على واتساب، أو عبر البريد info@syncstead.com.sa."),
 }
-BODY = {"home": home, "platform": platform, "packages": packages, "why-syncstead": why, "trust": trust, "about": about, "resources": resources, "contact": contact}
+BODY = {"demo": demo, "demo/next": demo_next, "home": home, "platform": platform, "packages": packages, "why-syncstead": why, "trust": trust, "about": about, "resources": resources, "contact": contact}
 
 CONTENT = {}
 for lang in ("en", "ar"):
     CONTENT[lang] = {}
     for k, fn in BODY.items():
         t, d = M[k][lang]
-        CONTENT[lang][k] = {"title": t, "desc": d, "body": fn, "cta": k != "contact"}
+        CONTENT[lang][k] = {"title": t, "desc": d, "body": fn, "cta": k not in ("contact", "demo", "demo/next")}
         if k in ("resources",):
             CONTENT[lang][k]["schema"] = faq_schema(FAQ[lang])
