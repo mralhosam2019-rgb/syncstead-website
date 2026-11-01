@@ -1,8 +1,7 @@
 /* Syncstead website v2: one stylesheet for every page, Arabic (RTL) and English. */
 :root{--bg:#FFFFFF;--soft:#F5F8FB;--band:#EEF3F8;--fg:#0F172A;--muted:#475569;--line:#E2E8F0;--navy:#1B2A4A;--deep:#0F172A;--mint:#14B8A6;--mint-t:#0D9488;--mint-l:#CCFBF1;--onnavy:#CBD5E1;--card:#FFFFFF;
---font:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif;color-scheme:light}
+--font:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif;color-scheme:light only}
 html[lang=ar]{--font:"IBM Plex Sans Arabic","IBM Plex Sans",Tahoma,sans-serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1220;--soft:#0F1829;--band:#131C2E;--fg:#E6ECF5;--muted:#9FB0C7;--line:#243049;--card:#131C2E;--mint-t:#2DD4BF;--mint-l:#134E4A;color-scheme:dark}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--font);background:var(--bg);color:var(--fg);font-size:16px;line-height:1.65;overflow-x:hidden}
@@ -95,7 +94,6 @@ p{color:var(--muted)}
 /* chips + caps */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{background:var(--mint-l);color:#115E59;border-radius:99px;padding:6px 14px;font-size:14px;font-weight:500}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip{color:#99F6E4}}
 .caps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
 .cap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;font-weight:600;font-size:15px;display:flex;gap:10px;align-items:flex-start;color:var(--fg)}
 .cap:hover{text-decoration:none;border-color:var(--mint)}
@@ -106,7 +104,6 @@ p{color:var(--muted)}
 .pk.hi{border:2px solid var(--mint);box-shadow:0 18px 40px rgba(20,184,166,.14)}
 .pk .tag{position:absolute;top:-13px;inset-inline-start:24px;background:var(--mint);color:#06302B;font-size:12px;font-weight:700;padding:3px 12px;border-radius:99px}
 .pk .size{font-weight:600;color:var(--navy);background:var(--band);border-radius:10px;padding:8px 12px;font-size:15px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pk .size{color:var(--fg)}}
 .pk .plus{font-weight:600;font-size:14px;margin-top:6px}
 .pk .sup{margin-top:auto;padding-top:14px;border-top:1px dashed var(--line);font-size:14px;color:var(--muted)}
 .pk .btn{margin-top:14px}
@@ -164,12 +161,8 @@ form .btn{margin-top:18px}
 .downloads a:hover{border-color:var(--mint);text-decoration:none}
 .downloads small{display:block;color:var(--muted);font-weight:400}
 /* footer */
-footer{background:var(--deep);color:var(--onnavy);padding:56px 0 28px;margin-top:0}
-footer .cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:28px}
+footer{background:var(--deep);color:var(--onnavy);padding:56px 0 28px}
 footer h4{color:#fff;font-size:14px;margin-bottom:12px}
-footer a{display:block;color:var(--onnavy);font-size:14px;padding:4px 0}
-footer .legal{border-top:1px solid rgba(203,213,225,.15);margin-top:36px;padding-top:20px;font-size:13px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
-@media (max-width:760px){footer .cols{grid-template-columns:1fr 1fr}}
 .wa-float{position:fixed;bottom:18px;inset-inline-end:18px;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:40}
 .wa-float svg{width:30px;height:30px}
 .skip{position:absolute;top:0;inset-inline-start:0;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.skip:focus{width:auto;height:auto;clip-path:none;z-index:99;background:#fff;padding:8px;top:12px;inset-inline-start:12px}
@@ -199,7 +192,19 @@ form.tried input:invalid,form.tried select:invalid{border-color:#B42318}
 .seccard svg{width:24px;height:24px;color:var(--mint);flex:none}
 .seccard b{display:block}
 .seccard small{color:var(--onnavy);font-size:13px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st{color:#99F6E4}:root:not([data-theme="light"]) .st.pl{background:#78350F;color:#FDE68A}}
-/* footer: comfortable tap targets on phones (44px), clear of the WhatsApp button */
-footer a{padding:6px 0}
-@media (max-width:760px){footer a{display:flex;align-items:center;min-height:44px;padding:4px 0;font-size:15px}footer .logo{min-height:44px}footer{padding-bottom:96px}}
+/* footer */
+.ftop{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-bottom:32px;border-bottom:1px solid rgba(203,213,225,.15)}
+.ftop p{margin-top:12px;font-size:14px;color:var(--onnavy);max-width:380px}
+footer .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding-top:32px}
+footer h4{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+html[lang=ar] footer h4{letter-spacing:0;font-size:14px}
+footer .cols a,footer .floc{display:flex;align-items:center;min-height:36px;color:var(--onnavy);font-size:14px}
+footer .cols a:hover{color:#fff;text-decoration:none}
+footer .floc{color:#94A3B8}
+footer .legal{border-top:1px solid rgba(203,213,225,.15);margin-top:28px;padding-top:20px;font-size:13px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center}
+footer .llinks{display:flex;gap:20px}
+footer .llinks a{color:var(--onnavy);min-height:40px;display:inline-flex;align-items:center}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr 1fr;gap:24px 16px}footer .cols a,footer .floc{min-height:44px;font-size:15px}footer{padding-bottom:96px}.ftop .btn{width:100%}}
+.ctaband .assure{color:var(--onnavy)!important;opacity:.85}
+footer .cols bdi{margin-inline-start:4px;white-space:nowrap}
+@media (max-width:760px){footer .cols a[href*="wa.me"]{flex-wrap:wrap}}

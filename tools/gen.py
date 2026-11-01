@@ -14,7 +14,7 @@ WA = "https://wa.me/966553179126"
 FORM_URL = ""
 # CF_TOKEN: the Cloudflare Web Analytics site token. Empty = no analytics script.
 CF_TOKEN = ""
-V = "8"
+V = "9"
 
 ICONS = {
   "law": '<path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7zM8 21h8"/>',
@@ -50,17 +50,17 @@ NAV = {
   "ar": [("platform", "المنصة"), ("packages", "الباقات"), ("why-syncstead", "لماذا سينكستيد"), ("trust", "الأمان والثقة"), ("about", "من نحن"), ("resources", "الموارد"), ("contact", "تواصل معنا")],
 }
 T = {
-  "en": dict(book="Request a demo", book20="Request a demo", assure="20 minutes · no commitment · a Saudi company · reply within one working day", wa="WhatsApp us", menu="Menu", other="عربي", otherlang="ar", otherlabel="التبديل إلى العربية",
+  "en": dict(book="Request a demo", book20="Request a demo", assure="No commitment · Reply within one working day", wa="WhatsApp us", sales="Contact sales", menu="Menu", other="عربي", otherlang="ar", otherlabel="التبديل إلى العربية",
              tagline="Saudi human capital management platform: HR, payroll and talent in one bilingual system.",
              legal="Syncstead Company (SJSC) · CR 7055468719 · Riyadh, Saudi Arabia · © 2026", company="Company", product="Product", help="Get in touch",
              calc="End-of-service calculator", privacy="Privacy", profile="Company profile (PDF)", home="Home",
-             cta_t="See Syncstead with your own structure.", cta_p="A 20-minute call, then a demo set up around how your organization works. A tailored proposal follows the first meeting.",
+             cta_t="See Syncstead with your own structure.", cta_p="A demo built around your structure, and a proposal tailored to your organization.",
              skip="Skip to content", img="en"),
-  "ar": dict(book="اطلب عرضًا", book20="اطلب عرضًا تجريبيًا", assure="20 دقيقة · دون التزام · شركة سعودية · نرد خلال يوم عمل واحد", wa="راسلنا على واتساب", menu="القائمة", other="English", otherlang="en", otherlabel="Switch to English",
+  "ar": dict(book="اطلب عرضًا", book20="اطلب عرضًا تجريبيًا", assure="دون التزام · نرد خلال يوم عمل واحد", wa="راسلنا على واتساب", sales="تواصل مع المبيعات", menu="القائمة", other="English", otherlang="en", otherlabel="Switch to English",
              tagline="منصة سعودية لإدارة رأس المال البشري: الموارد البشرية والرواتب والمواهب في نظام واحد ثنائي اللغة.",
              legal="شركة سينكستيد (شركة مساهمة مبسطة) · السجل التجاري 7055468719 · الرياض، المملكة العربية السعودية · © 2026", company="الشركة", product="المنتج", help="تواصل معنا",
              calc="حاسبة مكافأة نهاية الخدمة", privacy="الخصوصية", profile="الملف التعريفي (PDF)", home="الرئيسية",
-             cta_t="شاهد سينكستيد بهيكل منشأتك.", cta_p="مكالمة قصيرة مدتها 20 دقيقة، ثم عرض مُعدّ حول طريقة عمل منشأتك. يصلكم عرض مخصص بعد اللقاء الأول.",
+             cta_t="شاهد سينكستيد بهيكل منشأتك.", cta_p="عرض مُعدّ حول هيكل منشأتكم، وعرض سعر مصمم لاحتياجاتكم.",
              skip="انتقل إلى المحتوى", img="ar"),
 }
 
@@ -80,14 +80,18 @@ def header(lang, slug):
 def footer(lang, slug=""):
     t = T[lang]; n = dict(NAV[lang]); wa = wa_link(lang, slug)
     pdf = f"/assets/docs/Syncstead-Company-Profile-{'AR' if lang == 'ar' else 'EN'}.pdf"
+    other = "ar" if lang == "en" else "en"
+    L = {"en": dict(res="Resources", faq="FAQ", contact="Contact", loc="Riyadh, Saudi Arabia", cr="CR 7055468719", lang="العربية", wa="WhatsApp"),
+         "ar": dict(res="الموارد", faq="الأسئلة الشائعة", contact="تواصل معنا", loc="الرياض، المملكة العربية السعودية", cr="السجل التجاري 7055468719", lang="English", wa="واتساب")}[lang]
     return f'''<footer><div class="w">
+<div class="ftop"><div><a class="logo" href="{url(lang, "")}">{MARK}SYNCSTEAD</a><p>{t["tagline"]}</p></div><a class="btn" href="{url(lang, "demo")}?from=footer">{t["book"]}</a></div>
 <div class="cols">
-<div><a class="logo" href="{url(lang, "")}">{MARK}SYNCSTEAD</a><p style="margin-top:14px;font-size:14px;color:var(--onnavy);max-width:320px">{t["tagline"]}</p></div>
-<div><h4>{t["product"]}</h4><a href="{url(lang, "platform")}">{n["platform"]}</a><a href="{url(lang, "packages")}">{n["packages"]}</a><a href="{url(lang, "why-syncstead")}">{n["why-syncstead"]}</a><a href="{url(lang, "trust")}">{n["trust"]}</a></div>
-<div><h4>{t["company"]}</h4><a href="{url(lang, "about")}">{n["about"]}</a><a href="{url(lang, "resources")}">{n["resources"]}</a><a href="{url(lang, "end-of-service-calculator")}">{t["calc"]}</a><a href="{pdf}">{t["profile"]}</a></div>
-<div><h4>{t["help"]}</h4><a href="{url(lang, "demo")}">{t["book"]}</a><a href="mailto:info@syncstead.com.sa">info@syncstead.com.sa</a><a href="{wa}" target="_blank" rel="noopener">WhatsApp</a><a href="{url(lang, "privacy")}">{t["privacy"]}</a></div>
+<nav aria-label="{t["product"]}"><h4>{t["product"]}</h4><a href="{url(lang, "platform")}">{n["platform"]}</a><a href="{url(lang, "packages")}">{n["packages"]}</a><a href="{url(lang, "why-syncstead")}">{n["why-syncstead"]}</a><a href="{url(lang, "trust")}">{n["trust"]}</a></nav>
+<nav aria-label="{t["company"]}"><h4>{t["company"]}</h4><a href="{url(lang, "about")}">{n["about"]}</a><a href="{url(lang, "contact")}">{n["contact"]}</a></nav>
+<nav aria-label="{L["res"]}"><h4>{L["res"]}</h4><a href="{url(lang, "end-of-service-calculator")}">{t["calc"]}</a><a href="{pdf}">{t["profile"]}</a><a href="{url(lang, "resources")}#faq">{L["faq"]}</a></nav>
+<div><h4>{L["contact"]}</h4><a href="mailto:info@syncstead.com.sa">info@syncstead.com.sa</a><a href="{wa}" target="_blank" rel="noopener">{L["wa"]}&nbsp;<bdi dir="ltr">+966 55 317 9126</bdi></a><span class="floc">{L["loc"]}</span></div>
 </div>
-<div class="legal"><span>{t["legal"]}</span><span>syncstead.com.sa</span></div>
+<div class="legal"><span>{t["legal"]}</span><span class="llinks"><a href="{url(lang, "privacy")}">{t["privacy"]}</a><a href="{url(other, slug)}" hreflang="{other}" lang="{other}">{L["lang"]}</a></span></div>
 </div></footer>
 <a class="wa-float" href="{wa}" target="_blank" rel="noopener" aria-label="{t["wa"]}">{WA_ICON}</a>
 <script src="/assets/role.js?v={V}" defer></script>
@@ -157,13 +161,13 @@ def wa_link(lang, slug=""):
     return f"{WA}?text={quote(msg)}"
 
 CTA = {
-  "en": {"": ("See Syncstead with your own structure.", "Request a demo"), "platform": ("See it set up around your organization.", "See it with your own structure"),
-         "packages": ("Not sure which package fits?", "Get a proposal for your size"), "why-syncstead": ("Compare us on your own terms.", "Request a demo"),
-         "trust": ("Have your IT team's questions answered.", "Request our security overview"), "about": ("Talk to the founder directly.", "Request a demo"),
+  "en": {"": ("See Syncstead in action.", "Request a demo"), "platform": ("See it set up around your organization.", "See it with your own structure"),
+         "packages": ("Not sure which package fits?", "Get a proposal for your size"), "why-syncstead": ("See Syncstead in action.", "Request a demo"),
+         "trust": ("Have your IT team's questions answered.", "Request our security overview"), "about": ("See Syncstead in action.", "Request a demo"),
          "resources": ("Calculate end of service for every employee, automatically.", "See it in Syncstead"), "contact": None},
   "ar": {"": ("شاهد سينكستيد بهيكل منشأتك.", "اطلب عرضًا تجريبيًا"), "platform": ("شاهده مُعدًّا حول منشأتك.", "شاهده بهيكل منشأتك"),
          "packages": ("لست متأكدًا من الباقة المناسبة؟", "احصل على عرض يناسب حجمكم"), "why-syncstead": ("قارن بنفسك وبمعاييرك.", "اطلب عرضًا تجريبيًا"),
-         "trust": ("إجابات لأسئلة فريق تقنية المعلومات لديكم.", "اطلب ملخص الأمان"), "about": ("تحدث مع المؤسس مباشرة.", "اطلب عرضًا تجريبيًا"),
+         "trust": ("إجابات لأسئلة فريق تقنية المعلومات لديكم.", "اطلب ملخص الأمان"), "about": ("شاهد سينكستيد عمليًا.", "اطلب عرضًا تجريبيًا"),
          "resources": ("احسب نهاية الخدمة لكل موظف تلقائيًا.", "شاهدها في سينكستيد"), "contact": None},
 }
 INTEREST = {"packages": "proposal", "trust": "security", "resources": "eos"}
@@ -174,7 +178,7 @@ def cta(lang, slug=""):
     q = f"?from={slug or 'home'}" + (f"&interest={INTEREST[slug]}" if slug in INTEREST else "")
     return f'''<section class="tight"><div class="w"><div class="ctaband">
 <div><h2 style="color:#fff">{c[0]}</h2><p>{t["cta_p"]}</p></div>
-<div class="acts"><a class="btn" href="{url(lang, "demo")}{q}">{c[1]}</a><a class="btn ghost" href="{wa_link(lang, slug)}" target="_blank" rel="noopener">{t["wa"]}</a><p class="assure">{t["assure"]}</p></div>
+<div class="acts"><a class="btn" href="{url(lang, "demo")}{q}">{c[1]}</a><a class="btn ghost" href="{wa_link(lang, slug)}" target="_blank" rel="noopener">{t["sales"]}</a><p class="assure">{t["assure"]}</p></div>
 </div></div></section>'''
 
 from content import CONTENT  # noqa: E402  (page bodies per language)
