@@ -37,22 +37,27 @@ const res = [];
         const broken = await p.evaluate(() => [...document.images].filter((i) => i.complete && i.naturalWidth === 0 && i.loading !== 'lazy').map((i) => i.src));
         if (broken.length) issues.push(`/${lang}/${pg} broken images: ${broken.join(', ')}`);
       }
+      const step = async (label, fn) => { try { await fn(); } catch (e) { issues.push(`${lang}: ${label} failed: ${String(e.message || e).split('\n')[0].slice(0, 160)}`); } };
+      p.setDefaultTimeout(10000);
       // Home: role tabs
+      await step('role tabs', async () => {
       await p.goto(`${B}/${lang}/`);
       await p.click('#t-fin');
       if (await p.isHidden('#p-fin')) issues.push(`${lang}: Finance tab did not open`);
       await p.reload();
       if (await p.isHidden('#p-fin')) issues.push(`${lang}: role not remembered`);
+      });
       // Phone menu
-      if (phone) {
+      if (phone) await step('phone menu', async () => {
         await p.click('.menu-btn');
         if (!(await p.isVisible('nav.main a[href*="/trust/"]'))) issues.push(`${lang}: phone menu did not open`);
         else { await p.click('nav.main a[href*="/trust/"]'); await p.waitForURL('**/trust/'); }
-      }
+      });
       // Language switch
-      await p.goto(`${B}/${lang}/packages/`);
-      await p.click('a.lang'); await p.waitForURL(`**/${lang === 'en' ? 'ar' : 'en'}/packages/`).catch(() => issues.push(`${lang}: language switch failed`));
+      await step('language switch', async () => { await p.goto(`${B}/${lang}/packages/`);
+      await p.click('a.lang'); await p.waitForURL(`**/${lang === 'en' ? 'ar' : 'en'}/packages/`).catch(() => issues.push(`${lang}: language switch failed`)); });
       // Demo flow
+      await step('demo request', async () => {
       await p.goto(`${B}/${lang}/packages/`);
       await p.click('.pk[data-pk=enterprise] a.btn'); await p.waitForURL('**/demo/**');
       await p.click('#demo button[type=submit]');
@@ -64,17 +69,22 @@ const res = [];
       await p.waitForURL('**/demo/next/**', { timeout: 10000 }).catch(() => issues.push(`${lang}: demo did not reach step 2 (${p.url()})`));
       if (!(await p.$('iframe[src*="calendar.google.com"]'))) issues.push(`${lang}: no calendar on step 2`);
       if (!/Test/.test(await p.textContent('#hi').catch(() => ''))) issues.push(`${lang}: step 2 greeting missing`);
+      });
       // Calculator
+      await step('calculator', async () => {
       await p.goto(`${B}/${lang}/end-of-service-calculator/`);
       await p.fill('[name=wage]', '10000'); await p.fill('[name=start]', '2020-01-01'); await p.fill('[name=end]', '2026-01-01');
       await p.click('#eos button');
       const out = (await p.textContent('#out')) || '';
       if (!/35[,٬]000|٣٥٬?٠٠٠/.test(out)) issues.push(`${lang}: calculator shows "${out.trim()}"`);
+      });
       // Screenshots of home and demo
+      await step('screenshots', async () => {
       const slug = name.replace(/[^a-z0-9]+/gi, '-').toLowerCase();
       await p.goto(`${B}/${lang}/`); await p.waitForTimeout(300);
       await p.screenshot({ path: `shots/${slug}-${lang}-home.png` });
       await p.goto(`${B}/${lang}/demo/`); await p.screenshot({ path: `shots/${slug}-${lang}-demo.png`, fullPage: true });
+      });
       await c.close();
     }
     await b.close();
