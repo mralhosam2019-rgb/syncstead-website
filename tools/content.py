@@ -57,7 +57,7 @@ def pk_cards(lang, full=True):
     for p in TX[lang]["pk"]:
         tag = f'<span class="tag">{p["hi"]}</span>' if p.get("hi") else ""
         lst = ticks(p["items"]) if full else ""
-        out.append(f'<div class="pk{" hi" if p.get("hi") else ""}">{tag}<h3 style="font-size:24px">{p["key"]}</h3><p>{p["for_"]}</p><div class="size">{p["size"]}</div>'
+        out.append(f'<div class="pk{" hi" if p.get("hi") else ""}" data-pk="{p["id"]}">{tag}<h3 style="font-size:24px">{p["key"]}</h3><p>{p["for_"]}</p><div class="size">{p["size"]}</div>'
                    + (f'<div class="plus">{p["plus"]}</div>{lst}<div class="sup">{p["sup"]}</div>' if full else "")
                    + f'<a class="btn{"" if p.get("hi") else " line"}" href="/{lang}/demo/?from=packages&interest={p["id"]}">{TX[lang]["proposal"]}</a></div>')
     return '<div class="grid g3">' + "".join(out) + "</div>"
@@ -105,6 +105,16 @@ def home(lang):
 </div>
 <div class="devices">{g.laptop(lang, "desk-dashboard", "Syncstead dashboard" if en else "لوحة التحكم في سينكستيد")}{g.phone(lang, "phone-home")}</div>
 </div></section>
+
+<section class="fitbox"><div class="w"><div class="fit card">
+<div class="fit-head"><div><div class="eyebrow">{"Find your fit · 2 quick questions" if en else "اعرف ما يناسبك · سؤالان سريعان"}</div><h3 style="margin-top:6px">{"Tell us your size and priorities, and we'll tailor what you see." if en else "أخبرنا بحجم منشأتك وأولوياتك، وسنعرض لك ما يناسبك."}</h3></div></div>
+<form id="fit-form">
+<div class="q"><span>{"How many employees?" if en else "كم عدد الموظفين؟"}</span><div class="opts">{"".join(f'<label class="opt"><input type="radio" name="size" value="{v}"><span>{t}</span></label>' for v, t in (("s1","Under 300" if en else "أقل من 300"),("s2","300–1,499"),("s3","1,500–4,999"),("s4","5,000+")))}</div></div>
+<div class="q"><span>{"What matters most? (up to 3)" if en else "ما الأهم لكم؟ (حتى 3)"}</span><div class="opts">{"".join(f'<label class="opt"><input type="checkbox" name="pri" value="{v}"><span>{t}</span></label>' for v, t in ((("payroll","Payroll accuracy"),("saudization","Saudization"),("attendance","Attendance"),("talent","Talent"),("org","Org design"),("self","Self-service")) if en else (("payroll","دقة الرواتب"),("saudization","التوطين"),("attendance","الحضور"),("talent","المواهب"),("org","التصميم التنظيمي"),("self","الخدمة الذاتية"))))}</div></div>
+<div class="fit-act"><button class="btn" type="submit">{"Show my fit" if en else "اعرض ما يناسبني"}</button><span class="fit-err" hidden>{"Choose your company size first." if en else "اختر حجم المنشأة أولًا."}</span></div>
+</form>
+<p id="fit-result" class="fit-result" hidden></p>
+</div></div></section>
 
 <section><div class="w">
 <div class="head"><div class="eyebrow">{"What changes" if en else "ما الذي يتغير"}</div><h2>{"Control of your workforce, cost and compliance." if en else "سيطرة على القوى العاملة والتكلفة والامتثال."}</h2></div>
@@ -347,11 +357,11 @@ def demo(lang):
     g = G(); en = lang == "en"
     L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", phone="Mobile (for WhatsApp, optional)",
               send="Continue to choose a time", note='We use these details only to arrange your demo. See our <a href="/en/privacy/">privacy notice</a>.',
-              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees: ", "Mobile: ", "Interest: ", "From page: "],
+              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees: ", "Mobile: ", "Interest: ", "From page: ", "Fit: "],
               interest=dict(core="Core package", professional="Professional package", enterprise="Enterprise package", proposal="A proposal for our size", security="Security and hosting", eos="End of service")) if en else
          dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", phone="الجوال (للتواصل عبر واتساب، اختياري)",
               send="تابع لاختيار الوقت", note='نستخدم هذه البيانات فقط لترتيب العرض. اطلع على <a href="/ar/privacy/">إشعار الخصوصية</a>.',
-              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "عدد الموظفين: ", "الجوال: ", "الاهتمام: ", "من صفحة: "],
+              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "عدد الموظفين: ", "الجوال: ", "الاهتمام: ", "من صفحة: ", "الملاءمة: "],
               interest=dict(core="الباقة الأساسية", professional="الباقة الاحترافية", enterprise="باقة المؤسسات", proposal="عرض يناسب حجمنا", security="الأمان والاستضافة", eos="نهاية الخدمة")))
     expect = (["A short call about your structure, policies and priorities","A walkthrough of the screens that matter to you, in Arabic or English","The package that fits your size, and a written proposal after the call"] if en else
               ["مكالمة قصيرة عن هيكلكم وسياساتكم وأولوياتكم","جولة في الشاشات التي تهمكم، بالعربية أو الإنجليزية","الباقة المناسبة لحجمكم، وعرض مكتوب بعد المكالمة"])
@@ -382,10 +392,10 @@ e.preventDefault();var err=document.getElementById('err');
 f.classList.add('tried');if(!f.checkValidity()){{err.hidden=false;f.reportValidity();return;}}err.hidden=true;
 if(f.website.value||Date.now()-t0<2500){{location.href='next/';return;}}
 var d={{name:f.name.value.trim(),email:f.email.value.trim(),company:f.company.value.trim(),size:f.size.value,phone:f.phone.value.trim(),
-lang:lang,from:q.get('from')||'',interest:I[q.get('interest')]||'',utm_source:ss('utm_source'),utm_medium:ss('utm_medium'),utm_campaign:ss('utm_campaign'),referrer:ss('first_ref')}};
+lang:lang,from:q.get('from')||'',interest:I[q.get('interest')]||'',utm_source:ss('utm_source'),utm_medium:ss('utm_medium'),utm_campaign:ss('utm_campaign'),referrer:ss('first_ref'),priorities:(f.priorities?f.priorities.value:'')}};
 try{{sessionStorage.setItem('demo_name',d.name.split(' ')[0]);sessionStorage.setItem('demo_company',d.company)}}catch(x){{}}
 var btn=f.querySelector('button');btn.disabled=true;
-function mail(){{var b=L[0]+d.name+'\\n'+L[1]+d.email+'\\n'+L[2]+d.company+'\\n'+L[3]+d.size+'\\n'+L[4]+(d.phone||'-')+'\\n'+L[5]+(d.interest||'-')+'\\n'+L[6]+(d.from||'-');
+function mail(){{var b=L[0]+d.name+'\\n'+L[1]+d.email+'\\n'+L[2]+d.company+'\\n'+L[3]+d.size+'\\n'+L[4]+(d.phone||'-')+'\\n'+L[5]+(d.interest||'-')+'\\n'+L[6]+(d.from||'-')+'\\n'+L[7]+(d.priorities||'-');
 location.href='mailto:info@syncstead.com.sa?subject='+encodeURIComponent({json.dumps(L["subj"], ensure_ascii=False)}+d.company)+'&body='+encodeURIComponent(b);}}
 function next(){{location.href='next/'+(FORM_URL?'':'?mail=1');}}
 if(!FORM_URL){{mail();setTimeout(next,600);return;}}

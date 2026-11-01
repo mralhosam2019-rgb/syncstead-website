@@ -13,7 +13,7 @@
 const NOTIFY = 'alhosam@syncstead.com.sa';
 const SHEET_NAME = 'Syncstead demo requests';
 const COLUMNS = ['Received (Riyadh)', 'Name', 'Work email', 'Company', 'Employees', 'Mobile', 'Interest', 'From page', 'Language',
-  'Source (utm_source)', 'Medium (utm_medium)', 'Campaign (utm_campaign)', 'First referrer', 'Status'];
+  'Source (utm_source)', 'Medium (utm_medium)', 'Campaign (utm_campaign)', 'First referrer', 'Size and priorities (Find your fit)', 'Status'];
 
 function setup() {
   const ss = SpreadsheetApp.create(SHEET_NAME);
@@ -39,10 +39,10 @@ function doPost(e) {
     const when = Utilities.formatDate(new Date(), 'Asia/Riyadh', 'yyyy-MM-dd HH:mm');
     // A leading apostrophe stops a value being read as a formula.
     const safe = (v) => (/^[=+\-@]/.test(v) ? "'" + v : v);
-    const row = [when, p.name, p.email, p.company, p.size, p.phone, p.interest, p.from, p.lang, p.utm_source, p.utm_medium, p.utm_campaign, p.referrer, 'New']
+    const row = [when, p.name, p.email, p.company, p.size, p.phone, p.interest, p.from, p.lang, p.utm_source, p.utm_medium, p.utm_campaign, p.referrer, p.priorities, 'New']
       .map((v, i) => (i === 0 ? v : safe(clean(v, i === 12 ? 300 : 200))));
     sh.appendRow(row);
-    const body = COLUMNS.slice(1, 13).map((c, i) => c + ': ' + (row[i + 1] || '-')).join('\n') + '\n\nAll requests: ' + SpreadsheetApp.openById(id).getUrl();
+    const body = COLUMNS.slice(1, 14).map((c, i) => c + ': ' + (row[i + 1] || '-')).join('\n') + '\n\nAll requests: ' + SpreadsheetApp.openById(id).getUrl();
     MailApp.sendEmail({ to: NOTIFY, subject: 'New demo request: ' + clean(p.company) + ' (' + clean(p.size) + ')', body: body, replyTo: clean(p.email) });
   } finally {
     lock.releaseLock();
