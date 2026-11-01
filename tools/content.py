@@ -92,6 +92,58 @@ FAQ = {
  ("كيف نحصل على الأسعار؟", "نرسل عرضًا مكتوبًا واضحًا بعد اللقاء الأول، بحسب عدد موظفيكم والباقة المناسبة."),
 ]}
 
+
+ROLES = {
+"en": [
+ ("lead", "Leadership", "CEO and general managers", "Control of your workforce, cost and compliance.",
+  ["Headcount, cost and Saudization live, by department and month", "Every raise, hire or restructure shows its cost before approval", "Approval paths and an audit trail you set, across every company in the group"],
+  "See it with your own structure", "", ("shot", "desk-dashboard")),
+ ("hr", "HR", "HR directors and their teams", "Every HR process in one system, in Arabic and English.",
+  ["From hiring and onboarding to performance, rewards and end of service", "Approval paths with delegation and escalation, so nobody chases signatures", "Self-service on every phone, so HR stops answering the same questions"],
+  "Request a demo", "", ("shot", "desk-org")),
+ ("fin", "Finance", "CFOs and payroll teams", "Payroll you can reconcile to the riyal.",
+  ["GOSI, overtime, loans and end of service calculated by the law", "Two approvers and a variance check against last month before payment", "Bank, Mudad and finance journal files ready every month"],
+  "Request a demo", "", ("shot", "desk-payroll-run")),
+ ("it", "IT", "IT and information security", "Secure, separated and flexible to host.",
+  ["Single sign-on with Microsoft, Google or Okta, and 2-step sign-in", "Each company's data kept separate, with a full audit trail", "Our cloud, hosted in the Kingdom (planned), or on your own servers"],
+  "Request our security overview", "security", ("sec", None)),
+],
+"ar": [
+ ("lead", "القيادة", "الرؤساء التنفيذيون والمدراء العامون", "سيطرة على القوى العاملة والتكلفة والامتثال.",
+  ["العدد والتكلفة والتوطين مباشرة، حسب الإدارة والشهر", "كل زيادة أو تعيين أو إعادة هيكلة تظهر تكلفتها قبل الاعتماد", "مسارات اعتماد وسجل تدقيق تحددها أنت، لكل شركات المجموعة"],
+  "شاهده بهيكل منشأتك", "", ("shot", "desk-dashboard")),
+ ("hr", "الموارد البشرية", "مدراء الموارد البشرية وفرقهم", "كل إجراءات الموارد البشرية في نظام واحد، بالعربية والإنجليزية.",
+  ["من التوظيف والتهيئة إلى الأداء والمكافآت ونهاية الخدمة", "مسارات اعتماد مع الإنابة والتصعيد، فلا أحد يلاحق التواقيع", "خدمة ذاتية على كل جوال، فتتوقف الأسئلة المتكررة"],
+  "اطلب عرضًا تجريبيًا", "", ("shot", "desk-org")),
+ ("fin", "المالية", "المدراء الماليون وفرق الرواتب", "رواتب تُطابق حتى آخر ريال.",
+  ["التأمينات والعمل الإضافي والسلف ونهاية الخدمة وفق النظام", "معتمِدان ومقارنة الفروقات بالشهر السابق قبل الصرف", "ملفات البنك ومُدد وقيود المالية جاهزة كل شهر"],
+  "اطلب عرضًا تجريبيًا", "", ("shot", "desk-payroll-run")),
+ ("it", "تقنية المعلومات", "تقنية المعلومات وأمن المعلومات", "آمن، ومفصول، ومرن في الاستضافة.",
+  ["دخول موحد عبر مايكروسوفت أو جوجل أو Okta، وتحقق بخطوتين", "فصل بيانات كل منشأة، مع سجل تدقيق كامل", "سحابتنا، أو داخل المملكة (مخطط له)، أو على خوادمكم"],
+  "اطلب ملخص الأمان", "security", ("sec", None)),
+]}
+
+def roles(lang):
+    g = G(); en = lang == "en"
+    tabs, panels = [], []
+    sec = [("key", "Single sign-on" if en else "الدخول الموحد", "Microsoft · Google · Okta"), ("lock", "2-step sign-in" if en else "التحقق بخطوتين", "Required for HR and admins" if en else "إلزامي للموارد البشرية والمسؤولين"),
+           ("shield", "Data separation" if en else "فصل البيانات", "Per company" if en else "لكل منشأة"), ("file", "Audit trail" if en else "سجل التدقيق", "Every change and approval" if en else "كل تغيير واعتماد"),
+           ("server", "Hosting" if en else "الاستضافة", "Cloud · Kingdom (planned) · On-premise" if en else "سحابة · داخل المملكة (مخطط) · خوادمكم")]
+    for i, (k, name, who, h, pts, btn, interest, vis) in enumerate(ROLES[lang]):
+        tabs.append(f'<button role="tab" id="t-{k}" aria-controls="p-{k}" aria-selected="{"true" if i == 0 else "false"}" data-role="{k}"><b>{name}</b><span>{who}</span></button>')
+        visual = (f'<div class="shot">{g.img(lang, vis[1])}</div>' if vis[0] == "shot" else
+                  '<div class="seccard">' + "".join(f'<div>{g.ic(a)}<span><b>{b}</b><small>{c}</small></span></div>' for a, b, c in sec) + '</div>')
+        q = f"?from=home-{k}" + (f"&interest={interest}" if interest else "")
+        panels.append(f'<div class="rpanel" role="tabpanel" id="p-{k}" aria-labelledby="t-{k}"{"" if i == 0 else " hidden"}><div class="grid g2" style="grid-template-columns:1fr 1.15fr;gap:44px;align-items:center">'
+                      f'<div><h2>{h}</h2>{ticks(pts)}<div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="/{lang}/demo/{q}">{btn}</a>'
+                      f'<a class="btn line" href="/{lang}/{"trust" if k == "it" else "platform"}/">{"Learn more" if en else "اعرف المزيد"}</a></div></div><div>{visual}</div></div></div>')
+    return f'''<section class="roles"><div class="w">
+<div class="eyebrow">{"Syncstead for…" if en else "سينكستيد لـ…"}</div>
+<div class="rtabs" role="tablist" aria-label="{"Syncstead for your role" if en else "سينكستيد لدورك"}">{"".join(tabs)}</div>
+{"".join(panels)}
+</div></section>
+'''
+
 # ---------------------------------------------------------------- HOME
 def home(lang):
     g = G(); en = lang == "en"
@@ -106,23 +158,7 @@ def home(lang):
 <div class="devices">{g.laptop(lang, "desk-dashboard", "Syncstead dashboard" if en else "لوحة التحكم في سينكستيد")}{g.phone(lang, "phone-home")}</div>
 </div></section>
 
-<section class="fitbox"><div class="w"><div class="fit card">
-<div class="fit-head"><div><div class="eyebrow">{"Find your fit · 2 quick questions" if en else "اعرف ما يناسبك · سؤالان سريعان"}</div><h3 style="margin-top:6px">{"Tell us your size and priorities, and we'll tailor what you see." if en else "أخبرنا بحجم منشأتك وأولوياتك، وسنعرض لك ما يناسبك."}</h3></div></div>
-<form id="fit-form">
-<div class="q"><span>{"How many employees?" if en else "كم عدد الموظفين؟"}</span><div class="opts">{"".join(f'<label class="opt"><input type="radio" name="size" value="{v}"><span>{t}</span></label>' for v, t in (("s1","Under 300" if en else "أقل من 300"),("s2","300–1,499"),("s3","1,500–4,999"),("s4","5,000+")))}</div></div>
-<div class="q"><span>{"What matters most? (up to 3)" if en else "ما الأهم لكم؟ (حتى 3)"}</span><div class="opts">{"".join(f'<label class="opt"><input type="checkbox" name="pri" value="{v}"><span>{t}</span></label>' for v, t in ((("payroll","Payroll accuracy"),("saudization","Saudization"),("attendance","Attendance"),("talent","Talent"),("org","Org design"),("self","Self-service")) if en else (("payroll","دقة الرواتب"),("saudization","التوطين"),("attendance","الحضور"),("talent","المواهب"),("org","التصميم التنظيمي"),("self","الخدمة الذاتية"))))}</div></div>
-<div class="fit-act"><button class="btn" type="submit">{"Show my fit" if en else "اعرض ما يناسبني"}</button><span class="fit-err" hidden>{"Choose your company size first." if en else "اختر حجم المنشأة أولًا."}</span></div>
-</form>
-<p id="fit-result" class="fit-result" hidden></p>
-</div></div></section>
-
-<section><div class="w">
-<div class="head"><div class="eyebrow">{"What changes" if en else "ما الذي يتغير"}</div><h2>{"Control of your workforce, cost and compliance." if en else "سيطرة على القوى العاملة والتكلفة والامتثال."}</h2></div>
-<div class="grid g3">
-<div class="card"><div class="ico">{g.ic("layers")}</div><h3>{"One system of record" if en else "مصدر واحد لبيانات الموظفين"}</h3><p>{"Employees, payroll, attendance, talent and structure in one place, so every report agrees and nothing is typed twice." if en else "الموظفون والرواتب والحضور والمواهب والهيكل في مكان واحد، فتتطابق كل التقارير ولا يُدخل شيء مرتين."}</p></div>
-<div class="card"><div class="ico">{g.ic("chart")}</div><h3>{"Cost before every decision" if en else "التكلفة قبل كل قرار"}</h3><p>{"A raise, a hire or a restructure shows its cost and Saudization effect before anyone approves it." if en else "الزيادة أو التعيين أو إعادة الهيكلة تظهر تكلفتها وأثرها على التوطين قبل أن يعتمدها أحد."}</p></div>
-<div class="card"><div class="ico">{g.ic("law")}</div><h3>{"Saudi compliance by default" if en else "امتثال للأنظمة السعودية تلقائيًا"}</h3><p>{"Labour law, GOSI, end of service and Nitaqat are built in and kept current, without a customization project." if en else "نظام العمل والتأمينات ونهاية الخدمة ونطاقات مدمجة وتُحدَّث، دون مشروع تخصيص."}</p></div>
-</div></div></section>
+{roles(lang)}
 
 <section class="soft"><div class="w">
 <div class="head"><div class="eyebrow">{"The platform" if en else "المنصة"}</div><h2>{"Every people process, hire to retire." if en else "كل إجراءات الموارد البشرية، من التعيين حتى نهاية الخدمة."}</h2><p class="lead">{"Ten capability areas on one platform. Choose the package that fits your size today and grow without changing systems." if en else "عشرة مجالات على منصة واحدة. اختر الباقة المناسبة لحجمك اليوم، وانمُ دون تغيير النظام."}</p></div>
@@ -357,11 +393,11 @@ def demo(lang):
     g = G(); en = lang == "en"
     L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", phone="Mobile (for WhatsApp, optional)",
               send="Continue to choose a time", note='We use these details only to arrange your demo. See our <a href="/en/privacy/">privacy notice</a>.',
-              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees: ", "Mobile: ", "Interest: ", "From page: ", "Fit: "],
+              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees: ", "Mobile: ", "Interest: ", "From page: ", "Role: "],
               interest=dict(core="Core package", professional="Professional package", enterprise="Enterprise package", proposal="A proposal for our size", security="Security and hosting", eos="End of service")) if en else
          dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", phone="الجوال (للتواصل عبر واتساب، اختياري)",
               send="تابع لاختيار الوقت", note='نستخدم هذه البيانات فقط لترتيب العرض. اطلع على <a href="/ar/privacy/">إشعار الخصوصية</a>.',
-              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "عدد الموظفين: ", "الجوال: ", "الاهتمام: ", "من صفحة: ", "الملاءمة: "],
+              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "عدد الموظفين: ", "الجوال: ", "الاهتمام: ", "من صفحة: ", "الدور: "],
               interest=dict(core="الباقة الأساسية", professional="الباقة الاحترافية", enterprise="باقة المؤسسات", proposal="عرض يناسب حجمنا", security="الأمان والاستضافة", eos="نهاية الخدمة")))
     expect = (["A short call about your structure, policies and priorities","A walkthrough of the screens that matter to you, in Arabic or English","The package that fits your size, and a written proposal after the call"] if en else
               ["مكالمة قصيرة عن هيكلكم وسياساتكم وأولوياتكم","جولة في الشاشات التي تهمكم، بالعربية أو الإنجليزية","الباقة المناسبة لحجمكم، وعرض مكتوب بعد المكالمة"])
@@ -392,10 +428,10 @@ e.preventDefault();var err=document.getElementById('err');
 f.classList.add('tried');if(!f.checkValidity()){{err.hidden=false;f.reportValidity();return;}}err.hidden=true;
 if(f.website.value||Date.now()-t0<2500){{location.href='next/';return;}}
 var d={{name:f.name.value.trim(),email:f.email.value.trim(),company:f.company.value.trim(),size:f.size.value,phone:f.phone.value.trim(),
-lang:lang,from:q.get('from')||'',interest:I[q.get('interest')]||'',utm_source:ss('utm_source'),utm_medium:ss('utm_medium'),utm_campaign:ss('utm_campaign'),referrer:ss('first_ref'),priorities:(f.priorities?f.priorities.value:'')}};
+lang:lang,from:q.get('from')||'',interest:I[q.get('interest')]||'',utm_source:ss('utm_source'),utm_medium:ss('utm_medium'),utm_campaign:ss('utm_campaign'),referrer:ss('first_ref'),role:(f.role?f.role.value:'')}};
 try{{sessionStorage.setItem('demo_name',d.name.split(' ')[0]);sessionStorage.setItem('demo_company',d.company)}}catch(x){{}}
 var btn=f.querySelector('button');btn.disabled=true;
-function mail(){{var b=L[0]+d.name+'\\n'+L[1]+d.email+'\\n'+L[2]+d.company+'\\n'+L[3]+d.size+'\\n'+L[4]+(d.phone||'-')+'\\n'+L[5]+(d.interest||'-')+'\\n'+L[6]+(d.from||'-')+'\\n'+L[7]+(d.priorities||'-');
+function mail(){{var b=L[0]+d.name+'\\n'+L[1]+d.email+'\\n'+L[2]+d.company+'\\n'+L[3]+d.size+'\\n'+L[4]+(d.phone||'-')+'\\n'+L[5]+(d.interest||'-')+'\\n'+L[6]+(d.from||'-')+'\\n'+L[7]+(d.role||'-');
 location.href='mailto:info@syncstead.com.sa?subject='+encodeURIComponent({json.dumps(L["subj"], ensure_ascii=False)}+d.company)+'&body='+encodeURIComponent(b);}}
 function next(){{location.href='next/'+(FORM_URL?'':'?mail=1');}}
 if(!FORM_URL){{mail();setTimeout(next,600);return;}}

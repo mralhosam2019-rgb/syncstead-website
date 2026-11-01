@@ -14,7 +14,7 @@ WA = "https://wa.me/966553179126"
 FORM_URL = ""
 # CF_TOKEN: the Cloudflare Web Analytics site token. Empty = no analytics script.
 CF_TOKEN = ""
-V = "6"
+V = "7"
 
 ICONS = {
   "law": '<path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7zM8 21h8"/>',
@@ -90,7 +90,7 @@ def footer(lang, slug=""):
 <div class="legal"><span>{t["legal"]}</span><span>syncstead.com.sa</span></div>
 </div></footer>
 <a class="wa-float" href="{wa}" target="_blank" rel="noopener" aria-label="{t["wa"]}">{WA_ICON}</a>
-<script src="/assets/fit.js?v={V}" defer></script>
+<script src="/assets/role.js?v={V}" defer></script>
 <script>try{{var u=new URLSearchParams(location.search);['utm_source','utm_medium','utm_campaign'].forEach(function(k){{if(u.get(k))sessionStorage.setItem(k,u.get(k))}});if(!sessionStorage.getItem('first_ref'))sessionStorage.setItem('first_ref',document.referrer||'direct')}}catch(e){{}}</script>'''
 
 def head(lang, slug, title, desc, schema=None):
@@ -199,7 +199,7 @@ def build():
             s = re.sub(r'<main class="w">', '<main id="main" class="w">', s)
             s = re.sub(r'\n<script defer src="https://static\.cloudflareinsights\.com[^\n]*', '', s)
             if CF_TOKEN: s = s.replace('</head>', f'<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{{"token": "{CF_TOKEN}"}}\'></script>\n</head>', 1)
-            s = re.sub(r'<footer>.*?</footer>\s*(?:<a class="wa-float".*?</a>)?', footer(lang, slug), s, flags=re.S)
+            s = re.sub(r'<footer>.*?</footer>\s*(?:<a class="wa-float".*?</a>\s*)?(?:<script src="/assets/(?:fit|role)\.js[^>]*></script>\s*)?(?:<script>try\{var u=new URLSearchParams.*?</script>\s*)*', footer(lang, slug) + "\n", s, flags=re.S)
             open(path, "w").write(s); written.append(path)
     # Sitemap
     rows = []
