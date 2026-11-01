@@ -22,14 +22,17 @@ const res = [];
   fs.mkdirSync('shots', { recursive: true });
   for (const [name, engine, opts] of runs) {
     const issues = [];
-    const b = await pw[engine].launch();
+    try {
+    var b = await pw[engine].launch();
     const phone = (opts.viewport || {}).width < 800;
     for (const lang of ['en', 'ar']) {
       const c = await b.newContext({ ...opts, locale: lang === 'ar' ? 'ar-SA' : 'en-GB' });
-      const p = await c.newPage();
+      const p = await c.newPage(); p.setDefaultNavigationTimeout(20000);
       p.on('pageerror', (e) => issues.push(`script error on ${p.url().replace(B, '')}: ${e.message}`));
       for (const pg of pages) {
-        const r = await p.goto(`${B}/${lang}/${pg}`, { waitUntil: 'load' });
+        let r;
+        try { r = await p.goto(`${B}/${lang}/${pg}`, { waitUntil: 'domcontentloaded', timeout: 20000 }); await p.waitForLoadState('load', { timeout: 8000 }).catch(() => {}); }
+        catch (e) { issues.push(`/${lang}/${pg} did not open: ${String(e.message).split('\n')[0]}`); continue; }
         if (!r || r.status() !== 200) issues.push(`/${lang}/${pg} → ${r && r.status()}`);
         await p.evaluate(() => document.fonts && document.fonts.ready);
         const ov = await p.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
@@ -41,10 +44,10 @@ const res = [];
       p.setDefaultTimeout(10000);
       // Home: role tabs
       await step('role tabs', async () => {
-      await p.goto(`${B}/${lang}/`);
+      await p.goto(`${B}/${lang}/`, { waitUntil: 'domcontentloaded' });
       await p.click('#t-fin');
       if (await p.isHidden('#p-fin')) issues.push(`${lang}: Finance tab did not open`);
-      await p.reload();
+      await p.reload({ waitUntil: 'domcontentloaded' });
       if (await p.isHidden('#p-fin')) issues.push(`${lang}: role not remembered`);
       });
       // Phone menu
@@ -54,11 +57,11 @@ const res = [];
         else { await p.click('nav.main a[href*="/trust/"]'); await p.waitForURL('**/trust/'); }
       });
       // Language switch
-      await step('language switch', async () => { await p.goto(`${B}/${lang}/packages/`);
+      await step('language switch', async () => { await p.goto(`${B}/${lang}/packages/`, { waitUntil: 'domcontentloaded' });
       await p.click('a.lang'); await p.waitForURL(`**/${lang === 'en' ? 'ar' : 'en'}/packages/`).catch(() => issues.push(`${lang}: language switch failed`)); });
       // Demo flow
       await step('demo request', async () => {
-      await p.goto(`${B}/${lang}/packages/`);
+      await p.goto(`${B}/${lang}/packages/`, { waitUntil: 'domcontentloaded' });
       await p.click('.pk[data-pk=enterprise] a.btn'); await p.waitForURL('**/demo/**');
       await p.click('#demo button[type=submit]');
       if (await p.isHidden('#err')) issues.push(`${lang}: empty demo form not stopped`);
@@ -72,7 +75,7 @@ const res = [];
       });
       // Calculator
       await step('calculator', async () => {
-      await p.goto(`${B}/${lang}/end-of-service-calculator/`);
+      await p.goto(`${B}/${lang}/end-of-service-calculator/`, { waitUntil: 'domcontentloaded' });
       await p.fill('[name=wage]', '10000'); await p.fill('[name=start]', '2020-01-01'); await p.fill('[name=end]', '2026-01-01');
       await p.click('#eos button');
       const out = (await p.textContent('#out')) || '';
@@ -81,13 +84,14 @@ const res = [];
       // Screenshots of home and demo
       await step('screenshots', async () => {
       const slug = name.replace(/[^a-z0-9]+/gi, '-').toLowerCase();
-      await p.goto(`${B}/${lang}/`); await p.waitForTimeout(300);
+      await p.goto(`${B}/${lang}/`, { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(300);
       await p.screenshot({ path: `shots/${slug}-${lang}-home.png` });
-      await p.goto(`${B}/${lang}/demo/`); await p.screenshot({ path: `shots/${slug}-${lang}-demo.png`, fullPage: true });
+      await p.goto(`${B}/${lang}/demo/`, { waitUntil: 'domcontentloaded' }); await p.screenshot({ path: `shots/${slug}-${lang}-demo.png`, fullPage: true });
       });
       await c.close();
     }
     await b.close();
+    } catch (e) { issues.push('run stopped: ' + String(e.message || e).split('\n')[0]); }
     res.push([name, issues]);
     console.log(`${issues.length ? '✗' : '✓'} ${name}: ${issues.length ? issues.length + ' issue(s)' : 'all checks passed'}`);
     for (const i of issues) console.log('   - ' + i);
