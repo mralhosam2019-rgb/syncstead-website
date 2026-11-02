@@ -216,9 +216,12 @@ def build():
             if CF_TOKEN: s = s.replace('</head>', f'<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{{"token": "{CF_TOKEN}"}}\'></script>\n</head>', 1)
             s = re.sub(r'<footer>.*?</footer>\s*(?:<a class="wa-float".*?</a>\s*)?(?:<script src="/assets/(?:fit|role)\.js[^>]*></script>\s*)?(?:<script>try\{var u=new URLSearchParams.*?</script>\s*)*', footer(lang, slug) + "\n", s, flags=re.S)
             open(path, "w").write(s); written.append(path)
+    # Free calculators, built from the refreshed end-of-service page.
+    import calcs
+    written += calcs.build()
     # Sitemap
     rows = []
-    for slug in [x for x in PAGES if x != "demo/next"] + ["end-of-service-calculator", "privacy"]:
+    for slug in [x for x in PAGES if x != "demo/next"] + ["end-of-service-calculator", "privacy"] + list(calcs.PAGES):
         for lang in ("ar", "en"):
             rows.append(f'<url><loc>{SITE}{url(lang, slug)}</loc><xhtml:link rel="alternate" hreflang="ar" href="{SITE}{url("ar", slug)}"/><xhtml:link rel="alternate" hreflang="en" href="{SITE}{url("en", slug)}"/></url>')
     open("sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "\n".join(rows) + "\n</urlset>\n")

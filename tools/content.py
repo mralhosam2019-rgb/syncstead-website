@@ -367,7 +367,9 @@ def resources(lang):
 <h1 style="margin-top:12px;max-width:900px">{"Tools and answers for Saudi HR teams." if en else "أدوات وإجابات لفرق الموارد البشرية السعودية."}</h1></div></section>
 <section><div class="w"><div class="grid g2" style="gap:48px;align-items:start">
 <div><div class="eyebrow">{"Free tool" if en else "أداة مجانية"}</div><h2>{"End-of-service calculator" if en else "حاسبة مكافأة نهاية الخدمة"}</h2><p class="lead">{"Estimate an employee's end-of-service award under the Saudi Labour Law, for termination or resignation." if en else "احسب تقديريًا مكافأة نهاية الخدمة للموظف وفق نظام العمل السعودي، عند إنهاء العقد أو الاستقالة."}</p>
-<a class="btn" style="margin-top:20px" href="/{lang}/end-of-service-calculator/">{g.ic("calc")}{"Open the calculator" if en else "افتح الحاسبة"}</a></div>
+<a class="btn" style="margin-top:20px" href="/{lang}/end-of-service-calculator/">{g.ic("calc")}{"Open the calculator" if en else "افتح الحاسبة"}</a>
+<h3 style="margin-top:32px">{"More free calculators" if en else "حاسبات مجانية أخرى"}</h3>
+<ul style="margin-top:8px;line-height:2">{"".join(f'<li><a href="/{lang}/{s}/">{n}</a></li>' for s, n in ((("leave-balance-calculator","Annual leave balance and its value"),("overtime-calculator","Overtime pay"),("final-settlement-calculator","Final settlement when an employee leaves")) if en else (("leave-balance-calculator","رصيد الإجازة السنوية وقيمته"),("overtime-calculator","أجر العمل الإضافي"),("final-settlement-calculator","المخالصة النهائية عند انتهاء الخدمة"))))}</ul></div>
 <div class="downloads"><div class="eyebrow">{"Downloads" if en else "التنزيلات"}</div>
 <a href="/assets/docs/Syncstead-Company-Profile-EN.pdf">{g.ic("file")}<span>{"Company profile, English" if en else "الملف التعريفي، بالإنجليزية"}<small>PDF · 6 {"pages" if en else "صفحات"}</small></span></a>
 <a href="/assets/docs/Syncstead-Company-Profile-AR.pdf">{g.ic("file")}<span>{"Company profile, Arabic" if en else "الملف التعريفي، بالعربية"}<small>PDF · 6 {"pages" if en else "صفحات"}</small></span></a></div>
