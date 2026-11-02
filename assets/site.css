@@ -228,7 +228,7 @@ footer .cols bdi{margin-inline-start:4px;white-space:nowrap}
 .pkopt{position:relative;display:block;cursor:pointer;margin:0}
 .pkopt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
 .pkopt span{display:flex;flex-direction:column;gap:3px;height:100%;border:1.5px solid var(--line,#E2E8F0);border-radius:12px;padding:12px 14px;transition:border-color .15s,box-shadow .15s,background .15s}
-.pkopt b{font-size:16px;color:var(--fg,#0F172A)}
+.pkopt b{font-size:15px;line-height:1.3;color:var(--fg,#0F172A)}
 .pkopt small{font-size:13px;font-weight:600;color:#0D9488}
 .pkopt em{font-style:normal;font-size:13px;line-height:1.45;color:var(--muted,#64748B)}
 .pkopt:hover span{border-color:#94A3B8}
