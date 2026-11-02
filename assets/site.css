@@ -212,3 +212,8 @@ footer .cols bdi{margin-inline-start:4px;white-space:nowrap}
 @media (max-width:900px){.caps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:360px){.caps{grid-template-columns:1fr}.rtabs{grid-template-columns:1fr}}
 .cap{overflow-wrap:anywhere}
+
+/* Role tabs: all panels share one grid cell, so the section keeps the tallest panel's height and the page does not jump when a saved role is shown */
+.rpanels{display:grid}
+.rpanels>.rpanel{grid-area:1/1}
+.rpanels>.rpanel[hidden]{display:block;visibility:hidden}

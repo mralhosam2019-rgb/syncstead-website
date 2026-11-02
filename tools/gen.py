@@ -14,7 +14,7 @@ WA = "https://wa.me/966553179126"
 FORM_URL = "https://script.google.com/macros/s/AKfycbxvevqEtp9Don9kGoiWKYNd9PcPIhPz4KG1XtEGJsgYIE42oTY5LC7EFJrFqDO2s0nM/exec"
 # CF_TOKEN: the Cloudflare Web Analytics site token. Empty = no analytics script.
 CF_TOKEN = "81467c0bfc3a423aa6effe4c5c133c15"
-V = "10"
+V = "11"
 
 ICONS = {
   "law": '<path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7zM8 21h8"/>',
@@ -136,17 +136,28 @@ def head(lang, slug, title, desc, schema=None):
 </head>
 <body>'''
 
+def first_eager(body):
+    """The first screenshot on a page is usually its largest element: load it straight away, at high priority."""
+    return body.replace('loading="lazy" decoding="async" width="1600"', 'fetchpriority="high" decoding="async" width="1600"', 1)
+
 def page(lang, slug, title, desc, body, schema=None):
+    body = first_eager(body)
+    if slug == "platform":
+        # Visitors often land on a section of this page (platform#payroll etc.): load its screenshots straight away.
+        body = body.replace('loading="lazy" decoding="async" width="1600"', 'decoding="async" width="1600"')
     return head(lang, slug, title, desc, schema) + "\n" + header(lang, slug) + f'\n<main id="main">\n{body}\n</main>\n' + footer(lang, slug) + "\n</body>\n</html>\n"
 
 def img(lang, name, alt=""):
-    return f'<img src="/assets/img/v2/{name}-{lang}.jpg" alt="{alt}" loading="lazy" width="1600" height="1000">'
+    b = f"/assets/img/v2/{name}-{lang}"
+    return (f'<picture><source type="image/webp" srcset="{b}-800.webp 800w, {b}.webp 1600w" sizes="(max-width: 900px) 100vw, 800px">'
+            f'<img src="{b}.jpg" alt="{alt}" loading="lazy" decoding="async" width="1600" height="1000"></picture>')
 
 def laptop(lang, name, alt=""):
     return f'<div class="laptop"><div class="scr">{img(lang, name, alt)}</div><div class="base"></div></div>'
 
 def phone(lang, name, alt=""):
-    return f'<div class="phone"><img src="/assets/img/v2/{name}-{lang}.jpg" alt="{alt}" loading="lazy" width="390" height="844"></div>'
+    b = f"/assets/img/v2/{name}-{lang}"
+    return f'<div class="phone"><picture><source type="image/webp" srcset="{b}.webp"><img src="{b}.jpg" alt="{alt}" loading="lazy" decoding="async" width="390" height="844"></picture></div>'
 
 WA_TOPIC = {
   "en": {"": "Syncstead", "platform": "the Syncstead platform", "packages": "Syncstead packages and a proposal", "why-syncstead": "Syncstead", "trust": "Syncstead security and hosting",

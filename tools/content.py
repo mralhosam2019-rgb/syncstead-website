@@ -140,7 +140,7 @@ def roles(lang):
     return f'''<section class="roles"><div class="w">
 <div class="eyebrow">{"Syncstead for…" if en else "سينكستيد لـ…"}</div>
 <div class="rtabs" role="tablist" aria-label="{"Syncstead for your role" if en else "سينكستيد لدورك"}">{"".join(tabs)}</div>
-{"".join(panels)}
+<div class="rpanels">{"".join(panels)}</div>
 </div></section>
 '''
 
