@@ -389,28 +389,35 @@ def contact(lang):
 </div></div></section>'''
 
 # ---------------------------------------------------------------- DEMO (step 1: details)
-def pk_pick(lang):
-    """Size choice on the demo form: three radio cards led by company size, with the matching package underneath.
-    Value goes in the 'size' field, e.g. "300 to 1,500 employees (Professional)"."""
+def chips(name, q, opts, kind):
+    """A row of tappable options (radio = one, checkbox = any) for the optional demo questions."""
+    items = "".join(f'<label class="opt"><input type="{kind}" name="{name}" value="{o}"><span>{o}</span></label>' for o in opts)
+    return f'<div class="optq"><p>{q}</p><div class="opts">{items}</div></div>'
+
+def pk_data(lang):
+    """Package name and one-line brief, used to show the matching package for the employee count typed in."""
     en = lang == "en"
     label = {"core": "Core package", "professional": "Professional package", "enterprise": "Enterprise package"} if en else \
             {"core": "الباقة الأساسية", "professional": "الباقة الاحترافية", "enterprise": "باقة المؤسسات"}
-    out = []
-    for p in TX[lang]["pk"]:
-        val = f'{p["size"]} ({p["key"]})'
-        out.append(f'<label class="pkopt"><input type="radio" name="size" value="{val}" data-id="{p["id"]}" required>'
-                   f'<span><b>{p["size"]}</b><small>{label[p["id"]]}</small><em>{p["for_"]}</em></span></label>')
-    return '<div class="pkopts">' + "".join(out) + '</div>'
+    return [{"id": p["id"], "key": p["id"].capitalize(), "name": label[p["id"]], "for": p["for_"]} for p in TX[lang]["pk"]]
 
 def demo(lang):
     g = G(); en = lang == "en"
-    L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", pkq="How many employees do you have?", pkhint="Not sure? Pick the closest and we will confirm the right package on the call.", phone="Mobile (for WhatsApp, optional)",
+    L = (dict(title="Job title", emp="Number of employees", empph="e.g. 850", pkwill="Matching package:", prep="Help us prepare your demo", opt="optional",
+              sysq="Current HR / payroll system", sys=["Excel or manual","Jisr","ZenHR","Menaitech","SAP / Oracle","Other"],
+              priq="Top priorities", pri=["Payroll accuracy","Saudization","Attendance","Employee self-service","Talent and performance","Replacing our current system"],
+              tlq="Timeline", tl=["Within 3 months","3–6 months","6–12 months","Just exploring"],
+              entq="Companies / branches", ent=["1","2–5","6+"], name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", pkq="How many employees do you have?", pkhint="Not sure? Pick the closest and we will confirm the right package on the call.", phone="Mobile (WhatsApp)",
               send="Request a demo", note='We use these details only to arrange your demo. See our <a href="/en/privacy/">privacy notice</a>.',
-              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Size and package: ", "Mobile: ", "Interest: ", "From page: ", "Role: "],
+              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees and package: ", "Mobile: ", "Details: ", "From page: ", "Role: "],
               interest=dict(core="Core package", professional="Professional package", enterprise="Enterprise package", proposal="A proposal for our size", security="Security and hosting", eos="End of service")) if en else
-         dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", pkq="كم عدد موظفي منشأتكم؟", pkhint="لست متأكدًا؟ اختر الأقرب وسنؤكد الباقة المناسبة معك في المكالمة.", phone="الجوال (للتواصل عبر واتساب، اختياري)",
+         dict(title="المسمى الوظيفي", emp="عدد الموظفين", empph="مثال: 850", pkwill="الباقة المناسبة:", prep="ساعدنا في تجهيز العرض", opt="اختياري",
+              sysq="نظام الموارد البشرية / الرواتب الحالي", sys=["Excel أو يدوي","جسر","ZenHR","Menaitech","SAP / Oracle","أخرى"],
+              priq="أهم الأولويات", pri=["دقة الرواتب","التوطين","الحضور والانصراف","الخدمة الذاتية للموظفين","المواهب والأداء","استبدال نظامنا الحالي"],
+              tlq="الإطار الزمني", tl=["خلال 3 أشهر","من 3 إلى 6 أشهر","من 6 إلى 12 شهرًا","استكشاف فقط"],
+              entq="عدد الشركات / الفروع", ent=["1","2–5","6+"], name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", pkq="كم عدد موظفي منشأتكم؟", pkhint="لست متأكدًا؟ اختر الأقرب وسنؤكد الباقة المناسبة معك في المكالمة.", phone="الجوال (واتساب)",
               send="اطلب عرضًا تجريبيًا", note='نستخدم هذه البيانات فقط لترتيب العرض. اطلع على <a href="/ar/privacy/">إشعار الخصوصية</a>.',
-              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "الحجم والباقة: ", "الجوال: ", "الاهتمام: ", "من صفحة: ", "الدور: "],
+              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "عدد الموظفين والباقة: ", "الجوال: ", "التفاصيل: ", "من صفحة: ", "الدور: "],
               interest=dict(core="الباقة الأساسية", professional="الباقة الاحترافية", enterprise="باقة المؤسسات", proposal="عرض يناسب حجمنا", security="الأمان والاستضافة", eos="نهاية الخدمة")))
     expect = (["A short call about your structure, policies and priorities","A walkthrough of the screens that matter to you, in Arabic or English","The package that fits your size, and a written proposal after the call"] if en else
               ["مكالمة قصيرة عن هيكلكم وسياساتكم وأولوياتكم","جولة في الشاشات التي تهمكم، بالعربية أو الإنجليزية","الباقة المناسبة لحجمكم، وعرض مكتوب بعد المكالمة"])
@@ -423,9 +430,12 @@ def demo(lang):
 <p style="margin-top:24px;font-size:15px">{"Prefer WhatsApp?" if en else "تفضّل واتساب؟"} <a href="{g.wa_link(lang, "demo")}" target="_blank" rel="noopener">{"Message us" if en else "راسلنا"}</a></p></div>
 <div class="card"><form id="demo" novalidate>
 <div class="two"><label>{L["name"]}<input name="name" autocomplete="name" required></label><label>{L["email"]}<input name="email" type="email" autocomplete="email" required></label></div>
-<label>{L["company"]}<input name="company" autocomplete="organization" required></label>
-<fieldset class="pkpick"><legend>{L["pkq"]}</legend>{pk_pick(lang)}<p class="pkhint">{L["pkhint"]}</p></fieldset>
-<label>{L["phone"]}<input name="phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr"></label>
+<div class="two"><label>{L["title"]}<input name="title" autocomplete="organization-title" required></label><label>{L["phone"]}<input name="phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr" required pattern="[+0-9 ()-]{{8,}}"></label></div>
+<div class="two"><label>{L["company"]}<input name="company" autocomplete="organization" required></label><label>{L["emp"]}<input name="employees" type="number" inputmode="numeric" min="1" max="500000" step="1" placeholder="{L["empph"]}" required dir="ltr"></label></div>
+<p class="pkauto" id="pkauto" hidden><span>{L["pkwill"]}</span> <b id="pkname"></b> <em id="pkfor"></em></p>
+<fieldset class="prep"><legend>{L["prep"]} <small>({L["opt"]})</small></legend>
+{chips("system", L["sysq"], L["sys"], "radio")}{chips("priorities", L["priq"], L["pri"], "checkbox")}{chips("timeline", L["tlq"], L["tl"], "radio")}{chips("entities", L["entq"], L["ent"], "radio")}
+</fieldset>
 <label class="hp" aria-hidden="true">—<input name="website" tabindex="-1" autocomplete="off"></label>
 <button class="btn" type="submit" style="width:100%">{L["send"]} →</button>
 <p class="err" id="err" hidden>{L["err"]}</p>
@@ -436,17 +446,23 @@ def demo(lang):
 (function(){{
 var FORM_URL={json.dumps(g.FORM_URL)},lang={json.dumps(lang)},L={json.dumps(L["lines"], ensure_ascii=False)},I={json.dumps(L["interest"], ensure_ascii=False)};
 var q=new URLSearchParams(location.search),f=document.getElementById('demo'),t0=Date.now();
-try{{var pi=f.querySelector('input[data-id="'+q.get('interest')+'"]');if(pi)pi.checked=true;}}catch(x){{}}
+var P={json.dumps(pk_data(lang), ensure_ascii=False)},pa=document.getElementById('pkauto');
+function pkOf(n){{return n>1500?P[2]:(n>300?P[1]:P[0]);}}
+f.employees.addEventListener('input',function(){{var n=parseInt(f.employees.value,10);if(!(n>0)){{pa.hidden=true;return;}}var k=pkOf(n);document.getElementById('pkname').textContent=k.name;document.getElementById('pkfor').textContent=k.for;pa.hidden=false;}});
+function pick(n){{return Array.prototype.map.call(f.querySelectorAll('input[name="'+n+'"]:checked'),function(x){{return x.value}}).join(', ');}}
 function ss(k){{try{{return sessionStorage.getItem(k)||''}}catch(e){{return ''}}}}
 f.addEventListener('submit',function(e){{
 e.preventDefault();var err=document.getElementById('err');
 f.classList.add('tried');if(!f.checkValidity()){{err.hidden=false;f.reportValidity();return;}}err.hidden=true;
 if(f.website.value||Date.now()-t0<2500){{location.href='next/';return;}}
-var d={{name:f.name.value.trim(),email:f.email.value.trim(),company:f.company.value.trim(),size:f.size.value,phone:f.phone.value.trim(),
-lang:lang,from:q.get('from')||'',interest:I[q.get('interest')]||'',utm_source:ss('utm_source'),utm_medium:ss('utm_medium'),utm_campaign:ss('utm_campaign'),referrer:ss('first_ref'),role:(f.role?f.role.value:'')}};
+var emp=parseInt(f.employees.value,10),pk=pkOf(emp),x={{title:f.title.value.trim(),employees:String(emp),package:pk.key,system:pick('system'),priorities:pick('priorities'),timeline:pick('timeline'),entities:pick('entities')}};
+var sum=['Title: '+x.title,x.system&&('System: '+x.system),x.priorities&&('Priorities: '+x.priorities),x.timeline&&('Timeline: '+x.timeline),x.entities&&('Entities: '+x.entities)].filter(Boolean).join(' | ');
+var d={{name:f.name.value.trim(),email:f.email.value.trim(),company:f.company.value.trim(),size:emp.toLocaleString('en-US')+' employees ('+pk.key+')',phone:f.phone.value.trim(),
+title:x.title,employees:x.employees,package:x.package,system:x.system,priorities:x.priorities,timeline:x.timeline,entities:x.entities,
+lang:lang,from:q.get('from')||'',interest:[I[q.get('interest')]||'',sum].filter(Boolean).join(' | '),utm_source:ss('utm_source'),utm_medium:ss('utm_medium'),utm_campaign:ss('utm_campaign'),referrer:ss('first_ref'),role:(f.role?f.role.value:'')}};
 try{{sessionStorage.setItem('demo_name',d.name.split(' ')[0]);sessionStorage.setItem('demo_company',d.company)}}catch(x){{}}
 var btn=f.querySelector('button');btn.disabled=true;
-function mail(){{var b=L[0]+d.name+'\\n'+L[1]+d.email+'\\n'+L[2]+d.company+'\\n'+L[3]+d.size+'\\n'+L[4]+(d.phone||'-')+'\\n'+L[5]+(d.interest||'-')+'\\n'+L[6]+(d.from||'-')+'\\n'+L[7]+(d.role||'-');
+function mail(){{var b=L[0]+d.name+'\\n'+L[1]+d.email+'\\n'+L[2]+d.company+'\\n'+L[3]+d.size+'\\n'+L[4]+(d.phone||'-')+'\\n'+L[5]+(d.interest||'-')+'\\n'+L[6]+(d.from||'-');
 try{{sessionStorage.setItem('demo_mail','mailto:info@syncstead.com.sa?subject='+encodeURIComponent({json.dumps(L["subj"], ensure_ascii=False)}+d.company)+'&body='+encodeURIComponent(b))}}catch(x){{}};}}
 function next(){{var m='';try{{m=sessionStorage.getItem('demo_mail')||''}}catch(x){{}}location.href='next/'+(m?'?mail=1':'');}}
 if(!FORM_URL){{mail();next();return;}}

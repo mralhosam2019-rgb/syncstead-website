@@ -12,8 +12,11 @@
  */
 const NOTIFY = 'alhosam@syncstead.com.sa';
 const SHEET_NAME = 'Syncstead demo requests';
-const COLUMNS = ['Received (Riyadh)', 'Name', 'Work email', 'Company', 'Employees', 'Mobile', 'Interest', 'From page', 'Language',
-  'Source (utm_source)', 'Medium (utm_medium)', 'Campaign (utm_campaign)', 'First referrer', 'Role (Syncstead for…)', 'Status'];
+const COLUMNS = ['Received (Riyadh)', 'Name', 'Job title', 'Work email', 'Mobile', 'Company', 'Employees', 'Package', 'Current system',
+  'Priorities', 'Timeline', 'Companies / branches', 'Interest', 'From page', 'Language',
+  'Source (utm_source)', 'Medium (utm_medium)', 'Campaign (utm_campaign)', 'First referrer', 'Status'];
+// Columns shown in the email (all except the received time and status).
+const EMAIL_FROM = 1, EMAIL_TO = COLUMNS.length - 1;
 
 function setup() {
   const ss = SpreadsheetApp.create(SHEET_NAME);
@@ -35,14 +38,28 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     const id = PropertiesService.getScriptProperties().getProperty('SHEET_ID');
-    const sh = SpreadsheetApp.openById(id).getSheetByName('Requests');
+    const book = SpreadsheetApp.openById(id);
+    let sh = book.getSheetByName('Requests');
+    // When the columns change, keep older requests in their own tab and start a fresh "Requests" tab.
+    if (sh.getRange(1, 1, 1, COLUMNS.length).getValues()[0].join('|') !== COLUMNS.join('|')) {
+      sh.setName('Requests (before ' + Utilities.formatDate(new Date(), 'Asia/Riyadh', 'yyyy-MM-dd') + ')');
+      sh = book.insertSheet('Requests', 0);
+      sh.appendRow(COLUMNS);
+      sh.setFrozenRows(1);
+      sh.getRange(1, 1, 1, COLUMNS.length).setFontWeight('bold').setBackground('#1B2A4A').setFontColor('#FFFFFF');
+    }
     const when = Utilities.formatDate(new Date(), 'Asia/Riyadh', 'yyyy-MM-dd HH:mm');
     // A leading apostrophe stops a value being read as a formula.
     const safe = (v) => (/^[=+\-@]/.test(v) ? "'" + v : v);
-    const row = [when, p.name, p.email, p.company, p.size, p.phone, p.interest, p.from, p.lang, p.utm_source, p.utm_medium, p.utm_campaign, p.referrer, p.role, 'New']
-      .map((v, i) => (i === 0 ? v : safe(clean(v, i === 12 ? 300 : 200))));
-    sh.appendRow(row);
-    const body = COLUMNS.slice(1, 14).map((c, i) => c + ': ' + (row[i + 1] || '-')).join('\n') + '\n\nAll requests: ' + SpreadsheetApp.openById(id).getUrl();
+    const emp = p.employees || p.size;
+    // The form also copies the optional answers into "interest" (for older versions of this script): drop that copy here.
+    const interest = String(p.interest || '').split(/(?:^| \| )Title: /)[0];
+    const vals = [when, p.name, p.title, p.email, p.phone, p.company, emp, p.package, p.system, p.priorities, p.timeline, p.entities,
+      interest, p.from, p.lang, p.utm_source, p.utm_medium, p.utm_campaign, p.referrer, 'New']
+      .map((v, i) => (i === 0 ? v : clean(v, i === 18 ? 300 : 200)));
+    sh.appendRow(vals.map((v, i) => (i === 0 ? v : safe(v))));
+    const row = vals;
+    const body = COLUMNS.slice(EMAIL_FROM, EMAIL_TO).map((c, i) => c + ': ' + (row[i + EMAIL_FROM] || '-')).join('\n') + '\n\nAll requests: ' + book.getUrl();
     MailApp.sendEmail({ to: NOTIFY, subject: 'New demo request: ' + clean(p.company) + ' (' + clean(p.size) + ')', body: body, replyTo: clean(p.email) });
   } finally {
     lock.releaseLock();
