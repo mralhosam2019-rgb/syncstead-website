@@ -221,3 +221,18 @@ footer .cols bdi{margin-inline-start:4px;white-space:nowrap}
 .cbar p{margin:0;flex:1 1 320px}.cbar a{color:#5EEAD4}.cbar div{display:flex;gap:8px}
 .cbar button{font:inherit;font-weight:600;border-radius:999px;padding:8px 16px;cursor:pointer;border:1px solid #475569;background:transparent;color:#E2E8F0}
 .cbar .cok{background:#14B8A6;border-color:#14B8A6;color:#0F172A}
+.pkpick{border:0;padding:0;margin:4px 0 0;min-width:0}
+.pkpick legend{font-weight:600;font-size:15px;margin-bottom:8px;padding:0}
+.pkopts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:640px){.pkopts{grid-template-columns:1fr}}
+.pkopt{position:relative;display:block;cursor:pointer;margin:0}
+.pkopt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.pkopt span{display:flex;flex-direction:column;gap:3px;height:100%;border:1.5px solid var(--line,#E2E8F0);border-radius:12px;padding:12px 14px;transition:border-color .15s,box-shadow .15s,background .15s}
+.pkopt b{font-size:16px;color:var(--fg,#0F172A)}
+.pkopt small{font-size:13px;font-weight:600;color:#0D9488}
+.pkopt em{font-style:normal;font-size:13px;line-height:1.45;color:var(--muted,#64748B)}
+.pkopt:hover span{border-color:#94A3B8}
+.pkopt input:checked+span{border-color:#14B8A6;background:rgba(20,184,166,.07);box-shadow:0 0 0 3px rgba(20,184,166,.18)}
+.pkopt input:focus-visible+span{outline:2px solid #14B8A6;outline-offset:2px}
+form.tried .pkopts:has(input:invalid) .pkopt span{border-color:#DC2626}
+.pkhint{font-size:13px;color:var(--muted,#64748B);margin-top:8px}

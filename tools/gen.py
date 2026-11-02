@@ -17,7 +17,7 @@ CF_TOKEN = "81467c0bfc3a423aa6effe4c5c133c15"
 # CLARITY_ID: the Microsoft Clarity project ID. Empty = no Clarity and no consent bar.
 #             Clarity loads only after the visitor taps "Accept" (PDPL).
 CLARITY_ID = "z79qlpgs4r"
-V = "12"
+V = "13"
 
 ICONS = {
   "law": '<path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7zM8 21h8"/>',

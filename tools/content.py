@@ -389,15 +389,24 @@ def contact(lang):
 </div></div></section>'''
 
 # ---------------------------------------------------------------- DEMO (step 1: details)
+def pk_pick(lang):
+    """Package choice on the demo form: three radio cards (name, size, who it is for). Value goes in the 'size' field."""
+    out = []
+    for p in TX[lang]["pk"]:
+        val = f'{p["key"]} ({p["size"]})'
+        out.append(f'<label class="pkopt"><input type="radio" name="size" value="{val}" data-id="{p["id"]}" required>'
+                   f'<span><b>{p["key"]}</b><small>{p["size"]}</small><em>{p["for_"]}</em></span></label>')
+    return '<div class="pkopts">' + "".join(out) + '</div>'
+
 def demo(lang):
     g = G(); en = lang == "en"
-    L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", phone="Mobile (for WhatsApp, optional)",
+    L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", pkq="Which package interests you?", pkhint="Not sure? Pick the closest and we will confirm it on the call.", phone="Mobile (for WhatsApp, optional)",
               send="Request a demo", note='We use these details only to arrange your demo. See our <a href="/en/privacy/">privacy notice</a>.',
-              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees: ", "Mobile: ", "Interest: ", "From page: ", "Role: "],
+              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Package: ", "Mobile: ", "Interest: ", "From page: ", "Role: "],
               interest=dict(core="Core package", professional="Professional package", enterprise="Enterprise package", proposal="A proposal for our size", security="Security and hosting", eos="End of service")) if en else
-         dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", phone="الجوال (للتواصل عبر واتساب، اختياري)",
+         dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", pkq="ما الباقة التي تهمك؟", pkhint="لست متأكدًا؟ اختر الأقرب وسنؤكدها معك في المكالمة.", phone="الجوال (للتواصل عبر واتساب، اختياري)",
               send="اطلب عرضًا تجريبيًا", note='نستخدم هذه البيانات فقط لترتيب العرض. اطلع على <a href="/ar/privacy/">إشعار الخصوصية</a>.',
-              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "عدد الموظفين: ", "الجوال: ", "الاهتمام: ", "من صفحة: ", "الدور: "],
+              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "الباقة: ", "الجوال: ", "الاهتمام: ", "من صفحة: ", "الدور: "],
               interest=dict(core="الباقة الأساسية", professional="الباقة الاحترافية", enterprise="باقة المؤسسات", proposal="عرض يناسب حجمنا", security="الأمان والاستضافة", eos="نهاية الخدمة")))
     expect = (["A short call about your structure, policies and priorities","A walkthrough of the screens that matter to you, in Arabic or English","The package that fits your size, and a written proposal after the call"] if en else
               ["مكالمة قصيرة عن هيكلكم وسياساتكم وأولوياتكم","جولة في الشاشات التي تهمكم، بالعربية أو الإنجليزية","الباقة المناسبة لحجمكم، وعرض مكتوب بعد المكالمة"])
@@ -410,7 +419,8 @@ def demo(lang):
 <p style="margin-top:24px;font-size:15px">{"Prefer WhatsApp?" if en else "تفضّل واتساب؟"} <a href="{g.wa_link(lang, "demo")}" target="_blank" rel="noopener">{"Message us" if en else "راسلنا"}</a></p></div>
 <div class="card"><form id="demo" novalidate>
 <div class="two"><label>{L["name"]}<input name="name" autocomplete="name" required></label><label>{L["email"]}<input name="email" type="email" autocomplete="email" required></label></div>
-<div class="two"><label>{L["company"]}<input name="company" autocomplete="organization" required></label><label>{L["size"]}<select name="size" required><option value="">{L["choose"]}</option><option>{"Under 200" if en else "أقل من 200"}</option><option>200–499</option><option>500–999</option><option>1,000–2,499</option><option>2,500–4,999</option><option>5,000+</option></select></label></div>
+<label>{L["company"]}<input name="company" autocomplete="organization" required></label>
+<fieldset class="pkpick"><legend>{L["pkq"]}</legend>{pk_pick(lang)}<p class="pkhint">{L["pkhint"]}</p></fieldset>
 <label>{L["phone"]}<input name="phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr"></label>
 <label class="hp" aria-hidden="true">—<input name="website" tabindex="-1" autocomplete="off"></label>
 <button class="btn" type="submit" style="width:100%">{L["send"]} →</button>
@@ -422,6 +432,7 @@ def demo(lang):
 (function(){{
 var FORM_URL={json.dumps(g.FORM_URL)},lang={json.dumps(lang)},L={json.dumps(L["lines"], ensure_ascii=False)},I={json.dumps(L["interest"], ensure_ascii=False)};
 var q=new URLSearchParams(location.search),f=document.getElementById('demo'),t0=Date.now();
+try{{var pi=f.querySelector('input[data-id="'+q.get('interest')+'"]');if(pi)pi.checked=true;}}catch(x){{}}
 function ss(k){{try{{return sessionStorage.getItem(k)||''}}catch(e){{return ''}}}}
 f.addEventListener('submit',function(e){{
 e.preventDefault();var err=document.getElementById('err');
