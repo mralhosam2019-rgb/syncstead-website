@@ -138,7 +138,7 @@ def head(lang, slug, title, desc, schema=None):
 <link rel="canonical" href="{SITE}{url(lang, slug)}">
 <link rel="alternate" hreflang="ar" href="{SITE}{url('ar', slug)}">
 <link rel="alternate" hreflang="en" href="{SITE}{url('en', slug)}">
-<link rel="alternate" hreflang="x-default" href="{SITE}{url('ar', slug)}">
+<link rel="alternate" hreflang="x-default" href="{SITE}{url('en', slug)}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
