@@ -383,7 +383,7 @@ def contact(lang):
 <h1 style="margin-top:12px;max-width:900px">{"Let's talk about your organization." if en else "لنتحدث عن منشأتك."}</h1>
 <p class="lead">{"Request a demo, message us on WhatsApp, or email us. We reply within one working day." if en else "اطلب عرضًا تجريبيًا، أو راسلنا على واتساب، أو عبر البريد. نرد خلال يوم عمل واحد."}</p></div></section>
 <section><div class="w"><div class="grid g3">
-<div class="card"><div class="ico">{g.ic("time")}</div><h3>{"Request a demo" if en else "اطلب عرضًا تجريبيًا"}</h3><p>{"Two short steps: your details, then a time that suits you." if en else "خطوتان قصيرتان: بياناتك، ثم الوقت المناسب لك."}</p><a class="btn" style="margin-top:14px" href="/{lang}/demo/?from=contact">{"Request a demo" if en else "اطلب عرضًا تجريبيًا"}</a></div>
+<div class="card"><div class="ico">{g.ic("time")}</div><h3>{"Request a demo" if en else "اطلب عرضًا تجريبيًا"}</h3><p>{"Send your details and we will contact you within one working day." if en else "أرسل بياناتك وسنتواصل معك خلال يوم عمل واحد."}</p><a class="btn" style="margin-top:14px" href="/{lang}/demo/?from=contact">{"Request a demo" if en else "اطلب عرضًا تجريبيًا"}</a></div>
 <div class="card"><div class="ico">{g.ic("phone")}</div><h3>WhatsApp</h3><p dir="ltr" style="text-align:start">+966 55 317 9126</p><a class="btn line" style="margin-top:14px" href="{g.wa_link(lang, "contact")}" target="_blank" rel="noopener">{"WhatsApp us" if en else "راسلنا على واتساب"}</a></div>
 <div class="card"><div class="ico">{g.ic("file")}</div><h3>{"Email" if en else "البريد الإلكتروني"}</h3><p><a href="mailto:info@syncstead.com.sa">info@syncstead.com.sa</a></p><p style="font-size:14px">{"Riyadh, Saudi Arabia" if en else "الرياض، المملكة العربية السعودية"}</p></div>
 </div></div></section>'''
@@ -392,18 +392,18 @@ def contact(lang):
 def demo(lang):
     g = G(); en = lang == "en"
     L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", phone="Mobile (for WhatsApp, optional)",
-              send="Continue to choose a time", note='We use these details only to arrange your demo. See our <a href="/en/privacy/">privacy notice</a>.',
+              send="Request a demo", note='We use these details only to arrange your demo. See our <a href="/en/privacy/">privacy notice</a>.',
               err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees: ", "Mobile: ", "Interest: ", "From page: ", "Role: "],
               interest=dict(core="Core package", professional="Professional package", enterprise="Enterprise package", proposal="A proposal for our size", security="Security and hosting", eos="End of service")) if en else
          dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", phone="الجوال (للتواصل عبر واتساب، اختياري)",
-              send="تابع لاختيار الوقت", note='نستخدم هذه البيانات فقط لترتيب العرض. اطلع على <a href="/ar/privacy/">إشعار الخصوصية</a>.',
+              send="اطلب عرضًا تجريبيًا", note='نستخدم هذه البيانات فقط لترتيب العرض. اطلع على <a href="/ar/privacy/">إشعار الخصوصية</a>.',
               err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "عدد الموظفين: ", "الجوال: ", "الاهتمام: ", "من صفحة: ", "الدور: "],
               interest=dict(core="الباقة الأساسية", professional="الباقة الاحترافية", enterprise="باقة المؤسسات", proposal="عرض يناسب حجمنا", security="الأمان والاستضافة", eos="نهاية الخدمة")))
     expect = (["A short call about your structure, policies and priorities","A walkthrough of the screens that matter to you, in Arabic or English","The package that fits your size, and a written proposal after the call"] if en else
               ["مكالمة قصيرة عن هيكلكم وسياساتكم وأولوياتكم","جولة في الشاشات التي تهمكم، بالعربية أو الإنجليزية","الباقة المناسبة لحجمكم، وعرض مكتوب بعد المكالمة"])
-    return f'''<section class="navy" style="padding-bottom:56px"><div class="w"><div class="eyebrow">{"Request a demo · step 1 of 2" if en else "طلب عرض تجريبي · الخطوة 1 من 2"}</div>
+    return f'''<section class="navy" style="padding-bottom:56px"><div class="w"><div class="eyebrow">{"Request a demo" if en else "طلب عرض تجريبي"}</div>
 <h1 style="margin-top:12px;max-width:900px">{"See Syncstead with your own structure." if en else "شاهد سينكستيد بهيكل منشأتك."}</h1>
-<p class="lead">{"Tell us a little about your company, then choose a time that suits you." if en else "أخبرنا قليلًا عن منشأتك، ثم اختر الوقت المناسب لك."}</p></div></section>
+<p class="lead">{"Tell us a little about your company and we will contact you within one working day to arrange your demo." if en else "أخبرنا قليلًا عن منشأتك وسنتواصل معك خلال يوم عمل واحد لترتيب العرض."}</p></div></section>
 <section><div class="w"><div class="grid g2" style="grid-template-columns:1fr 1.25fr;gap:48px;align-items:start">
 <div><div class="eyebrow">{"What to expect" if en else "ماذا تتوقع"}</div><h2>{"20 minutes, no commitment." if en else "20 دقيقة، دون التزام."}</h2>{ticks(expect)}
 <p class="assure" style="margin-top:24px">{G().T[lang]["assure"]}</p>
@@ -442,20 +442,17 @@ setTimeout(go,2500);
 }})();
 </script>'''
 
-# ---------------------------------------------------------------- DEMO (step 2: choose a time)
+# ---------------------------------------------------------------- DEMO (thank-you page after the request)
 def demo_next(lang):
     g = G(); en = lang == "en"
-    embed = BOOK.replace("/u/0/appointments", "/appointments") + "?gv=true"
-    return f'''<section class="navy" style="padding-bottom:48px"><div class="w"><div class="eyebrow">{"Request a demo · step 2 of 2" if en else "طلب عرض تجريبي · الخطوة 2 من 2"}</div>
-<h1 style="margin-top:12px;max-width:900px"><span id="hi">{"Thank you." if en else "شكرًا لك."}</span> {"Now choose a time." if en else "اختر الآن الوقت المناسب."}</h1>
-<p class="lead">{"We have your details and will reply within one working day. To save time, pick a slot for your 20-minute call below." if en else "وصلتنا بياناتك وسنرد خلال يوم عمل واحد. ولتوفير الوقت، اختر موعد مكالمتك ذات العشرين دقيقة أدناه."}</p>
+    return f'''<section class="navy" style="padding-bottom:56px"><div class="w"><div class="eyebrow">{"Request received" if en else "تم استلام طلبك"}</div>
+<h1 style="margin-top:12px;max-width:900px"><span id="hi">{"Thank you." if en else "شكرًا لك."}</span></h1>
+<p class="lead">{"We have received your request and will contact you within one working day to arrange your 20-minute demo." if en else "وصلنا طلبك وسنتواصل معك خلال يوم عمل واحد لترتيب العرض التجريبي ذي العشرين دقيقة."}</p>
 <p class="lead" id="mailnote" hidden style="font-size:15px">{"Your email app has opened with your details: please press send so we receive them." if en else "فُتح تطبيق البريد لديك وبياناتك معبأة: يرجى الضغط على إرسال لتصلنا."} <a id="mailbtn" hidden class="btn sm" style="margin-inline-start:8px">{"Send by email" if en else "أرسل بالبريد"}</a></p></div></section>
 <section><div class="w">
-<div style="margin-bottom:20px"><a class="btn" href="{BOOK}" target="_blank" rel="noopener">{"Choose a time" if en else "اختر الموعد"} →</a></div>
-<div class="card" style="padding:0;overflow:hidden"><iframe src="{embed}" title="{"Choose a time" if en else "اختر الوقت"}" style="border:0;width:100%;height:760px;display:block;background:#fff" loading="lazy"></iframe></div>
-<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;align-items:center">
-<a class="btn line" href="{g.wa_link(lang, "demo")}" target="_blank" rel="noopener">{"Or arrange it on WhatsApp" if en else "أو رتّب الموعد عبر واتساب"}</a>
-<a href="/{lang}/platform/" style="margin-inline-start:auto">{"Meanwhile, explore the platform" if en else "في الأثناء، تعرّف على المنصة"} →</a></div>
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+<a class="btn" href="/{lang}/platform/">{"Explore the platform" if en else "تعرّف على المنصة"} →</a>
+<a class="btn line" href="{g.wa_link(lang, "demo")}" target="_blank" rel="noopener">{"Questions? WhatsApp us" if en else "لديك سؤال؟ راسلنا على واتساب"}</a></div>
 </div></section>
 <script>(function(){{try{{var n=sessionStorage.getItem('demo_name');if(n)document.getElementById('hi').textContent={json.dumps("Thank you, " if en else "شكرًا لك يا ")}+n+'.';}}catch(e){{}}
 if(location.search.indexOf('mail=1')>-1){{var m='';try{{m=sessionStorage.getItem('demo_mail')||''}}catch(e){{}}var n=document.getElementById('mailnote');n.hidden=false;if(m){{var a=document.getElementById('mailbtn');a.href=m;a.hidden=false;setTimeout(function(){{location.href=m}},400);}}}}}})();</script>'''
@@ -476,8 +473,8 @@ M = {
                "الأمان والثقة | سينكستيد", "ضوابط الأمان، وحماية البيانات وفق نظام حماية البيانات الشخصية، وخيارات الاستضافة."),
  "about": meta("About | Syncstead", "Syncstead is a Saudi company headquartered in Riyadh, built by HR and governance practitioners.",
                "من نحن | سينكستيد", "سينكستيد شركة سعودية مقرها الرياض، صممها مختصون في الموارد البشرية والحوكمة."),
- "demo": meta("Request a demo | Syncstead", "Tell us about your company and choose a time for a 20-minute Syncstead demo.", "اطلب عرضًا تجريبيًا | سينكستيد", "أخبرنا عن منشأتك واختر وقت عرض سينكستيد في 20 دقيقة."),
- "demo/next": meta("Choose a time | Syncstead", "Choose a time for your Syncstead demo.", "اختر الوقت | سينكستيد", "اختر وقت عرض سينكستيد."),
+ "demo": meta("Request a demo | Syncstead", "Tell us about your company and we will contact you to arrange a 20-minute Syncstead demo.", "اطلب عرضًا تجريبيًا | سينكستيد", "أخبرنا عن منشأتك وسنتواصل معك لترتيب عرض سينكستيد في 20 دقيقة."),
+ "demo/next": meta("Request received | Syncstead", "Your Syncstead demo request has been received.", "تم استلام طلبك | سينكستيد", "تم استلام طلب العرض التجريبي."),
  "resources": meta("Resources | Syncstead", "Free end-of-service calculator, company profile downloads and answers to common questions.",
                    "الموارد | سينكستيد", "حاسبة مكافأة نهاية الخدمة المجانية، وتنزيل الملف التعريفي، وإجابات الأسئلة الشائعة."),
  "contact": meta("Contact | Syncstead", "Book a demo, message us on WhatsApp or email info@syncstead.com.sa.",
