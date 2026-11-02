@@ -102,6 +102,7 @@ def head(lang, slug, title, desc, schema=None):
     NOINDEX = '\n<meta name="robots" content="noindex">' if slug == "demo/next" else ""
     other = "ar" if lang == "en" else "en"
     img = f"{SITE}/assets/img/v2/desk-dashboard-{lang}.jpg"
+    if slug == "demo": img = f"{SITE}/assets/img/og-demo-{lang}.jpg"
     ld = [{"@type": "Organization", "name": "Syncstead", "alternateName": "سينكستيد", "url": f"{SITE}/", "email": "info@syncstead.com.sa",
            "telephone": "+966553179126", "address": {"@type": "PostalAddress", "addressLocality": "Riyadh", "addressCountry": "SA"}}]
     if schema: ld += schema
