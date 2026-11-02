@@ -390,23 +390,27 @@ def contact(lang):
 
 # ---------------------------------------------------------------- DEMO (step 1: details)
 def pk_pick(lang):
-    """Package choice on the demo form: three radio cards (name, size, who it is for). Value goes in the 'size' field."""
+    """Size choice on the demo form: three radio cards led by company size, with the matching package underneath.
+    Value goes in the 'size' field, e.g. "300 to 1,500 employees (Professional)"."""
+    en = lang == "en"
+    label = {"core": "Core package", "professional": "Professional package", "enterprise": "Enterprise package"} if en else \
+            {"core": "الباقة الأساسية", "professional": "الباقة الاحترافية", "enterprise": "باقة المؤسسات"}
     out = []
     for p in TX[lang]["pk"]:
-        val = f'{p["key"]} ({p["size"]})'
+        val = f'{p["size"]} ({p["key"]})'
         out.append(f'<label class="pkopt"><input type="radio" name="size" value="{val}" data-id="{p["id"]}" required>'
-                   f'<span><b>{p["key"]}</b><small>{p["size"]}</small><em>{p["for_"]}</em></span></label>')
+                   f'<span><b>{p["size"]}</b><small>{label[p["id"]]}</small><em>{p["for_"]}</em></span></label>')
     return '<div class="pkopts">' + "".join(out) + '</div>'
 
 def demo(lang):
     g = G(); en = lang == "en"
-    L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", pkq="Which package interests you?", pkhint="Not sure? Pick the closest and we will confirm it on the call.", phone="Mobile (for WhatsApp, optional)",
+    L = (dict(name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", pkq="How many employees do you have?", pkhint="Not sure? Pick the closest and we will confirm the right package on the call.", phone="Mobile (for WhatsApp, optional)",
               send="Request a demo", note='We use these details only to arrange your demo. See our <a href="/en/privacy/">privacy notice</a>.',
-              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Package: ", "Mobile: ", "Interest: ", "From page: ", "Role: "],
+              err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Size and package: ", "Mobile: ", "Interest: ", "From page: ", "Role: "],
               interest=dict(core="Core package", professional="Professional package", enterprise="Enterprise package", proposal="A proposal for our size", security="Security and hosting", eos="End of service")) if en else
-         dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", pkq="ما الباقة التي تهمك؟", pkhint="لست متأكدًا؟ اختر الأقرب وسنؤكدها معك في المكالمة.", phone="الجوال (للتواصل عبر واتساب، اختياري)",
+         dict(name="الاسم الكامل", email="البريد الإلكتروني للعمل", company="المنشأة", size="عدد الموظفين", choose="اختر", pkq="كم عدد موظفي منشأتكم؟", pkhint="لست متأكدًا؟ اختر الأقرب وسنؤكد الباقة المناسبة معك في المكالمة.", phone="الجوال (للتواصل عبر واتساب، اختياري)",
               send="اطلب عرضًا تجريبيًا", note='نستخدم هذه البيانات فقط لترتيب العرض. اطلع على <a href="/ar/privacy/">إشعار الخصوصية</a>.',
-              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "الباقة: ", "الجوال: ", "الاهتمام: ", "من صفحة: ", "الدور: "],
+              err="يرجى مراجعة الحقول المحددة.", subj="طلب عرض: ", lines=["الاسم: ", "البريد: ", "المنشأة: ", "الحجم والباقة: ", "الجوال: ", "الاهتمام: ", "من صفحة: ", "الدور: "],
               interest=dict(core="الباقة الأساسية", professional="الباقة الاحترافية", enterprise="باقة المؤسسات", proposal="عرض يناسب حجمنا", security="الأمان والاستضافة", eos="نهاية الخدمة")))
     expect = (["A short call about your structure, policies and priorities","A walkthrough of the screens that matter to you, in Arabic or English","The package that fits your size, and a written proposal after the call"] if en else
               ["مكالمة قصيرة عن هيكلكم وسياساتكم وأولوياتكم","جولة في الشاشات التي تهمكم، بالعربية أو الإنجليزية","الباقة المناسبة لحجمكم، وعرض مكتوب بعد المكالمة"])
