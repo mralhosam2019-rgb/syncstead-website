@@ -16,7 +16,7 @@ FORM_URL = "https://script.google.com/macros/s/AKfycbxvevqEtp9Don9kGoiWKYNd9PcPI
 CF_TOKEN = "81467c0bfc3a423aa6effe4c5c133c15"
 # CLARITY_ID: the Microsoft Clarity project ID. Empty = no Clarity and no consent bar.
 #             Clarity loads only after the visitor taps "Accept" (PDPL).
-CLARITY_ID = ""
+CLARITY_ID = "z79qlpgs4r"
 V = "12"
 
 ICONS = {
