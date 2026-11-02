@@ -14,7 +14,10 @@ WA = "https://wa.me/966553179126"
 FORM_URL = "https://script.google.com/macros/s/AKfycbxvevqEtp9Don9kGoiWKYNd9PcPIhPz4KG1XtEGJsgYIE42oTY5LC7EFJrFqDO2s0nM/exec"
 # CF_TOKEN: the Cloudflare Web Analytics site token. Empty = no analytics script.
 CF_TOKEN = "81467c0bfc3a423aa6effe4c5c133c15"
-V = "11"
+# CLARITY_ID: the Microsoft Clarity project ID. Empty = no Clarity and no consent bar.
+#             Clarity loads only after the visitor taps "Accept" (PDPL).
+CLARITY_ID = ""
+V = "12"
 
 ICONS = {
   "law": '<path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7zM17 7l-3 7a3 3 0 0 0 6 0l-3-7zM8 21h8"/>',
@@ -77,6 +80,25 @@ def header(lang, slug):
 <button class="menu-btn" aria-label="{t["menu"]}" aria-expanded="false" aria-controls="nav" onclick="var n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button></div>
 </div></header>'''
 
+def consent(lang):
+    """Consent bar + Microsoft Clarity, loaded only after Accept. Appended inside the existing footer script."""
+    if not CLARITY_ID: return ""
+    en = lang == "en"
+    msg = ("We use analytics cookies to understand how visitors use this site and improve it." if en
+           else "نستخدم ملفات تعريف الارتباط التحليلية لفهم استخدام الموقع وتحسينه.")
+    ok, no, more = ("Accept", "Decline", "Privacy") if en else ("موافق", "رفض", "الخصوصية")
+    priv = url(lang, "privacy")
+    bar = (f'<div id="cbar" class="cbar" role="region" aria-label="{more}"><p>{msg} <a href="{priv}">{more}</a></p>'
+           f'<div><button type="button" data-c="0" class="cno">{no}</button><button type="button" data-c="1" class="cok">{ok}</button></div></div>')
+    return ("(function(){var K='sc_consent',v=null;try{v=localStorage.getItem(K)}catch(e){}"
+            "function load(){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};"
+            "t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})"
+            f"(window,document,'clarity','script','{CLARITY_ID}');try{{window.clarity('consent')}}catch(e){{}}}}"
+            "if(v==='1'){load();return}if(v==='0')return;"
+            "var d=document.createElement('div');d.innerHTML=" + __import__('json').dumps(bar, ensure_ascii=False) + ";var b=d.firstChild;document.body.appendChild(b);"
+            "b.addEventListener('click',function(e){var c=e.target.getAttribute('data-c');if(c===null)return;"
+            "try{localStorage.setItem(K,c)}catch(x){}b.remove();if(c==='1')load();});})();")
+
 def footer(lang, slug=""):
     t = T[lang]; n = dict(NAV[lang]); wa = wa_link(lang, slug)
     pdf = f"/assets/docs/Syncstead-Company-Profile-{'AR' if lang == 'ar' else 'EN'}.pdf"
@@ -95,7 +117,7 @@ def footer(lang, slug=""):
 </div></footer>
 <a class="wa-float" href="{wa}" target="_blank" rel="noopener" aria-label="{t["wa"]}">{WA_ICON}</a>
 <script src="/assets/role.js?v={V}" defer></script>
-<script>try{{var u=new URLSearchParams(location.search);['utm_source','utm_medium','utm_campaign'].forEach(function(k){{if(u.get(k))sessionStorage.setItem(k,u.get(k))}});if(!sessionStorage.getItem('first_ref'))sessionStorage.setItem('first_ref',document.referrer||'direct')}}catch(e){{}}</script>'''
+<script>try{{var u=new URLSearchParams(location.search);['utm_source','utm_medium','utm_campaign'].forEach(function(k){{if(u.get(k))sessionStorage.setItem(k,u.get(k))}});if(!sessionStorage.getItem('first_ref'))sessionStorage.setItem('first_ref',document.referrer||'direct')}}catch(e){{}}{consent(lang)}</script>'''
 
 def head(lang, slug, title, desc, schema=None):
     CF = (f"\n<script defer src=\"https://static.cloudflareinsights.com/beacon.min.js\" data-cf-beacon='{{\"token\": \"{CF_TOKEN}\"}}'></script>") if CF_TOKEN else ""
@@ -216,7 +238,7 @@ def build():
             s = re.sub(r'<main class="w">', '<main id="main" class="w">', s)
             s = re.sub(r'\n<script defer src="https://static\.cloudflareinsights\.com[^\n]*', '', s)
             if CF_TOKEN: s = s.replace('</head>', f'<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{{"token": "{CF_TOKEN}"}}\'></script>\n</head>', 1)
-            s = re.sub(r'<footer>.*?</footer>\s*(?:<a class="wa-float".*?</a>\s*)?(?:<script src="/assets/(?:fit|role)\.js[^>]*></script>\s*)?(?:<script>try\{var u=new URLSearchParams.*?</script>\s*)*', footer(lang, slug) + "\n", s, flags=re.S)
+            s = re.sub(r'<footer>.*?</footer>\s*(?:<a class="wa-float".*?</a>\s*)?(?:<script src="/assets/(?:fit|role)\.js[^>]*></script>\s*)?(?:<script>try\{var u=new URLSearchParams.*?</script>\s*)*', lambda m, _f=footer(lang, slug) + "\n": _f, s, flags=re.S)
             open(path, "w").write(s); written.append(path)
     # Free calculators, built from the refreshed end-of-service page.
     import calcs

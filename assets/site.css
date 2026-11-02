@@ -217,3 +217,7 @@ footer .cols bdi{margin-inline-start:4px;white-space:nowrap}
 .rpanels{display:grid}
 .rpanels>.rpanel{grid-area:1/1}
 .rpanels>.rpanel[hidden]{display:block;visibility:hidden}
+.cbar{position:fixed;left:16px;right:16px;bottom:16px;z-index:60;max-width:720px;margin:0 auto;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#0F172A;color:#E2E8F0;border-radius:14px;padding:14px 18px;box-shadow:0 12px 32px rgba(0,0,0,.3);font-size:14px;line-height:1.5}
+.cbar p{margin:0;flex:1 1 320px}.cbar a{color:#5EEAD4}.cbar div{display:flex;gap:8px}
+.cbar button{font:inherit;font-weight:600;border-radius:999px;padding:8px 16px;cursor:pointer;border:1px solid #475569;background:transparent;color:#E2E8F0}
+.cbar .cok{background:#14B8A6;border-color:#14B8A6;color:#0F172A}
