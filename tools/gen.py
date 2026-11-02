@@ -209,6 +209,7 @@ def build():
             path = os.path.join(lang, slug, "index.html")
             s = open(path).read()
             s = re.sub(r'<link rel="stylesheet" href="/assets/style\.css[^"]*">', f'<link rel="stylesheet" href="/assets/site.css?v={V}">', s)
+            s = re.sub(r'/assets/site\.css\?v=\d+', f'/assets/site.css?v={V}', s)
             s = re.sub(r'(<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2\?)[^"]*"', r'\1family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"', s)
             s = re.sub(r'(?:<a class="skip".*?</a>\s*)?<header>.*?</header>', header(lang, slug), s, flags=re.S)
             s = re.sub(r'<main class="w">', '<main id="main" class="w">', s)
