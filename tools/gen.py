@@ -53,13 +53,13 @@ NAV = {
   "ar": [("platform", "المنصة"), ("packages", "الباقات"), ("why-syncstead", "لماذا سينكستيد"), ("trust", "الأمان والثقة"), ("about", "من نحن"), ("resources", "الموارد"), ("contact", "تواصل معنا")],
 }
 T = {
-  "en": dict(book="Request a demo", book20="Request a demo", assure="No commitment · Reply within one working day", wa="WhatsApp us", sales="Contact sales", menu="Menu", other="عربي", otherlang="ar", otherlabel="التبديل إلى العربية",
+  "en": dict(signin="Sign in", book="Request a demo", book20="Request a demo", assure="No commitment · Reply within one working day", wa="WhatsApp us", sales="Contact sales", menu="Menu", other="عربي", otherlang="ar", otherlabel="التبديل إلى العربية",
              tagline="Saudi human capital management platform: HR, payroll and talent in one bilingual system.",
              legal="Syncstead Company (SJSC) · CR 7055468719 · Riyadh, Saudi Arabia · © 2026", company="Company", product="Product", help="Get in touch",
              calc="End-of-service calculator", privacy="Privacy", profile="Company profile (PDF)", home="Home",
              cta_t="See Syncstead with your own structure.", cta_p="A demo built around your structure, and a proposal tailored to your organization.",
              skip="Skip to content", img="en"),
-  "ar": dict(book="اطلب عرضًا", book20="اطلب عرضًا تجريبيًا", assure="دون التزام · نرد خلال يوم عمل واحد", wa="راسلنا على واتساب", sales="تواصل مع المبيعات", menu="القائمة", other="English", otherlang="en", otherlabel="Switch to English",
+  "ar": dict(signin="تسجيل الدخول", book="اطلب عرضًا", book20="اطلب عرضًا تجريبيًا", assure="دون التزام · نرد خلال يوم عمل واحد", wa="راسلنا على واتساب", sales="تواصل مع المبيعات", menu="القائمة", other="English", otherlang="en", otherlabel="Switch to English",
              tagline="منصة سعودية لإدارة رأس المال البشري: الموارد البشرية والرواتب والمواهب في نظام واحد ثنائي اللغة.",
              legal="شركة سينكستيد (شركة مساهمة مبسطة) · السجل التجاري 7055468719 · الرياض، المملكة العربية السعودية · © 2026", company="الشركة", product="المنتج", help="تواصل معنا",
              calc="حاسبة مكافأة نهاية الخدمة", privacy="الخصوصية", profile="الملف التعريفي (PDF)", home="الرئيسية",
@@ -75,8 +75,8 @@ def header(lang, slug):
     return f'''<a class="skip" href="#main">{t["skip"]}</a>
 <header><div class="w">
 <a class="logo" href="{url(lang, "")}">{MARK}SYNCSTEAD</a>
-<nav class="main" id="nav" aria-label="Main">{nav}</nav>
-<div class="tools"><a class="lang" hreflang="{t["otherlang"]}" lang="{t["otherlang"]}" href="{url(t["otherlang"], slug)}" aria-label="{t["otherlabel"]}">{t["other"]}</a><a class="btn sm" href="{url(lang, "demo")}?from={slug or "home"}">{t["book"]}</a>
+<nav class="main" id="nav" aria-label="Main">{nav}<a class="nav-signin" href="https://app.syncstead.com.sa/" rel="nofollow">{t["signin"]}</a></nav>
+<div class="tools"><a class="lang" hreflang="{t["otherlang"]}" lang="{t["otherlang"]}" href="{url(t["otherlang"], slug)}" aria-label="{t["otherlabel"]}">{t["other"]}</a><a class="lang signin" href="https://app.syncstead.com.sa/" rel="nofollow">{t["signin"]}</a><a class="btn sm" href="{url(lang, "demo")}?from={slug or "home"}">{t["book"]}</a>
 <button class="menu-btn" aria-label="{t["menu"]}" aria-expanded="false" aria-controls="nav" onclick="var n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button></div>
 </div></header>'''
 
