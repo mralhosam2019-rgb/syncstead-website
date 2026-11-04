@@ -270,3 +270,57 @@ nav.main a,.tools a{white-space:nowrap}
 @media (min-width:981px) and (max-width:1120px){nav.main{display:none;position:absolute;top:64px;inset-inline:0;background:var(--navy);flex-direction:column;padding:8px 16px 16px;margin:0}nav.main.open{display:flex}nav.main a{padding:12px;font-size:16px}.menu-btn{display:inline-flex;align-items:center;justify-content:center}}
 /* Icons inside download cards and buttons stay icon-sized */
 .downloads a svg{width:28px;height:28px;flex:none;color:var(--mint)}.btn svg{width:20px;height:20px;flex:none}
+/* ---------- Header menus (dropdowns) ---------- */
+header .w{position:relative}
+nav.main .mi{position:static}
+nav.main .mt{font:inherit;font-size:15px;color:var(--onnavy);background:none;border:0;border-radius:8px;padding:8px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;text-decoration:none;min-height:40px}
+nav.main .mt:hover,nav.main .mi.open>.mt,nav.main .mt[data-current]{color:#fff;background:rgba(255,255,255,.08);text-decoration:none}
+nav.main .caret{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.5;transition:transform .15s}
+nav.main .mi.open .caret{transform:rotate(180deg)}
+.mp{display:none;color:#111827;text-align:start}
+.mi.open>.mp{display:block}
+nav.main .mp a{color:#111827;text-decoration:none;font-size:inherit;white-space:normal}nav.main .mp a:hover{color:#0f766e;text-decoration:none;background:#f0fdfa}
+.mp .mh{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#0f766e;margin:0 0 8px}
+[dir=rtl] .mp .mh{letter-spacing:0;text-transform:none}
+nav.main .mp a.mm{display:flex;gap:14px;padding:12px;border-radius:10px;align-items:flex-start}
+nav.main .mp a.mm:hover{background:#f0fdfa}
+.mm b{display:block;font-size:15px;font-weight:600;color:#111827}
+.mm small{display:block;font-size:13.5px;color:#4b5563;line-height:1.45}
+.mi-ico{width:40px;height:40px;border-radius:10px;background:#eef6f5;display:flex;align-items:center;justify-content:center;flex:none;color:#0f766e}
+.mi-ico svg{width:20px;height:20px}
+@media (min-width:1121px){
+  .mega{position:absolute;inset-inline:0;top:100%;background:#fff;border-top:1px solid #e5e7eb;box-shadow:0 24px 48px -12px rgba(15,23,42,.22);border-radius:0 0 14px 14px}
+  .mega-in{display:grid;grid-template-columns:1fr 1fr 320px;gap:32px;padding:28px 32px}
+  .mega-in.two{grid-template-columns:1fr 1fr}
+  .mcol.soft{background:#f9fafb;border-radius:12px;padding:16px;display:flex;flex-direction:column}
+  nav.main .mp a.mcard,nav.main .mp a.mcard:hover{background:var(--navy);color:#fff!important;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px}
+  .mcard .mh{color:#5eead4}.mcard b{color:#fff;font-size:20px;line-height:1.3}.mcard small{color:#cbd5e1;font-size:14px}.mcard .btn{margin-top:auto;align-self:flex-start}
+  nav.main .mp a.mcta,nav.main .mp a.mcta:hover{margin-top:auto;background:var(--navy);color:#fff!important;border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .mcta b{display:block;color:#fff}.mcta small{color:#cbd5e1}
+  .mfoot{display:flex;gap:24px;padding:14px 32px;border-top:1px solid #e5e7eb;background:#f9fafb;border-radius:0 0 14px 14px;font-size:14px}
+  nav.main .mfoot a{font-size:14px}
+  .mfoot b{color:#0f766e}
+  .drop{position:absolute;top:calc(100% - 6px);background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:0 24px 48px -12px rgba(15,23,42,.22);padding:10px;min-width:280px}
+  nav.main .drop>a:not(.mm){display:block;padding:9px 12px;border-radius:8px;font-size:15px}
+  nav.main .drop>a:not(.mm):hover{background:#f0fdfa}
+  .drop .mh{margin:10px 12px 4px}
+  .drop hr{border:0;border-top:1px solid #e5e7eb;margin:8px 6px}
+  nav.main .mi{position:relative}
+  nav.main .mi:has(.mega){position:static}
+}
+/* Phone and tablet: full menu, sections open like an accordion */
+@media (max-width:1120px){
+  nav.main{overflow-y:auto;max-height:calc(100dvh - 64px)}
+  nav.main .mi,nav.main>a.mt{border-bottom:1px solid rgba(203,213,225,.15)}
+  nav.main .mt{width:100%;justify-content:space-between;font-size:17px;font-weight:600;color:#fff;padding:14px 8px;min-height:48px}
+  .mp{background:transparent;color:#cbd5e1;padding:0 8px 12px}
+  nav.main .mp a,nav.main .mm b{color:#e2e8f0}nav.main .mm small{color:#94a3b8}nav.main .mp a:hover,nav.main .mp a.mm:hover{background:rgba(255,255,255,.06);color:#fff}
+  .mp .mh{color:#5eead4;margin:8px 0 4px}
+  .mi-ico{background:rgba(255,255,255,.08);color:#5eead4}
+  .mega-in{display:block}.mcol{margin-bottom:6px}
+  .mcard,.mcta{display:none}
+  .mfoot{display:flex;flex-direction:column;gap:2px;padding:4px 12px}
+  nav.main .mfoot a{padding:8px 0}
+  nav.main .drop>a:not(.mm){display:block;padding:10px 12px;font-size:16px}
+  .drop hr{border:0;border-top:1px solid rgba(203,213,225,.15);margin:6px 0}
+}
