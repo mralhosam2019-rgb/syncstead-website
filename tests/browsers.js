@@ -56,6 +56,18 @@ const res = [];
         if (!(await p.isVisible('nav.main a[href*="/trust/"]'))) issues.push(`${lang}: phone menu did not open`);
         else { await p.click('nav.main a[href*="/trust/"]'); await p.waitForURL('**/trust/'); }
       });
+      // Sign in link to the system (header on wide screens, menu on narrow phones)
+      await step('sign in link', async () => {
+        await p.goto(`${B}/${lang}/`, { waitUntil: 'domcontentloaded' });
+        const want = lang === 'ar' ? 'تسجيل الدخول' : 'Sign in';
+        let link = p.locator('.tools a.signin');
+        if (!(await link.isVisible())) { await p.click('.menu-btn'); link = p.locator('nav.main a.nav-signin'); }
+        if (!(await link.isVisible())) { issues.push(`${lang}: Sign in link not visible`); return; }
+        if ((await link.getAttribute('href')) !== 'https://app.syncstead.com.sa/') issues.push(`${lang}: Sign in link goes to ${await link.getAttribute('href')}`);
+        if ((await link.innerText()).trim() !== want) issues.push(`${lang}: Sign in label is "${await link.innerText()}"`);
+        const n = await p.evaluate(() => document.querySelectorAll('a[href="https://app.syncstead.com.sa/"]').length);
+        if (n !== 2) issues.push(`${lang}: expected 2 Sign in links, found ${n}`);
+      });
       // Language switch
       await step('language switch', async () => { await p.goto(`${B}/${lang}/packages/`, { waitUntil: 'domcontentloaded' });
       await p.click('a.lang'); await p.waitForURL(`**/${lang === 'en' ? 'ar' : 'en'}/packages/`).catch(() => issues.push(`${lang}: language switch failed`)); });

@@ -248,3 +248,7 @@ form label.opt{position:relative;display:inline-block;margin:0;font-weight:500;f
 .opt:hover span{border-color:#94A3B8}
 .opt input:checked+span{background:#14B8A6;border-color:#14B8A6;color:#0F172A;font-weight:600}
 .opt input:focus-visible+span{outline:2px solid #14B8A6;outline-offset:2px}
+
+/* Sign in link: in the header; on narrow phones it moves into the menu */
+.signin{white-space:nowrap}.nav-signin{display:none}
+@media (max-width:520px){.tools .signin{display:none}.nav-signin{display:block;border-top:1px solid rgba(203,213,225,.2);margin-top:4px;color:#fff!important;font-weight:600}}
