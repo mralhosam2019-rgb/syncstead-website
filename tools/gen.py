@@ -71,11 +71,12 @@ def url(lang, slug): return f"/{lang}/" + (f"{slug}/" if slug else "")
 
 def header(lang, slug):
     t = T[lang]
-    nav = "".join(f'<a href="{url(lang, s)}"{" aria-current=\"page\"" if s == slug else ""}>{n}</a>' for s, n in NAV[lang])
+    import menu
+    nav = menu.nav(lang, slug)
     return f'''<a class="skip" href="#main">{t["skip"]}</a>
 <header><div class="w">
 <a class="logo" href="{url(lang, "")}">{MARK}SYNCSTEAD</a>
-<nav class="main" id="nav" aria-label="Main">{nav}<a class="nav-signin" href="https://app.syncstead.com.sa/" rel="nofollow">{t["signin"]}</a></nav>
+<nav class="main" id="nav" aria-label="{"القائمة الرئيسية" if lang == "ar" else "Main"}">{nav}<a class="nav-signin" href="https://app.syncstead.com.sa/" rel="nofollow">{t["signin"]}</a></nav>
 <div class="tools"><a class="lang" hreflang="{t["otherlang"]}" lang="{t["otherlang"]}" href="{url(t["otherlang"], slug)}" aria-label="{t["otherlabel"]}">{t["other"]}</a><a class="lang signin" href="https://app.syncstead.com.sa/" rel="nofollow">{t["signin"]}</a><a class="btn sm" href="{url(lang, "demo")}?from={slug or "home"}">{t["book"]}</a>
 <button class="menu-btn" aria-label="{t["menu"]}" aria-expanded="false" aria-controls="nav" onclick="var n=document.getElementById('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button></div>
 </div></header>'''
@@ -168,7 +169,7 @@ def page(lang, slug, title, desc, body, schema=None):
     if slug == "platform":
         # Visitors often land on a section of this page (platform#payroll etc.): load its screenshots straight away.
         body = body.replace('loading="lazy" decoding="async" width="1600"', 'decoding="async" width="1600"')
-    return head(lang, slug, title, desc, schema) + "\n" + header(lang, slug) + f'\n<main id="main">\n{body}\n</main>\n' + footer(lang, slug) + "\n</body>\n</html>\n"
+    return head(lang, slug, title, desc, schema) + "\n" + header(lang, slug) + f'\n<main id="main">\n{body}\n</main>\n' + footer(lang, slug) + '\n<script src="/assets/nav.js?v=1" defer></script>\n</body>\n</html>\n'
 
 def img(lang, name, alt=""):
     b = f"/assets/img/v2/{name}-{lang}"

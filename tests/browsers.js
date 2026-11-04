@@ -53,8 +53,9 @@ const res = [];
       // Phone menu
       if (phone) await step('phone menu', async () => {
         await p.click('.menu-btn');
-        if (!(await p.isVisible('nav.main a[href*="/trust/"]'))) issues.push(`${lang}: phone menu did not open`);
-        else { await p.click('nav.main a[href*="/trust/"]'); await p.waitForURL('**/trust/'); }
+        await p.click('button[aria-controls="m-company"]');
+        if (!(await p.isVisible('#m-company a[href*="/trust/"]'))) issues.push(`${lang}: phone menu did not open`);
+        else { await p.click('#m-company a[href*="/trust/"]'); await p.waitForURL('**/trust/'); }
       });
       // Sign in link to the system (header on wide screens, menu on narrow phones)
       await step('sign in link', async () => {
@@ -67,6 +68,15 @@ const res = [];
         if ((await link.innerText()).trim() !== want) issues.push(`${lang}: Sign in label is "${await link.innerText()}"`);
         const n = await p.evaluate(() => document.querySelectorAll('a[href="https://app.syncstead.com.sa/"]').length);
         if (n !== 2) issues.push(`${lang}: expected 2 Sign in links, found ${n}`);
+      });
+      // Header dropdowns (laptop): Platform panel opens and its links work
+      if (!phone) await step('header menus', async () => {
+        await p.goto(`${B}/${lang}/`, { waitUntil: 'domcontentloaded' });
+        await p.click('button[aria-controls="m-platform"]');
+        if (!(await p.isVisible('#m-platform'))) { issues.push(`${lang}: Platform menu did not open`); return; }
+        await p.keyboard.press('Escape');
+        if (await p.isVisible('#m-platform')) issues.push(`${lang}: Esc did not close the menu`);
+        await p.click('button[aria-controls="m-resources"]'); await p.click('#m-resources a[href$="/articles/"]'); await p.waitForURL('**/articles/');
       });
       // Language switch
       await step('language switch', async () => { await p.goto(`${B}/${lang}/packages/`, { waitUntil: 'domcontentloaded' });

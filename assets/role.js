@@ -26,6 +26,9 @@
       });
     });
     var saved = get(); show(saved && NAMES[saved] ? saved : tabs[0].getAttribute('data-role'));
+    // Links from the Solutions menu: /#role-hr opens that role's tab
+    function fromHash() { var m = /^#role-(lead|hr|fin|it)$/.exec(location.hash); if (m) { show(m[1]); set(m[1]); list.scrollIntoView({ block: 'start' }); } }
+    fromHash(); window.addEventListener('hashchange', fromHash);
   }
   // Demo form: send the role along
   var f = document.getElementById('demo'), r = get();
