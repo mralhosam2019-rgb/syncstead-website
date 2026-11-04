@@ -3,7 +3,7 @@
 const pw = require('playwright');
 const fs = require('fs');
 const B = 'http://localhost:8765';
-const pages = ['', 'platform/', 'packages/', 'why-syncstead/', 'trust/', 'about/', 'resources/', 'contact/', 'demo/', 'demo/next/', 'end-of-service-calculator/', 'privacy/', 'terms/'];
+const pages = ['', 'platform/', 'packages/', 'why-syncstead/', 'trust/', 'about/', 'resources/', 'contact/', 'demo/', 'demo/next/', 'end-of-service-calculator/', 'privacy/', 'terms/', 'articles/', 'articles/end-of-service/', 'articles/annual-leave/'];
 const D = pw.devices;
 const runs = [
   ['Chrome desktop', 'chromium', { viewport: { width: 1440, height: 900 } }],
