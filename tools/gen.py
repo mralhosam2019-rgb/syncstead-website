@@ -53,13 +53,13 @@ NAV = {
   "ar": [("platform", "المنصة"), ("packages", "الباقات"), ("why-syncstead", "لماذا سينكستيد"), ("trust", "الأمان والثقة"), ("about", "من نحن"), ("resources", "الموارد"), ("contact", "تواصل معنا")],
 }
 T = {
-  "en": dict(signin="Sign in", book="Request a demo", book20="Request a demo", assure="No commitment · Reply within one working day", wa="WhatsApp us", sales="Contact sales", menu="Menu", other="عربي", otherlang="ar", otherlabel="التبديل إلى العربية",
+  "en": dict(signin="Sign in", terms="Terms", book="Request a demo", book20="Request a demo", assure="No commitment · Reply within one working day", wa="WhatsApp us", sales="Contact sales", menu="Menu", other="عربي", otherlang="ar", otherlabel="التبديل إلى العربية",
              tagline="Saudi human capital management platform: HR, payroll and talent in one bilingual system.",
              legal="Syncstead Company (SJSC) · CR 7055468719 · Riyadh, Saudi Arabia · © 2026", company="Company", product="Product", help="Get in touch",
              calc="End-of-service calculator", privacy="Privacy", profile="Company profile (PDF)", home="Home",
              cta_t="See Syncstead with your own structure.", cta_p="A demo built around your structure, and a proposal tailored to your organization.",
              skip="Skip to content", img="en"),
-  "ar": dict(signin="تسجيل الدخول", book="اطلب عرضًا", book20="اطلب عرضًا تجريبيًا", assure="دون التزام · نرد خلال يوم عمل واحد", wa="راسلنا على واتساب", sales="تواصل مع المبيعات", menu="القائمة", other="English", otherlang="en", otherlabel="Switch to English",
+  "ar": dict(signin="تسجيل الدخول", terms="الشروط", book="اطلب عرضًا", book20="اطلب عرضًا تجريبيًا", assure="دون التزام · نرد خلال يوم عمل واحد", wa="راسلنا على واتساب", sales="تواصل مع المبيعات", menu="القائمة", other="English", otherlang="en", otherlabel="Switch to English",
              tagline="منصة سعودية لإدارة رأس المال البشري: الموارد البشرية والرواتب والمواهب في نظام واحد ثنائي اللغة.",
              legal="شركة سينكستيد (شركة مساهمة مبسطة) · السجل التجاري 7055468719 · الرياض، المملكة العربية السعودية · © 2026", company="الشركة", product="المنتج", help="تواصل معنا",
              calc="حاسبة مكافأة نهاية الخدمة", privacy="الخصوصية", profile="الملف التعريفي (PDF)", home="الرئيسية",
@@ -113,7 +113,7 @@ def footer(lang, slug=""):
 <nav aria-label="{L["res"]}"><h4>{L["res"]}</h4><a href="{url(lang, "end-of-service-calculator")}">{t["calc"]}</a><a href="{pdf}">{t["profile"]}</a><a href="{url(lang, "resources")}#faq">{L["faq"]}</a></nav>
 <div><h4>{L["contact"]}</h4><a href="mailto:info@syncstead.com.sa">info@syncstead.com.sa</a><a href="{wa}" target="_blank" rel="noopener">{L["wa"]}&nbsp;<bdi dir="ltr">+966 55 317 9126</bdi></a><span class="floc">{L["loc"]}</span></div>
 </div>
-<div class="legal"><span>{t["legal"]}</span><span class="llinks"><a href="{url(lang, "privacy")}">{t["privacy"]}</a><a href="{url(other, slug)}" hreflang="{other}" lang="{other}">{L["lang"]}</a></span></div>
+<div class="legal"><span>{t["legal"]}</span><span class="llinks"><a href="{url(lang, "privacy")}">{t["privacy"]}</a><a href="{url(lang, "terms")}">{t["terms"]}</a><a href="{url(other, slug)}" hreflang="{other}" lang="{other}">{L["lang"]}</a></span></div>
 </div></footer>
 <a class="wa-float" href="{wa}" target="_blank" rel="noopener" aria-label="{t["wa"]}">{WA_ICON}</a>
 <script src="/assets/role.js?v={V}" defer></script>
@@ -228,7 +228,7 @@ def build():
             os.makedirs(os.path.dirname(path), exist_ok=True)
             open(path, "w").write(html); written.append(path)
         # Calculator and privacy: keep their content, new header, footer and styles.
-        for slug in ("end-of-service-calculator", "privacy"):
+        for slug in ("end-of-service-calculator", "privacy", "terms"):
             path = os.path.join(lang, slug, "index.html")
             s = open(path).read()
             s = re.sub(r'<link rel="stylesheet" href="/assets/style\.css[^"]*">', f'<link rel="stylesheet" href="/assets/site.css?v={V}">', s)
@@ -245,7 +245,7 @@ def build():
     written += calcs.build()
     # Sitemap
     rows = []
-    for slug in [x for x in PAGES if x != "demo/next"] + ["end-of-service-calculator", "privacy"] + list(calcs.PAGES):
+    for slug in [x for x in PAGES if x != "demo/next"] + ["end-of-service-calculator", "privacy", "terms"] + list(calcs.PAGES):
         for lang in ("ar", "en"):
             rows.append(f'<url><loc>{SITE}{url(lang, slug)}</loc><xhtml:link rel="alternate" hreflang="ar" href="{SITE}{url("ar", slug)}"/><xhtml:link rel="alternate" hreflang="en" href="{SITE}{url("en", slug)}"/></url>')
     open("sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "\n".join(rows) + "\n</urlset>\n")
