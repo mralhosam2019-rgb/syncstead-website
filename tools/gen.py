@@ -246,7 +246,8 @@ def build():
     written += calcs.build()
     # Sitemap
     rows = []
-    for slug in [x for x in PAGES if x != "demo/next"] + ["end-of-service-calculator", "privacy", "terms"] + list(calcs.PAGES):
+    articles = ["articles"] + sorted("articles/" + d for d in os.listdir(os.path.join("en", "articles")) if os.path.isdir(os.path.join("en", "articles", d)))
+    for slug in [x for x in PAGES if x != "demo/next"] + ["end-of-service-calculator", "privacy", "terms"] + list(calcs.PAGES) + articles:
         for lang in ("ar", "en"):
             rows.append(f'<url><loc>{SITE}{url(lang, slug)}</loc><xhtml:link rel="alternate" hreflang="ar" href="{SITE}{url("ar", slug)}"/><xhtml:link rel="alternate" hreflang="en" href="{SITE}{url("en", slug)}"/></url>')
     open("sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "\n".join(rows) + "\n</urlset>\n")

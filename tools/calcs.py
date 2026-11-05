@@ -123,11 +123,52 @@ row(L?'راتب أيام الشهر الأخير':'Last month\'s salary',sal)+(a
  },
 }
 
+PAGES["gosi-calculator"] = {
+  "en": dict(
+   title="GOSI contribution calculator 2026 (Saudi social insurance) | Syncstead",
+   desc="Free calculator for monthly GOSI contributions in Saudi Arabia: pension, SANED and occupational hazards for Saudi and non-Saudi employees, at the rates in force in 2026.",
+   h1="GOSI contribution calculator",
+   intro="Work out the monthly GOSI social insurance contributions for an employee: what is deducted from the employee and what the employer pays, at the rates in force from July 2026.",
+   form="""<label>Employee<select name="nat"><option value="old">Saudi, registered with GOSI before 3 July 2024</option><option value="new">Saudi, first registered on or after 3 July 2024</option><option value="non">Non-Saudi</option></select></label>
+<div class="two"><label>Basic monthly salary (SAR)<input name="basic" type="number" min="1" step="1" inputmode="numeric" required></label><label>Housing allowance paid in cash (SAR)<input name="housing" type="number" min="0" step="1" inputmode="numeric" value="0"></label></div>""",
+   how="""<li>Contributions are calculated on the basic salary plus the housing allowance. Transport and other allowances are not included.</li>
+<li>The contribution wage is at least SAR 1,500 for Saudis (SAR 400 for non-Saudis) and at most SAR 45,000 a month.</li>
+<li>Saudis registered before 3 July 2024: pension 9% + 9%, SANED 0.75% + 0.75%, occupational hazards 2% (employer). Total 9.75% employee, 11.75% employer.</li>
+<li>Saudis first registered on or after 3 July 2024: pension 10% + 10% from July 2026, rising by 0.5% each side every July to 11% in 2028. With SANED and hazards: 10.75% employee, 12.75% employer.</li>
+<li>Non-Saudis: occupational hazards only, 2% paid by the employer. Nothing is deducted from the employee.</li>""",
+   note="This is an estimate for guidance only and is not legal advice. GCC nationals follow their home country's rates and are not covered here. If housing is provided in kind, check its contribution value with GOSI.",
+   js=r"""var nat=f.nat.value,b=num(f.basic.value),h=num(f.housing.value);
+if(!(b>0&&h>=0)){return bad();}
+var base=Math.min(Math.max(b+h,nat==='non'?400:1500),45000);
+var R={old:[9,9,0.75,0.75,0,2],"new":[10,10,0.75,0.75,0,2],non:[0,0,0,0,0,2]}[nat];
+var c=R.map(function(r){return base*r/100;}),emp=c[0]+c[2]+c[4],er=c[1]+c[3]+c[5];
+var row=function(a,x,y){return '<tr><td>'+a+'</td><td style="text-align:end">'+fmt(x)+'</td><td style="text-align:end">'+fmt(y)+'</td></tr>';};
+show((L?'الأجر الخاضع للاشتراك: ':'Contribution wage: ')+fmt(base)+(L?' ريال':' SAR')+'<table style="width:100%;margin-top:8px"><tr><th style="text-align:start"></th><th style="text-align:end">'+(L?'الموظف':'Employee')+'</th><th style="text-align:end">'+(L?'صاحب العمل':'Employer')+'</th></tr>'+
+row(L?'المعاشات':'Pension',c[0],c[1])+row(L?'ساند':'SANED',c[2],c[3])+row(L?'الأخطار المهنية':'Occupational hazards',c[4],c[5])+row('<strong>'+(L?'الإجمالي':'Total')+'</strong>',emp,er)+
+'</table>'+(L?'يُستقطع من الموظف شهريًا:':'Deducted from the employee each month:')+'<div class="big">'+fmt(emp)+(L?' ريال':' SAR')+'</div>'+(L?'تكلفة صاحب العمل الشهرية: ':'Employer cost each month: ')+fmt(er)+(L?' ريال':' SAR'));""",
+  ),
+  "ar": dict(
+   title="حاسبة اشتراكات التأمينات الاجتماعية 2026 (GOSI) | سينكستيد",
+   desc="حاسبة مجانية لاشتراكات التأمينات الاجتماعية الشهرية في السعودية: المعاشات وساند والأخطار المهنية للموظف السعودي وغير السعودي، بالنسب المطبقة في 2026.",
+   h1="حاسبة اشتراكات التأمينات الاجتماعية",
+   intro="احسب اشتراكات التأمينات الاجتماعية الشهرية للموظف: ما يُستقطع من الموظف وما يدفعه صاحب العمل، بالنسب المطبقة اعتبارًا من يوليو 2026.",
+   form="""<label>الموظف<select name="nat"><option value="old">سعودي، مسجل في التأمينات قبل 3 يوليو 2024</option><option value="new">سعودي، أول تسجيل له في 3 يوليو 2024 أو بعده</option><option value="non">غير سعودي</option></select></label>
+<div class="two"><label>الراتب الأساسي الشهري (ريال)<input name="basic" type="number" min="1" step="1" inputmode="numeric" required></label><label>بدل السكن النقدي (ريال)<input name="housing" type="number" min="0" step="1" inputmode="numeric" value="0"></label></div>""",
+   how="""<li>تُحسب الاشتراكات على الراتب الأساسي مضافًا إليه بدل السكن، ولا يدخل بدل النقل والبدلات الأخرى.</li>
+<li>لا يقل الأجر الخاضع للاشتراك عن 1,500 ريال للسعوديين (400 ريال لغير السعوديين) ولا يزيد على 45,000 ريال شهريًا.</li>
+<li>السعوديون المسجلون قبل 3 يوليو 2024: المعاشات 9% + 9%، وساند 0.75% + 0.75%، والأخطار المهنية 2% على صاحب العمل. الإجمالي 9.75% على الموظف و11.75% على صاحب العمل.</li>
+<li>السعوديون المسجلون لأول مرة في 3 يوليو 2024 أو بعده: المعاشات 10% + 10% من يوليو 2026، وتزيد 0.5% لكل طرف كل يوليو حتى 11% في 2028. مع ساند والأخطار: 10.75% على الموظف و12.75% على صاحب العمل.</li>
+<li>غير السعوديين: الأخطار المهنية فقط، 2% يدفعها صاحب العمل، ولا يُستقطع شيء من الموظف.</li>""",
+   note="هذه نتيجة تقديرية للاسترشاد وليست استشارة قانونية. مواطنو دول الخليج تُطبق عليهم نسب بلدانهم ولا تشملهم هذه الحاسبة. إذا كان السكن عينيًا فتحقق من قيمته الخاضعة للاشتراك لدى التأمينات.",
+  ),
+}
+
 NAMES = {
  "end-of-service-calculator": ("End-of-service calculator", "حاسبة مكافأة نهاية الخدمة"),
  "leave-balance-calculator": ("Annual leave balance", "رصيد الإجازة السنوية"),
  "overtime-calculator": ("Overtime pay", "أجر العمل الإضافي"),
  "final-settlement-calculator": ("Final settlement", "المخالصة النهائية"),
+ "gosi-calculator": ("GOSI contributions", "اشتراكات التأمينات"),
 }
 
 
