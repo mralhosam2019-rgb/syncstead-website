@@ -54,7 +54,7 @@ e.preventDefault();if(!f.checkValidity()){f.reportValidity();return;}
 var w=parseFloat(f.wage.value),s=new Date(f.start.value),en=new Date(f.end.value),r=f.reason.value;
 var days=(en-s)/86400000;if(!(days>0)||!(w>0)){out.hidden=false;out.innerHTML=L?'تحقق من التواريخ والأجر.':'Please check the dates and wage.';return;}
 var fy=en.getFullYear()-s.getFullYear(),an=new Date(s);an.setFullYear(s.getFullYear()+fy);if(an>en){fy--;an=new Date(s);an.setFullYear(s.getFullYear()+fy);}var y=fy+(en-an)/86400000/365,base=y<=5?w*0.5*y:w*(2.5+(y-5)),factor=1,note='';
-if(r==='resign'){if(y<2){factor=0;}else if(y<5){factor=1/3;}else if(y<10){factor=2/3;}}
+if(r==='resign'){if(y<2){factor=0;}else if(y<=5){factor=1/3;}else if(y<10){factor=2/3;}}
 var amt=base*factor;
 out.hidden=false;
 out.innerHTML=(L?'مدة الخدمة: ':'Service: ')+y.toFixed(2)+(L?' سنة':' years')+'<div class="big">'+fmt(amt)+(L?' ريال':' SAR')+'</div>'+
