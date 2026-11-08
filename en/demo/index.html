@@ -60,9 +60,9 @@
 </div></div></section>
 <script>
 (function(){
-var FORM_URL="https://script.google.com/macros/s/AKfycbxvevqEtp9Don9kGoiWKYNd9PcPIhPz4KG1XtEGJsgYIE42oTY5LC7EFJrFqDO2s0nM/exec",lang="en",L=["Name: ", "Work email: ", "Company: ", "Employees and package: ", "Mobile: ", "Details: ", "From page: ", "Role: "],I={"core": "Core package", "professional": "Professional package", "enterprise": "Enterprise package", "proposal": "A proposal for our size", "security": "Security and hosting", "eos": "End of service"};
+var FORM_URL="https://script.google.com/macros/s/AKfycbxvevqEtp9Don9kGoiWKYNd9PcPIhPz4KG1XtEGJsgYIE42oTY5LC7EFJrFqDO2s0nM/exec",lang="en",L=["Name: ", "Work email: ", "Company: ", "Employees and package: ", "Mobile: ", "Details: ", "From page: ", "Role: "],I={"core": "Core package", "professional": "Pro package", "enterprise": "Enterprise package", "proposal": "A proposal for our size", "security": "Security and hosting", "eos": "End of service"};
 var q=new URLSearchParams(location.search),f=document.getElementById('demo'),t0=Date.now();
-var P=[{"id": "core", "key": "Core", "name": "Core package", "for": "Run HR, payroll and attendance in one place."}, {"id": "professional", "key": "Professional", "name": "Professional package", "for": "Add talent, rewards and employee services."}, {"id": "enterprise", "key": "Enterprise", "name": "Enterprise package", "for": "The full platform for large companies and groups."}],pa=document.getElementById('pkauto');
+var P=[{"id": "core", "key": "Core", "name": "Core package", "for": "Run HR, payroll and attendance in one place."}, {"id": "professional", "key": "Pro", "name": "Pro package", "for": "Add talent, rewards and employee services."}, {"id": "enterprise", "key": "Enterprise", "name": "Enterprise package", "for": "The full platform for large companies and groups."}],pa=document.getElementById('pkauto');
 function pkOf(n){return n>1500?P[2]:(n>300?P[1]:P[0]);}
 f.employees.addEventListener('input',function(){var n=parseInt(f.employees.value,10);if(!(n>0)){pa.hidden=true;return;}var k=pkOf(n);document.getElementById('pkname').textContent=k.name;document.getElementById('pkfor').textContent=k.for;pa.hidden=false;});
 function pick(n){return Array.prototype.map.call(f.querySelectorAll('input[name="'+n+'"]:checked'),function(x){return x.value}).join(', ');}

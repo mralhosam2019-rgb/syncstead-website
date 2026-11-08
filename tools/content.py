@@ -17,10 +17,10 @@ TX = {
    dict(id="core", key="Core", size="Up to 300 employees", for_="Run HR, payroll and attendance in one place.", plus="Adds to the essentials:",
         items=["Attendance and shifts","Expenses and business trips","Visas and iqama services","Org structure and job architecture","Medical insurance","Saudization","Assets","Onboarding, probation and exits","Reports"],
         sup="Email support and guided set-up"),
-   dict(id="professional", key="Professional", size="300 to 1,500 employees", for_="Add talent, rewards and employee services.", plus="Everything in Core, plus:", hi="For growing companies",
+   dict(id="professional", key="Pro", size="300 to 1,500 employees", for_="Add talent, rewards and employee services.", plus="Everything in Core, plus:", hi="For growing companies",
         items=["Recruiting and interviews","Performance and reviews","Learning","Compensation, merit and rewards","Employee relations and discipline","Help desk, news and surveys","AI assistant","Single sign-on (Microsoft, Google, Okta)"],
         sup="Priority support and an implementation manager to go-live"),
-   dict(id="enterprise", key="Enterprise", size="1,500+ employees or groups", for_="The full platform for large companies and groups.", plus="Everything in Professional, plus:",
+   dict(id="enterprise", key="Enterprise", size="1,500+ employees or groups", for_="The full platform for large companies and groups.", plus="Everything in Pro, plus:",
         items=["Succession and talent pools","Org design and workforce planning","Group view across several companies","Sandbox: a private test copy of your company","API and webhooks"],
         sup="Dedicated account manager, service levels and quarterly reviews"),
  ],
@@ -72,7 +72,7 @@ FAQ = {
 "en": [
  ("Is Syncstead a Saudi company?", "Yes. Syncstead is a Saudi simplified joint stock company headquartered in Riyadh (CR 7055468719)."),
  ("How long does it take to go live?", "Usually 4 to 16 weeks depending on size: discovery, set-up and data import, one or two payrolls in parallel, then go-live with 30 days of close support."),
- ("Which package is right for us?", "Core suits companies up to 300 employees, Professional 300 to 1,500, and Enterprise larger companies and groups. The system recommends a package for your size, and you can upgrade in one click at any time without moving data."),
+ ("Which package is right for us?", "Core suits companies up to 300 employees, Pro 300 to 1,500, and Enterprise larger companies and groups. The system recommends a package for your size, and you can upgrade in one click at any time without moving data."),
  ("Can you import our existing data?", "Yes. We import your employee list, structure and balances from Excel or from your current HR system, and check them with you before go-live."),
  ("Where is our data hosted?", "Today on a secure cloud managed by Syncstead. A move to a Saudi cloud region is planned, and large organizations can host Syncstead on their own servers by agreement."),
  ("How does it handle GOSI and end of service?", "Syncstead calculates GOSI contributions and end-of-service awards under the Saudi Labour Law and prepares the salary files for your bank or Mudad upload each month. Direct connections to government platforms are on our roadmap."),
@@ -397,7 +397,7 @@ def chips(name, q, opts, kind):
 def pk_data(lang):
     """Package name and one-line brief, used to show the matching package for the employee count typed in."""
     en = lang == "en"
-    label = {"core": "Core package", "professional": "Professional package", "enterprise": "Enterprise package"} if en else \
+    label = {"core": "Core package", "professional": "Pro package", "enterprise": "Enterprise package"} if en else \
             {"core": "الباقة الأساسية", "professional": "الباقة الاحترافية", "enterprise": "باقة المؤسسات"}
     return [{"id": p["id"], "key": p["id"].capitalize(), "name": label[p["id"]], "for": p["for_"]} for p in TX[lang]["pk"]]
 
@@ -410,7 +410,7 @@ def demo(lang):
               entq="Companies / branches", ent=["1","2–5","6+"], name="Full name", email="Work email", company="Company", size="Number of employees", choose="Choose", pkq="How many employees do you have?", pkhint="Not sure? Pick the closest and we will confirm the right package on the call.", phone="Mobile (WhatsApp)",
               send="Request a demo", note='We use these details only to arrange your demo. See our <a href="/en/privacy/">privacy notice</a>.',
               err="Please check the highlighted fields.", subj="Demo request: ", lines=["Name: ", "Work email: ", "Company: ", "Employees and package: ", "Mobile: ", "Details: ", "From page: ", "Role: "],
-              interest=dict(core="Core package", professional="Professional package", enterprise="Enterprise package", proposal="A proposal for our size", security="Security and hosting", eos="End of service")) if en else
+              interest=dict(core="Core package", professional="Pro package", enterprise="Enterprise package", proposal="A proposal for our size", security="Security and hosting", eos="End of service")) if en else
          dict(title="المسمى الوظيفي", emp="عدد الموظفين", empph="مثال: 850", pkwill="الباقة المناسبة:", prep="ساعدنا في تجهيز العرض", opt="اختياري",
               sysq="نظام الموارد البشرية / الرواتب الحالي", sys=["Excel أو يدوي","جسر","ZenHR","Menaitech","SAP / Oracle","أخرى"],
               priq="أهم الأولويات", pri=["دقة الرواتب","التوطين","الحضور والانصراف","الخدمة الذاتية للموظفين","المواهب والأداء","استبدال نظامنا الحالي"],
@@ -496,7 +496,7 @@ M = {
               "سينكستيد | منصة سعودية لإدارة رأس المال البشري", "منصة واحدة ثنائية اللغة للموارد البشرية والرواتب والحضور والمواهب والتصميم التنظيمي، مبنية على نظام العمل السعودي، للمنشآت من 200 موظف فأكثر."),
  "platform": meta("Platform | Syncstead", "Payroll and compliance, attendance, talent and rewards, organization design and employee self-service in one Saudi HCM platform.",
                   "المنصة | سينكستيد", "الرواتب والامتثال والحضور والمواهب والمكافآت والتصميم التنظيمي والخدمة الذاتية في منصة سعودية واحدة."),
- "packages": meta("Packages | Syncstead", "Core, Professional and Enterprise: three packages on one platform, sized by headcount, with one-click upgrades.",
+ "packages": meta("Packages | Syncstead", "Core, Pro and Enterprise: three packages on one platform, sized by headcount, with one-click upgrades.",
                   "الباقات | سينكستيد", "الأساسية والاحترافية والمؤسسات: ثلاث باقات على منصة واحدة حسب عدد الموظفين، مع الترقية بضغطة واحدة."),
  "why-syncstead": meta("Why Syncstead | Syncstead", "Saudi rules built in, the cost of every decision shown first, governance by design, and go-live in weeks.",
                        "لماذا سينكستيد | سينكستيد", "الأنظمة السعودية مدمجة، وتكلفة كل قرار ظاهرة أولًا، وحوكمة مدمجة، وتشغيل في أسابيع."),
